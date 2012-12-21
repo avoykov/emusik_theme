@@ -1,3 +1,8 @@
+// Modify the structure of results
+var results = jQuery('<table><thead><tr><th>'+'Title'+'</th><th>'+'Album'+'</th><th>'+'Year'+'</th></tr></thead><tbody class="mkdru-result-list"></tbody></table>')
+jQuery('.mkdru-result-list').replaceWith(results)
+
+// Search result item
 Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
     
     var view = {
@@ -22,6 +27,7 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
   return Mustache.render(tpl, view);
 };
 
+// Details of found item
 Drupal.theme.prototype.mkdruDetail = function(data, linkBack) {
     return ' ';
 };
@@ -29,18 +35,12 @@ Drupal.theme.prototype.mkdruDetail = function(data, linkBack) {
 /**
  * Pager theme
  *
- * @param pages
- *   Array of hrefs for page links.
- * @param start
- *   Number of first page.
- * @param current
- *   Number of current page.
- * @param total
- *   Total number of pages.
- * @param prev
- *   Href for previous page.
- * @param next
- *   Href for next page.
+ * @param pages Array of hrefs for page links.
+ * @param start Number of first page.
+ * @param current Number of current page.
+ * @param total Total number of pages.
+ * @param prev Href for previous page.
+ * @param next Href for next page.
  */
 Drupal.theme.prototype.mkdruPager = function (pages, start, current, total, prev, next) {
     
@@ -76,10 +76,12 @@ Drupal.theme.prototype.mkdruPager = function (pages, start, current, total, prev
   return Mustache.render(tpl, view);
 };
 
+// Counts
 Drupal.theme.prototype.mkdruCounts = function(first, last, available, total) {
   return ' '
 };
 
+// Search status
 Drupal.theme.prototype.mkdruStatus = function(activeClients, clients) {
     
   if (activeClients == 0)
@@ -91,7 +93,12 @@ Drupal.theme.prototype.mkdruStatus = function(activeClients, clients) {
          + clients + Drupal.t(' targets');
 };
 
+// Toggler for facet groups
+jQuery('.mkdru-facet-title').css({cursor:'pointer'}).click(function(){
+    jQuery(this).siblings('.mkdru-facet').toggle()
+})
 
+// Facet item
 Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
     
   var view = {
@@ -102,9 +109,3 @@ Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
 
   return Mustache.render(tpl, view);
 };
-
-
-// Toggler for facet groups
-jQuery(".mkdru-facet").parents('.pane-content').siblings('.pane-title').css({cursor:'pointer'}).click(function(){
-    jQuery(this).siblings('.pane-content').children('.mkdru-facet').toggle()
-})
