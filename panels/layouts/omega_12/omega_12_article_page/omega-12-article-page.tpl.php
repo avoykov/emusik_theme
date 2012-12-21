@@ -7,7 +7,7 @@
       <div class="inside"><?php print $content['top_right']; ?></div>
     </div>
   </div>
-  <div class="panel-panel grid-12">
+  <div class="panel-panel row-2 grid-12">
     <div class="panel-panel grid-6 alpha">
       <div class="inside"><?php print $content['bottom_left']; ?></div>
     </div>

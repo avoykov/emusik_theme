@@ -32,11 +32,11 @@ a:visited {
 .logo-img {
   float: inherit;
   margin: 0 auto;
-  width: 498px;
+  width: 533px;
 }
 
 .zone-branding {
-  padding: 10px 0;
+  padding: 0;
 }
 
 .section-footer {
@@ -95,13 +95,17 @@ ul li.leaf {
   text-transform: uppercase;
 }
 
-.pane-content {
+.view {
   background: #fff;
+}
+
+.omega-12-mainpage-standard .grid-12,
+.omega-12-article-page .grid-12 {
+  margin-bottom: 25px;
 }
 
 .pane-node-content .pane-content {
   color: #666;
-  padding: 24px 18px;
 }
 
 .pane-node-ding-content-tags .pane-title {
@@ -184,4 +188,130 @@ ul li.leaf {
 .pane-node-content {
   margin-bottom: 10px;
   overflow: hidden;
+}
+
+.pane-views-panes .view {
+  overflow: hidden;
+  padding: 10px;
+}
+
+.pane-views-panes .view.concerts {
+  background: url(../images/black-bg.png) transparent;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.page-node .node {
+  background: #fff;
+  overflow: hidden;
+  padding: 24px 18px;
+}
+
+.pane-views-panes .views-field-field-list-image img {
+  height: auto;
+  max-width: 100%;
+}
+
+.library-recommendations .views-field-title a,
+.library-recommendations .view-footer a,
+.blog-recommendations .views-field-title a,
+.blog-recommendations .view-footer a,
+.upcoming-concert .view-footer a,
+.latest-article .view-footer a,
+.album-recommendations .view-footer a {
+  font-weight: bold;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+.library-recommendations .view-footer a {
+  font-size: 1.8em;
+  margin-top: -2px;
+}
+
+.blog-recommendations .view-footer a  {
+  font-size: 1.2em;
+}
+
+.library-recommendations .views-field-title a {
+  color: #000;
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+.views-field-created {
+  color: #474340;
+}
+
+.views-field-field-ding-teaser {
+  color: #7c7a74;
+}
+
+.library-recommendations .views-field-field-ding-teaser {
+  font-size: 1.2em;
+  font-weight: bold;
+  line-height: 1.25em;
+  margin-bottom: 18px;
+}
+
+.blog-recommendations .views-field-title a {
+  color: #000;
+  font-size: 1.2em;
+}
+
+.blog-recommendations .views-field-field-list-image {
+  margin-bottom: 18px;
+}
+
+.blog-recommendations .views-field-field-ding-teaser {
+  font-size: 1.2em;
+  font-weight: bold;
+  line-height: 1.25em;
+  margin-top: -2px;
+}
+
+.upcoming-concert .views-field-title a,
+.latest-article .views-field-title a,
+.album-recommendations .views-field-title a,
+.concerts a {
+  color: #000;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.upcoming-concert .views-field-field-ding-teaser,
+.latest-article .views-field-field-ding-teaser,
+.album-recommendations .views-field-field-ding-teaser {
+  font-size: 1.2em;
+  font-weight: bold;
+  line-height: 1.3em;
+  margin-top: -2px;
+}
+
+.upcoming-concert .view-footer a,
+.latest-article .view-footer a,
+.album-recommendations .view-footer a {
+  font-size: 1.4em;
+}
+
+.concerts a {
+  color: #fff;
+}
+
+.concerts .views-field-title {
+  margin-top: -1px;
+}
+
+.concerts .views-field-field-event-date {
+  color: #787572;
+  font-weight: bold;
+}
+
+.concerts .views-row {
+  margin-top: 12px;
+}
+
+.concerts .views-row:first-child {
+  margin-top: 12px;
 }
