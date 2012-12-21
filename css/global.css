@@ -7,7 +7,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   letter-spacing: .05em;
-  font-family: Arial;
+  font-family: Helvetica, Arial;
 }
 
 a:link,
@@ -22,6 +22,40 @@ a:visited {
   display: none;
 }
 
+.region-user-first,
+.region-user-second {
+  padding-top: 49px;
+}
+
+.region-user-second input[type="text"] {
+  background: url(../images/search-bg.png) repeat-x 0 0;
+  border: none;
+  color: #5e5e5f;
+  font-size: 1.4em;
+  font-weight: bold;
+  height: 27px;
+  width: 100%;
+}
+
+.region-user-second-inner {
+  position: relative;
+}
+
+.region-user-second input[type="submit"] {
+  background: url(../images/search-arrow.png) no-repeat center center;
+  border: none;
+  border-radius: 0;
+  direction: ltr;
+  height: 27px;
+  margin: 0;
+  position: absolute;
+  right: 0;
+  text-indent: -9000px;
+  top: 0;
+  width: 27px;
+  z-index: 10;
+}
+
 .zone-branding-wrapper {
   background: url(../images/header-bg.png) center top;
 }
@@ -33,7 +67,12 @@ a:visited {
 .logo-img {
   float: inherit;
   margin: 0 auto;
+  max-width: 100%;
   width: 533px;
+}
+
+.logo-img img {
+  max-width: 100%;
 }
 
 .zone-branding {

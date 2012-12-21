@@ -1,0 +1,24 @@
+.library-recommendations .views-field-title a,
+.library-recommendations .views-field-field-ding-teaser {
+  font-size: 1.2em;
+}
+
+.library-recommendations .views-field-field-list-image img,
+.upcoming-concert .views-field-field-list-image img {
+  width: 220px;
+}
+
+.album-recommendations img,
+.latest-article img,
+.blog-recommendations img {
+  width: 100%;
+}
+
+.node .field-type-image img {
+  max-width: inherit;
+  width: 100%;
+}
+
+.node .pane-title {
+  font-size: 1.8em;
+}
