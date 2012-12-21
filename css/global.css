@@ -17,7 +17,8 @@ a:visited {
   text-decoration: none;
 }
 
-.breadcrumb {
+.breadcrumb,
+.page-node .field-type-datetime .time {
   display: none;
 }
 
@@ -123,7 +124,9 @@ ul li.leaf {
   font-weight: bold;
   letter-spacing: .05em;
   margin-bottom: 11px;
+  position: absolute;
   text-transform: uppercase;
+  width: 100%;
 }
 
 .pane-node-ding-content-tags .pane-content {
@@ -136,7 +139,7 @@ ul li.leaf {
   text-transform: uppercase;
 }
 
-.node-ding-news .pane-title {
+.node .pane-title {
   color: #000;
   font-size: 3em;
   letter-spacing: 0;
@@ -145,28 +148,34 @@ ul li.leaf {
   margin-top: 1px;
 }
 
-.node-ding-news .pane-title a {
+.node .pane-title a {
   color: #000;
 }
 
-.node-ding-news .body {
+.node .body {
   clear: both;
   font-size: 1.2em;
   line-height: 1.5em;
 }
 
-.node-ding-news .field-type-image {
+.node .field-type-image {
   float: left;
   margin: 0 26px 20px 0;
+  max-width: 50%;
 }
 
-.node-ding-news .summary {
+.node .field-type-image img {
+  height: auto;
+  max-width: 100%;
+}
+
+.nodes .summary {
   font-size: 1.4em;
   font-weight: bold;
   line-height: 1.3em;
 }
 
-.node-ding-news .author {
+.node .author {
   font-size: 1.2em;
   font-style: italic;
   font-weight: bold;
@@ -174,12 +183,12 @@ ul li.leaf {
   margin-top: 14px;
 }
 
-.node-ding-news h1,
-.node-ding-news h2,
-.node-ding-news h3,
-.node-ding-news h4,
-.node-ding-news h5,
-.node-ding-news h6 {
+.node h1,
+.node h2,
+.node h3,
+.node h4,
+.node h5,
+.node h6 {
   color: #000;
   letter-spacing: 0;
   line-height: 1.2em;
@@ -204,6 +213,7 @@ ul li.leaf {
 
 .page-node .node {
   background: #fff;
+  margin-top: 26px;
   overflow: hidden;
   padding: 24px 18px;
 }
@@ -314,4 +324,25 @@ ul li.leaf {
 
 .concerts .views-row:first-child {
   margin-top: 12px;
+}
+
+.page-node .row-1 .grid-3 .panel-pane:first-child {
+  margin-top: 10px;
+}
+
+.page-node .node-details .clearfix::after {
+  clear: none;
+}
+
+.page-node .field-label-inline .field-label,
+.page-node .field-label-inline .field-items {
+  float: none;
+}
+
+.page-node .field-type-datetime .field-label {
+  margin-right: 5px;
+}
+
+.page-node .field-type-datetime {
+  font-size: 1.2em;
 }
