@@ -7,7 +7,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   letter-spacing: .05em;
-  font-family: Arial;
+  font-family: Helvetica, Arial;
 }
 
 a:link,
@@ -17,8 +17,43 @@ a:visited {
   text-decoration: none;
 }
 
-.breadcrumb {
+.breadcrumb,
+.page-node .field-type-datetime .time {
   display: none;
+}
+
+.region-user-first,
+.region-user-second {
+  padding-top: 49px;
+}
+
+.region-user-second input[type="text"] {
+  background: url(../images/search-bg.png) repeat-x 0 0;
+  border: none;
+  color: #5e5e5f;
+  font-size: 1.4em;
+  font-weight: bold;
+  height: 27px;
+  width: 100%;
+}
+
+.region-user-second-inner {
+  position: relative;
+}
+
+.region-user-second input[type="submit"] {
+  background: url(../images/search-arrow.png) no-repeat center center;
+  border: none;
+  border-radius: 0;
+  direction: ltr;
+  height: 27px;
+  margin: 0;
+  position: absolute;
+  right: 0;
+  text-indent: -9000px;
+  top: 0;
+  width: 27px;
+  z-index: 10;
 }
 
 .zone-branding-wrapper {
@@ -32,11 +67,16 @@ a:visited {
 .logo-img {
   float: inherit;
   margin: 0 auto;
-  width: 498px;
+  max-width: 100%;
+  width: 533px;
+}
+
+.logo-img img {
+  max-width: 100%;
 }
 
 .zone-branding {
-  padding: 10px 0;
+  padding: 0;
 }
 
 .section-footer {
@@ -95,13 +135,17 @@ ul li.leaf {
   text-transform: uppercase;
 }
 
-.pane-content {
+.view {
   background: #fff;
+}
+
+.omega-12-mainpage-standard .grid-12,
+.omega-12-article-page .grid-12 {
+  margin-bottom: 25px;
 }
 
 .pane-node-content .pane-content {
   color: #666;
-  padding: 24px 18px;
 }
 
 .pane-node-ding-content-tags .pane-title {
@@ -119,7 +163,9 @@ ul li.leaf {
   font-weight: bold;
   letter-spacing: .05em;
   margin-bottom: 11px;
+  position: absolute;
   text-transform: uppercase;
+  width: 100%;
 }
 
 .pane-node-ding-content-tags .pane-content {
@@ -132,7 +178,7 @@ ul li.leaf {
   text-transform: uppercase;
 }
 
-.node-ding-news .pane-title {
+.node .pane-title {
   color: #000;
   font-size: 3em;
   letter-spacing: 0;
@@ -141,28 +187,34 @@ ul li.leaf {
   margin-top: 1px;
 }
 
-.node-ding-news .pane-title a {
+.node .pane-title a {
   color: #000;
 }
 
-.node-ding-news .body {
+.node .body {
   clear: both;
   font-size: 1.2em;
   line-height: 1.5em;
 }
 
-.node-ding-news .field-type-image {
+.node .field-type-image {
   float: left;
   margin: 0 26px 20px 0;
+  max-width: 50%;
 }
 
-.node-ding-news .summary {
+.node .field-type-image img {
+  height: auto;
+  max-width: 100%;
+}
+
+.nodes .summary {
   font-size: 1.4em;
   font-weight: bold;
   line-height: 1.3em;
 }
 
-.node-ding-news .author {
+.node .author {
   font-size: 1.2em;
   font-style: italic;
   font-weight: bold;
@@ -170,12 +222,12 @@ ul li.leaf {
   margin-top: 14px;
 }
 
-.node-ding-news h1,
-.node-ding-news h2,
-.node-ding-news h3,
-.node-ding-news h4,
-.node-ding-news h5,
-.node-ding-news h6 {
+.node h1,
+.node h2,
+.node h3,
+.node h4,
+.node h5,
+.node h6 {
   color: #000;
   letter-spacing: 0;
   line-height: 1.2em;
@@ -184,4 +236,152 @@ ul li.leaf {
 .pane-node-content {
   margin-bottom: 10px;
   overflow: hidden;
+}
+
+.pane-views-panes .view {
+  overflow: hidden;
+  padding: 10px;
+}
+
+.pane-views-panes .view.concerts {
+  background: url(../images/black-bg.png) transparent;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.page-node .node {
+  background: #fff;
+  margin-top: 26px;
+  overflow: hidden;
+  padding: 24px 18px;
+}
+
+.pane-views-panes .views-field-field-list-image img {
+  height: auto;
+  max-width: 100%;
+}
+
+.library-recommendations .views-field-title a,
+.library-recommendations .view-footer a,
+.blog-recommendations .views-field-title a,
+.blog-recommendations .view-footer a,
+.upcoming-concert .view-footer a,
+.latest-article .view-footer a,
+.album-recommendations .view-footer a {
+  font-weight: bold;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+.library-recommendations .view-footer a {
+  font-size: 1.8em;
+  margin-top: -2px;
+}
+
+.blog-recommendations .view-footer a  {
+  font-size: 1.2em;
+}
+
+.library-recommendations .views-field-title a {
+  color: #000;
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+.views-field-created {
+  color: #474340;
+}
+
+.views-field-field-ding-teaser {
+  color: #7c7a74;
+}
+
+.library-recommendations .views-field-field-ding-teaser {
+  font-size: 1.2em;
+  font-weight: bold;
+  line-height: 1.25em;
+  margin-bottom: 18px;
+}
+
+.blog-recommendations .views-field-title a {
+  color: #000;
+  font-size: 1.2em;
+}
+
+.blog-recommendations .views-field-field-list-image {
+  margin-bottom: 18px;
+}
+
+.blog-recommendations .views-field-field-ding-teaser {
+  font-size: 1.2em;
+  font-weight: bold;
+  line-height: 1.25em;
+  margin-top: -2px;
+}
+
+.upcoming-concert .views-field-title a,
+.latest-article .views-field-title a,
+.album-recommendations .views-field-title a,
+.concerts a {
+  color: #000;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.upcoming-concert .views-field-field-ding-teaser,
+.latest-article .views-field-field-ding-teaser,
+.album-recommendations .views-field-field-ding-teaser {
+  font-size: 1.2em;
+  font-weight: bold;
+  line-height: 1.3em;
+  margin-top: -2px;
+}
+
+.upcoming-concert .view-footer a,
+.latest-article .view-footer a,
+.album-recommendations .view-footer a {
+  font-size: 1.4em;
+}
+
+.concerts a {
+  color: #fff;
+}
+
+.concerts .views-field-title {
+  margin-top: -1px;
+}
+
+.concerts .views-field-field-event-date {
+  color: #787572;
+  font-weight: bold;
+}
+
+.concerts .views-row {
+  margin-top: 12px;
+}
+
+.concerts .views-row:first-child {
+  margin-top: 12px;
+}
+
+.page-node .row-1 .grid-3 .panel-pane:first-child {
+  margin-top: 10px;
+}
+
+.page-node .node-details .clearfix::after {
+  clear: none;
+}
+
+.page-node .field-label-inline .field-label,
+.page-node .field-label-inline .field-items {
+  float: none;
+}
+
+.page-node .field-type-datetime .field-label {
+  margin-right: 5px;
+}
+
+.page-node .field-type-datetime {
+  font-size: 1.2em;
 }
