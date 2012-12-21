@@ -105,7 +105,7 @@ Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
       terms: terms.slice(0,max)
   }
     
-  var tpl = '{{#terms}}<a href="{{toggleLink}}" {{#selected}}class="cross"{{/selected}}>{{#selected}}<strong>{{/selected}}{{name}}{{#selected}}</strong>{{/selected}}</a><br>{{/terms}}'
+  var tpl = '{{#terms}}<a href="{{toggleLink}}" {{#selected}}class="cross"{{/selected}}>{{#selected}}<strong>{{/selected}}{{name}}{{#selected}}</strong>{{/selected}}</a><br />{{/terms}}'
 
   return Mustache.render(tpl, view);
 };
