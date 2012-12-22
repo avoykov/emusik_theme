@@ -41,6 +41,10 @@ a:visited {
   position: relative;
 }
 
+.page-search-meta .section-footer {
+  margin-top: 25px;
+}
+
 .region-user-second input[type="submit"] {
   background: url(../images/search-arrow.png) no-repeat center center;
   border: none;
@@ -384,4 +388,214 @@ ul li.leaf {
 
 .page-node .field-type-datetime {
   font-size: 1.2em;
+}
+
+.mkdru-facet-section {
+  margin-bottom: 5px;
+}
+
+.mkdru-facet-title,
+.mkdru-facet-section a {
+  color: #3f9666;
+  font-size: 1.4em;
+  font-weight: bold;
+  letter-spacing: .02em;
+  line-height: 1.4em;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.mkdru-facet-title {
+  color: #000;
+}
+
+.closed-facet-group .mkdru-facet-title {
+  color: #3f9666;
+}
+
+.region-content .grid-9 .mkdru-facet-title,
+.region-content .grid-9 .mkdru-facet-section br,
+.page-search-meta .region-content .search-form,
+.region-content .grid-9 .mkdru-facet-section a:first-child:before {
+  display: none;
+}
+
+.region-content .grid-9 .mkdru-facet-section a {
+  font-size: 1.8em;
+  margin: 0;
+}
+
+.region-content .grid-9 .mkdru-facet-section a:before {
+  content: "/";
+  color: #000;
+  font-style: italic;
+  margin: 15px;
+}
+
+.mkdru-results {
+  background: #fff;
+  padding: 16px 16px 32px 24px;
+}
+
+.mkdru-results thead th,
+.mkdru-results th,
+.mkdru-results tr {
+  background: none;
+  border-bottom: 3px solid #dcdcdc;
+}
+
+.mkdru-results table {
+  border: none;
+  color: #3f9666;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.mkdru-results th {
+  color: #3f9666;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+.e-mkdru-result-title {
+  width: 200px;
+}
+
+.e-mkdru-result-year {
+  width: 100px;
+}
+
+.mkdru-results tr:hover,
+.mkdru-results tr:hover th,
+.mkdru-results tr:hover a {
+  background: none;
+  color: #000;
+}
+
+.mkdru-results tr:hover td,
+.mkdru-results tr.even:hover td.active,
+.mkdru-results tr.odd:hover td.active {
+  background: none;
+}
+
+.mkdru-pager,
+.view-emusik-related,
+.pane-term-list a {
+  font-size: 1.4em;
+  font-weight: bold;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+.mkdru-pager span:before,
+.view-emusik-related a:after,
+.pane-term-list a:after {
+  content: "/";
+  color: #000;
+  font-style: italic;
+  margin: 5px;
+}
+
+.mkdru-pager span:first-child:before {
+  display: none;
+}
+
+.page-search-meta h1.title {
+  font-size: 1.8em;
+  letter-spacing: .05em;
+  margin: 0;
+  position: absolute;
+  text-transform: uppercase;
+  top: 21px;
+}
+
+.page-search-meta .grid-12.region-content .grid-3 {
+  padding-top: 39px;
+}
+
+.mkdru-facet-Type {
+  margin-bottom: 3px;
+}
+
+.grid-3 .mkdru-facet {
+  padding-left: 33px;
+}
+
+.page-search-meta .grid-12.region-content {
+  padding-top: 22px;
+}
+
+.pane-views-panes .view.view-emusik-related {
+  background: none;
+  line-height: 1.35em;
+  margin-bottom: 34px;
+  padding-left: 0;
+}
+
+.pane-term-list {
+  margin-bottom: 34px;
+}
+
+.view-emusik-related .views-row:after,
+.pane-term-list li:after {
+  content: "-";
+  background: #000017;
+  direction: ltr;
+  display: block;
+  height: 3px;
+  margin: 1px 0 2px;
+  text-indent: -9000px;
+  width: 11px;
+}
+
+.pane-term-list .pane-title {
+  font-size: 1.8em;
+  margin-bottom: 30px;
+}
+
+.pane-taxonomy-term .pane-title {
+  font-size: 1.8em;
+  margin-bottom: 5px;
+}
+
+.view-taxonomy-term {
+  padding: 21px 14px 14px 18px;
+}
+
+.pane-taxonomy-term h2.node-title {
+  font-size: 1.8em;
+  line-height: 1.2em;
+  margin: 1px 0 0;
+  padding: 0;
+}
+
+.pane-taxonomy-term .field-type-text-with-summary {
+  color: #646464;
+  font-size: 1.2em;
+  line-height: 1.25em;
+  margin-top: -2px;
+}
+
+.pane-taxonomy-term .date {
+  font-weight: bold;
+}
+
+.pane-taxonomy-term .node .field-type-image {
+  margin: 0 16px 0 0;
+  max-width: inherit;
+  width: auto;
+}
+
+.pane-taxonomy-term .node .field-type-image img {
+  height: auto;
+  width: 200px;
+}
+
+.pane-taxonomy-term .views-row {
+  margin-top: 20px;
+}
+
+.pane-taxonomy-term .views-row:first-child {
+  margin-top: 0;
 }
