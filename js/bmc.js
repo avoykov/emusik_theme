@@ -12,10 +12,10 @@
     $('.page-search-meta .region-content .block-system-main').appendTo(results);
     results.appendTo($('.page-search-meta .grid-12.region-content .region-inner'));
     $('.mkdru-facet-Type').parent().prependTo($('.page-search-meta .grid-12.region-content .grid-9'));
-  }, 1000 );
+  }, 1000);
   
   $('.mkdru-facet-title').live("click", function() {
-    $(this).parent().toggleClass("closed-facet-group");
+    $(this).parent().toggleClass('closed-facet-group');
   });
 
 })(jQuery);
