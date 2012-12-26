@@ -599,3 +599,100 @@ ul li.leaf {
 .pane-taxonomy-term .views-row:first-child {
   margin-top: 0;
 }
+
+.pane-emusik-playlist {
+  background: #fff;
+  padding: 30px 20px 20px 20px;
+}
+
+.page-node .pane-emusik-playlist .node {
+  background: #f0f0f0;
+  padding: 10px 10px 30px 10px;
+}
+
+.pane-emusik-playlist .submitted,
+.field-type-image .field-label {
+  display: none;
+}
+
+.page-node .pane-emusik-playlist .node {
+  margin-top: 5px;
+}
+
+.pane-emusik-playlist .field-type-image {
+  margin-bottom: 0;
+  margin-right: 23px;
+  margin-left: 0;
+  width: 180px;
+}
+
+.pane-emusik-playlist h2.node-title {
+  font-size: 2.3em;
+  margin: 0 0 7px 0;
+  text-transform: uppercase;
+}
+
+.pane-emusik-playlist h2.node-title a {
+  color: #000;
+}
+
+.pane-emusik-playlist table,
+.pane-emusik-playlist thead th,
+.pane-emusik-playlist th,
+.pane-emusik-playlist tr:hover td,
+.pane-emusik-playlist tr.even:hover td.active,
+.pane-emusik-playlist tr.odd:hover td.active {
+  background: #f0f0f0;
+  border: none;
+  color: #323230;
+}
+
+.pane-emusik-playlist th,
+.pane-emusik-playlist td {
+  padding: 2px 8px 1px;
+}
+
+.pane-emusik-playlist tr:last-child td {
+  padding-bottom: 42px;
+}
+
+.pane-emusik-playlist .field-type-text-with-summary {
+  font-size: 1.2em;
+  line-height: 1.2em;
+}
+
+.pane-emusik-playlist p {
+  margin: 0;
+}
+
+.pane-emusik-playlist thead th,
+.pane-emusik-playlist th {
+  color: #323230;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.pane-emusik-playlist td {
+  font-weight: bold;
+}
+
+.pane-emusik-playlist table a {
+  background: url(../images/source-icon.png) no-repeat 0 0;
+  display: block;
+  float: left;
+  height: 17px;
+  margin-right: 7px;
+  width: 17px;
+}
+
+.pane-emusik-playlist table a.bibzoom {
+  background-position: -27px 0;
+}
+
+.pane-emusik-playlist table a.wimp {
+  background-position: -60px 0;
+}
+
+.pane-emusik-playlist table a.spotify {
+  background-position: -121px 0;
+}
