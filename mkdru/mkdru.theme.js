@@ -8,44 +8,49 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
   if (hit["md-title"] == undefined) {
     return;
   }
-    var view = {
-        recid: 'rec_' + hit.recid,
-        detailLink: detailLink,
-        title: hit["md-title"],
-        author: hit["md-author"],
-        category: hit["md-title"],
-        year: hit["md-date"],
-        external_link: mkdruParseResources(hit.location)
-    };
+  var view = {
+      recid: 'rec_' + hit.recid,
+      detailLink: detailLink,
+      title: hit["md-title"],
+      author: hit["md-author"],
+      category: hit["md-title"],
+      year: hit["md-date"],
+      external_link: mkdruParseResources(hit.location)
+  };
 
-    var tpl = [
-        '<tr class="mkdru-result" id="{{recid}}">',
-            '<td class="e-mkdru-result-title">{{title}}</td>',
-            '<td class="e-mkdru-result-author">{{author}}</td>',
-            '<!--<td class="e-mkdru-result-category">{{category}}</td>-->',
-            '<td class="e-mkdru-result-year">{{year}}</td>',
-            '<td class="external">{{&external_link}}</td>',
-        '</tr>'].join('');
+  var tpl = [
+      '<tr class="mkdru-result" id="{{recid}}">',
+          '<td class="e-mkdru-result-title">{{title}}</td>',
+          '<td class="e-mkdru-result-author">{{author}}</td>',
+          '<!--<td class="e-mkdru-result-category">{{category}}</td>-->',
+          '<td class="e-mkdru-result-year">{{year}}</td>',
+          '<td class="external">{{&external_link}}</td>',
+      '</tr>'].join('');
 
   return Mustache.render(tpl, view);
 };
 
 mkdruParseResources = function(data) {
-  var resources = new Array();
-  var tpl = '<a href="{{link}}" class="{{classname}}"></a>';
+  var resources = {};
+  var tpl = '<a href="{{link}}" class="{{classname}}">{{classname}}   </a>';
   for(var i in data) {
     if (!data[i]['md-electronic-url']) continue;
+    var classname = mkdruResourceTitle2ClassName(data[i]['@name']);
     var view = {
       link : data[i]['md-electronic-url'][0],
-      classname: mkdruResourceTitle2ClassName(data[i]['@name'])
+      classname: classname
     };
-    resources.push(Mustache.render(tpl, view));
+    resources[classname] = Mustache.render(tpl, view);
   }
-  return resources.join('');
+  var html = '';
+  for(var i in resources) {
+    html += resources[i];
+  }
+  return html;
 };
 
 mkdruResourceTitle2ClassName = function(res) {
-  return res.toLowerCase().replace(/\s/, '-');
+  return res.match(/(\w+)\s/)[0].toLowerCase();
 };
 
 // Details of found item
