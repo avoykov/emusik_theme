@@ -4,7 +4,7 @@ jQuery('.mkdru-result-list').replaceWith(results)
 
 // Search result item
 Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
-  // escape if there is no title to avoid showig exmpy blocks
+  // Escape if there is no title to avoid showig empty blocks.
   if (hit["md-title"] == undefined) {
     return;
   }
