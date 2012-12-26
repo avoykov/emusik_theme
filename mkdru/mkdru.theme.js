@@ -4,6 +4,10 @@ jQuery('.mkdru-result-list').replaceWith(results)
 
 // Search result item
 Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
+  // escape if there is no title to avoid showig exmpy blocks
+  if (hit["md-title"] == undefined) {
+    return;
+  }
     var view = {
         recid: 'rec_' + hit.recid,
         detailLink: detailLink,
@@ -16,7 +20,7 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
 
     var tpl = [
         '<tr class="mkdru-result" id="{{recid}}">',
-            '<td class="e-mkdru-result-title"><a href="{{external_link}}" class="mkdru-result-title">{{title}}</a></td>',
+            '<td class="e-mkdru-result-title">{{title}}</td>',
             '<td class="e-mkdru-result-author">{{author}}</td>',
             '<!--<td class="e-mkdru-result-category">{{category}}</td>-->',
             '<td class="e-mkdru-result-year">{{year}}</td>',
