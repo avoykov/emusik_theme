@@ -28,3 +28,7 @@
 .omega-12-article-page .row-2 .view {
   min-height: 200px;
 }
+
+.node .pane-title {
+  font-size: 1.4em;
+}
