@@ -32,7 +32,7 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
 
 mkdruParseResources = function(data) {
   var resources = {};
-  var tpl = '<a href="{{link}}" class="{{classname}}">{{classname}}   </a>';
+  var tpl = '<a href="{{link}}" class="{{classname}}" target="_blank"></a>';
   for(var i in data) {
     if (!data[i]['md-electronic-url']) continue;
     var classname = mkdruResourceTitle2ClassName(data[i]['@name']);
