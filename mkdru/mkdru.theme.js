@@ -128,9 +128,13 @@ jQuery('.mkdru-facet-title').css({cursor:'pointer'}).click(function(){
 Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
 
   var view = {
-      terms: terms.slice(0,max)
+      terms: []
   }
-
+  for (var key in terms.slice(0, max)) {
+    if (terms[key].name != 'video' && terms[key].name != 'artist') {
+      view.terms.push(terms[key]);
+    }
+  }
   var tpl = '{{#terms}}<a href="{{toggleLink}}" {{#selected}}class="cross"{{/selected}}>{{#selected}}<strong>{{/selected}}{{name}}{{#selected}}</strong>{{/selected}}</a><br />{{/terms}}'
 
   return Mustache.render(tpl, view);
