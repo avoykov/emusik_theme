@@ -624,7 +624,8 @@ ul li.leaf {
   width: auto;
 }
 
-.pane-taxonomy-term .node .field-type-image img {
+.pane-taxonomy-term .node .field-type-image img,
+.page-search-node .node .field-type-image img {
   height: auto;
   width: 200px;
 }
