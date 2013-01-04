@@ -590,11 +590,16 @@ ul li.leaf {
 }
 
 .pane-taxonomy-term h2.node-title,
-.page-search-node .pane-nodesearch h2.node-title {
+.page-search-node .pane-nodesearch h2.node-title,
+.page-search-node .pane-nodesearch .views-field-title {
   font-size: 1.8em;
   line-height: 1.2em;
   margin: 1px 0 0;
   padding: 0;
+}
+
+.page-search-node .pane-nodesearch .views-field-title {
+  font-weight: bold;
 }
 
 .page-search-node .pane-nodesearch .field-type-text-with-summary {
@@ -605,16 +610,41 @@ ul li.leaf {
 
 .page-search-node .pane-nodesearch .views-row {
   margin-bottom: 20px;
+  overflow: hidden;
 }
 
-.pane-taxonomy-term .field-type-text-with-summary {
+.page-search-node .pane-nodesearch .views-field-field-list-image {
+  float: left;
+  margin: 0 16px 0 0;
+}
+
+.pane-taxonomy-term .field-type-text-with-summary,
+.page-search-node .pane-nodesearch .views-field-field-ding-body {
   color: #646464;
   font-size: 1.2em;
   line-height: 1.25em;
   margin-top: -2px;
 }
 
-.pane-taxonomy-term .date {
+.page-search-node .pane-nodesearch p {
+  margin: 0;
+}
+
+.pane-nodesearch {
+  margin-bottom: 20px;
+  margin-top: 16px;
+}
+
+.page-search-node .pane-nodesearch .views-field-path {
+  font-size: 1.2em;
+  font-weight: bold;
+  letter-spacing: .02em;
+  margin-top: 13px;
+  text-transform: uppercase;
+}
+
+.pane-taxonomy-term .date,
+.page-search-node .pane-nodesearch .views-field-changed {
   font-weight: bold;
 }
 
