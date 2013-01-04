@@ -139,6 +139,22 @@ ul li.leaf {
   text-transform: uppercase;
 }
 
+.page-search-node .pane-nodesearch h2.pane-title {
+  font-size: 1.8em;
+  margin-bottom: 5px;
+}
+
+.page-search-node .pane-nodesearch .node .field-type-image {
+  margin: 0 16px 0 0;
+  max-width: inherit;
+  width: auto;
+}
+
+.page-search-node .pane-nodesearch .pane-content {
+  background: #fff;
+  padding: 21px 14px 14px 18px;
+}
+
 .view {
   background: #fff;
 }
@@ -269,7 +285,8 @@ ul li.leaf {
 .blog-recommendations .view-footer a,
 .upcoming-concert .view-footer a,
 .latest-article .view-footer a,
-.album-recommendations .view-footer a {
+.album-recommendations .view-footer a,
+.page-search-node .search-results .title {
   font-weight: bold;
   letter-spacing: .02em;
   text-transform: uppercase;
@@ -294,7 +311,8 @@ ul li.leaf {
   color: #474340;
 }
 
-.views-field-field-ding-teaser {
+.views-field-field-ding-teaser,
+.page-search-node .search-results p {
   color: #7c7a74;
 }
 
@@ -314,7 +332,8 @@ ul li.leaf {
   margin-bottom: 18px;
 }
 
-.blog-recommendations .views-field-field-ding-teaser {
+.blog-recommendations .views-field-field-ding-teaser,
+.page-search-node .search-results p {
   font-size: 1.2em;
   font-weight: bold;
   line-height: 1.25em;
@@ -507,6 +526,16 @@ ul li.leaf {
   top: 21px;
 }
 
+.page-search-node .search-form,
+.page-search-node h1.title {
+  display: none;
+}
+
+.page-search-node .node-results {
+  background: #fff;
+  padding: 20px;
+}
+
 .page-search-meta .grid-12.region-content .grid-3 {
   padding-top: 39px;
 }
@@ -560,21 +589,62 @@ ul li.leaf {
   padding: 21px 14px 14px 18px;
 }
 
-.pane-taxonomy-term h2.node-title {
+.pane-taxonomy-term h2.node-title,
+.page-search-node .pane-nodesearch h2.node-title,
+.page-search-node .pane-nodesearch .views-field-title {
   font-size: 1.8em;
   line-height: 1.2em;
   margin: 1px 0 0;
   padding: 0;
 }
 
-.pane-taxonomy-term .field-type-text-with-summary {
+.page-search-node .pane-nodesearch .views-field-title {
+  font-weight: bold;
+}
+
+.page-search-node .pane-nodesearch .field-type-text-with-summary {
+  color: #646464;
+  font-size: 1.2em;
+  line-height: 1.25em;
+}
+
+.page-search-node .pane-nodesearch .views-row {
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.page-search-node .pane-nodesearch .views-field-field-list-image {
+  float: left;
+  margin: 0 16px 0 0;
+}
+
+.pane-taxonomy-term .field-type-text-with-summary,
+.page-search-node .pane-nodesearch .views-field-field-ding-body {
   color: #646464;
   font-size: 1.2em;
   line-height: 1.25em;
   margin-top: -2px;
 }
 
-.pane-taxonomy-term .date {
+.page-search-node .pane-nodesearch p {
+  margin: 0;
+}
+
+.pane-nodesearch {
+  margin-bottom: 20px;
+  margin-top: 16px;
+}
+
+.page-search-node .pane-nodesearch .views-field-path {
+  font-size: 1.2em;
+  font-weight: bold;
+  letter-spacing: .02em;
+  margin-top: 13px;
+  text-transform: uppercase;
+}
+
+.pane-taxonomy-term .date,
+.page-search-node .pane-nodesearch .views-field-changed {
   font-weight: bold;
 }
 
@@ -584,7 +654,8 @@ ul li.leaf {
   width: auto;
 }
 
-.pane-taxonomy-term .node .field-type-image img {
+.pane-taxonomy-term .node .field-type-image img,
+.page-search-node .node .field-type-image img {
   height: auto;
   width: 200px;
 }
@@ -777,3 +848,86 @@ ul li.leaf {
   width: 10px;
 }
 
+.pager li {
+  background: none;
+  border: none;
+  font-size: 1.7em;
+  font-weight: bold;
+  letter-spacing: .05em;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.pager li a,
+.pager,
+.pager li.pager-next,
+.pager li.pager-current {
+  background: none;
+  border: none;
+  width: inherit;
+}
+
+.pager li.pager-current {
+  color: #000;
+}
+
+.pager li a {
+  color: #3f966b;
+}
+
+.pager li a,
+.pager li.pager-current {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.pager li:after {
+  content: "/";
+  font-style: italic;
+  margin: 0 10px;
+}
+
+.pager li.pager-first a,
+.pager li.pager-previous a,
+.pager li.pager-next a,
+.pager li.pager-last a {
+  text-align: left;
+  width: inherit;
+}
+
+.pager li.pager-last,
+.pager li.pager-next.last,
+.pager li.pager-next {
+  position: relative;
+  top: inherit;
+  right: inherit;
+  border-right: 0;
+}
+
+.node-type-emusik-playlist .zone-content {
+  margin-bottom: 20px;
+}
+
+.node-type-emusik-playlist h1.title {
+  color: #3F9666;
+  font-size: 1.4em;
+  font-weight: bold;
+  letter-spacing: .02em;
+  line-height: 1.4em;
+  margin: 0 0 10px 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.node-type-emusik-playlist footer {
+  display: none;
+}
+
+.node-type-emusik-playlist.page-node .node {
+  margin-top: 0;
+}
+
+.node-type-emusik-playlist .field-type-text-with-summary {
+  color: #666;
+  font-size: 1.2em;
+}
