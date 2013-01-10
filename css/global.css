@@ -423,11 +423,13 @@ ul li.leaf {
 }
 
 .mkdru-facet-title {
+  background: url(../images/facets-arrows.png) no-repeat right -24px;
   color: #000;
 }
 
 .closed-facet-group .mkdru-facet-title {
   color: #3f9666;
+  background-position: right 4px;
 }
 
 .region-content .grid-9 .mkdru-facet-title,
