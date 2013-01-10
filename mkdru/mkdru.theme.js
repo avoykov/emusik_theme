@@ -34,10 +34,11 @@ mkdruParseResources = function(data) {
   var resources = {};
   var tpl = '<a href="{{link}}" class="{{classname}}" target="_blank"></a>';
   for(var i in data) {
-    if (!data[i]['md-electronic-url']) continue;
+    var url = choose_url(data[i]);
+    if (!url) continue;
     var classname = mkdruResourceTitle2ClassName(data[i]['@name']);
     var view = {
-      link : data[i]['md-electronic-url'][0],
+      link : url,
       classname: classname
     };
     resources[classname] = Mustache.render(tpl, view);
