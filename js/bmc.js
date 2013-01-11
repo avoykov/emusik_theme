@@ -18,7 +18,9 @@
     });
 
     // Playlist title.
-    $('.pane-emusik-playlist .field-name-body').prepend($('.pane-emusik-playlist header'));
+    $('.pane-emusik-playlist .node').each(function() {
+      $(this).find('.field-name-body').prepend($(this).find('header'));
+    });
 
   });
 })(jQuery);
