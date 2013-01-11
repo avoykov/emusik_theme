@@ -809,7 +809,9 @@ ul li.leaf {
 .pane-node-field-category,
 .pane-node-ding-content-tags {
   color: #3f966b;
-  float: left;
+  /*
+   *float: left;
+   */
   font-weight: bold;
   letter-spacing: .05em;
   margin-right: 5px;
@@ -832,6 +834,15 @@ ul li.leaf {
 
 .page-node.node-type-ding-news .node-ding-news.node {
   margin: 0;
+}
+
+.pane-node-field-ding-material-type a,
+.pane-node-field-ding-article-type a,
+.pane-node-field-ding-supplier a,
+.pane-node-field-artist-ablum-track a,
+.pane-node-field-category a,
+.pane-node-ding-content-tags a {
+  font-weight: bold;
 }
 
 .pane-node-field-ding-material-type a:after,
