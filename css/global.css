@@ -809,9 +809,6 @@ ul li.leaf {
 .pane-node-field-category,
 .pane-node-ding-content-tags {
   color: #3f966b;
-  /*
-   *float: left;
-   */
   font-weight: bold;
   letter-spacing: .05em;
   margin-right: 5px;
