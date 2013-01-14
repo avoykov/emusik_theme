@@ -1,5 +1,5 @@
 // Modify the structure of results.
-var results = jQuery('<table><thead><tr><th>'+Drupal.t('Title')+'</th><th>'+Drupal.t('Author')+'</th><th>'+Drupal.t('Year')+'</th><th>'+Drupal.t('Listen')+'</th></tr></thead><tbody class="mkdru-result-list"></tbody></table>')
+var results = jQuery('<table><thead><tr><th>'+Drupal.t('Title')+'</th><th>'+Drupal.t('Author')+'</th><th>'+Drupal.t('Year')+'</th><th>'+Drupal.t('Category')+'</th><th>'+Drupal.t('Listen')+'</th></tr></thead><tbody class="mkdru-result-list"></tbody></table>')
 jQuery('.mkdru-result-list').replaceWith(results)
 
 // Move status to bottom of search results.
@@ -16,7 +16,7 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
       detailLink: detailLink,
       title: hit["md-title"],
       author: hit["md-author"],
-      category: hit["md-title"],
+      category: hit["md-subject"] != undefined ? hit["md-subject"][0] : '',
       year: hit["md-date"],
       external_link: mkdruParseResources(hit.location)
   };
@@ -27,6 +27,7 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
           '<td class="e-mkdru-result-author">{{author}}</td>',
           '<!--<td class="e-mkdru-result-category">{{category}}</td>-->',
           '<td class="e-mkdru-result-year">{{year}}</td>',
+          '<td class="e-mkdru-result-category">{{category}}</td>',
           '<td class="external">{{&external_link}}</td>',
       '</tr>'].join('');
 
