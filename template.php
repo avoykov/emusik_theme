@@ -15,3 +15,14 @@ drupal_add_css(drupal_get_path('theme', 'bmc_theme') . '/mkdru/mkdru.css', array
 drupal_add_js(drupal_get_path('theme', 'bmc_theme') . '/mkdru/mustache.js');
 drupal_add_js(drupal_get_path('theme', 'bmc_theme') . '/mkdru/recipe.js');
 drupal_add_js(drupal_get_path('theme', 'bmc_theme') . '/mkdru/mkdru.theme.js', array('scope' => 'footer', 'weight' => 100));
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Preprocess the search form, adding a placeholder into the textfield.
+ */
+function bmc_theme_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'search_block_form') {
+    $form['search_block_form']['#attributes']['placeholder'] = t('Enter search here...');
+  }
+}

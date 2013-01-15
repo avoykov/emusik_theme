@@ -939,3 +939,22 @@ ul li.leaf {
   color: #666;
   font-size: 1.2em;
 }
+
+#search-block-form input[name="search_block_form"] {
+  color: #fff;
+}
+#search-block-form input[name="search_block_form"]::-webkit-input-placeholder {
+  color: #fff;
+}
+#search-block-form input[name="search_block_form"]:-moz-placeholder {
+  color: #fff;
+}
+#search-block-form input[name="search_block_form"]::-moz-placeholder {
+  color: #fff;
+}
+#search-block-form input[name="search_block_form"]:-ms-input-placeholder {
+  color: #fff;
+}
+#search-block-form input[name="search_block_form"].placeholder-text {
+  color: #fff;
+}
