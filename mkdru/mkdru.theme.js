@@ -3,7 +3,7 @@ var results = jQuery('<table><thead><tr><th>'+Drupal.t('Title')+'</th><th>'+Drup
 jQuery('.mkdru-result-list').replaceWith(results)
 
 // Move status to bottom of search results.
-jQuery('.mkdru-status').css({display:'block'}).appendTo(".mkdru-below");
+jQuery('.mkdru-status').css({display:'block'}).appendTo('.mkdru-below');
 
 // Search result item.
 Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
