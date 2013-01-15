@@ -2,7 +2,12 @@
 var results = jQuery('<table><thead><tr><th>'+Drupal.t('Title')+'</th><th>'+Drupal.t('Author')+'</th><th>'+Drupal.t('Year')+'</th><th>'+Drupal.t('Listen')+'</th></tr></thead><tbody class="mkdru-result-list"></tbody></table>')
 jQuery('.mkdru-result-list').replaceWith(results)
 
-// Search result item
+//jQuery('.page-search-meta .grid-12.region-content .region-inner').prepend(jQuery('<div class="mkdru-facet-section"><div class="mkdru-facet mkdru-facet-Type"><a href="">zzz</a></div></div>'));
+
+// Move status to bottom of search results.
+jQuery('.mkdru-status').css({display:'block'}).appendTo(".mkdru-below");
+
+// Search result item.
 Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
   // Escape if there is no title to avoid showig empty blocks.
   if (hit["md-title"] == undefined) {
