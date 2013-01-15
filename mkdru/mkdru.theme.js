@@ -1,8 +1,11 @@
-// Modify the structure of results
-var results = jQuery('<table><thead><tr><th>'+Drupal.t('Title')+'</th><th>'+Drupal.t('Author')+'</th><th>'+Drupal.t('Year')+'</th><th>'+Drupal.t('Listen')+'</th></tr></thead><tbody class="mkdru-result-list"></tbody></table>')
+// Modify the structure of results.
+var results = jQuery('<table><thead><tr><th>'+Drupal.t('Title')+'</th><th>'+Drupal.t('Author')+'</th><th>'+Drupal.t('Year')+'</th><th>'+Drupal.t('Category')+'</th><th>'+Drupal.t('Listen')+'</th></tr></thead><tbody class="mkdru-result-list"></tbody></table>')
 jQuery('.mkdru-result-list').replaceWith(results)
 
-// Search result item
+// Move status to bottom of search results.
+jQuery('.mkdru-status').css({display:'block'}).appendTo(".mkdru-below");
+
+// Search result item.
 Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
   // Escape if there is no title to avoid showig empty blocks.
   if (hit["md-title"] == undefined) {
@@ -13,7 +16,7 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
       detailLink: detailLink,
       title: hit["md-title"],
       author: hit["md-author"],
-      category: hit["md-title"],
+      category: hit["md-subject"] != undefined ? hit["md-subject"][0] : '',
       year: hit["md-date"],
       external_link: mkdruParseResources(hit.location)
   };
@@ -24,6 +27,7 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
           '<td class="e-mkdru-result-author">{{author}}</td>',
           '<!--<td class="e-mkdru-result-category">{{category}}</td>-->',
           '<td class="e-mkdru-result-year">{{year}}</td>',
+          '<td class="e-mkdru-result-category">{{category}}</td>',
           '<td class="external">{{&external_link}}</td>',
       '</tr>'].join('');
 
@@ -54,7 +58,7 @@ mkdruResourceTitle2ClassName = function(res) {
   return res.match(/(\w+)\s/)[0].toLowerCase();
 };
 
-// Details of found item
+// Details of found item.
 Drupal.theme.prototype.mkdruDetail = function(data, linkBack) {
     return ' ';
 };
@@ -103,12 +107,12 @@ Drupal.theme.prototype.mkdruPager = function (pages, start, current, total, prev
   return Mustache.render(tpl, view);
 };
 
-// Counts
+// Counts.
 Drupal.theme.prototype.mkdruCounts = function(first, last, available, total) {
   return ' '
 };
 
-// Search status
+// Search status.
 Drupal.theme.prototype.mkdruStatus = function(activeClients, clients) {
 
   if (activeClients == 0)
@@ -125,7 +129,7 @@ jQuery('.mkdru-facet-title').css({cursor:'pointer'}).click(function(){
     jQuery(this).siblings('.mkdru-facet').toggle()
 })
 
-// Facet item
+// Facet item.
 Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
 
   var view = {
