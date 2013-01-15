@@ -124,10 +124,13 @@ Drupal.theme.prototype.mkdruStatus = function(activeClients, clients) {
          + clients + Drupal.t(' targets');
 };
 
-// Toggler for facet groups
+// Toggler for facet groups.
 jQuery('.mkdru-facet-title').css({cursor:'pointer'}).click(function(){
     jQuery(this).siblings('.mkdru-facet').toggle()
 })
+
+// By default collapse all facets except first.
+jQuery('.mkdru-facet:not(:first)').toggle();
 
 // Facet item.
 Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
