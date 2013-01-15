@@ -70,7 +70,6 @@ Drupal.theme.prototype.mkdruDetail = function(data, linkBack) {
  * @param next Href for next page.
  */
 Drupal.theme.prototype.mkdruPager = function (pages, start, current, total, prev, next) {
-
   var indexed_pages = [];
   for (key in pages)
       indexed_pages.push({'current': parseInt(key)+parseInt(start)==current, page: parseInt(key)+parseInt(start),'link': pages[key]});
@@ -105,7 +104,8 @@ Drupal.theme.prototype.mkdruPager = function (pages, start, current, total, prev
 
 // Counts
 Drupal.theme.prototype.mkdruCounts = function(first, last, available, total) {
-  return ' '
+  var tpl = '{{first}} to {{last}} of {{available}} available ({{total}} found)';
+  return Mustache.render(tpl, {first: first, last: last, available: available, total: total});
 };
 
 // Search status
@@ -127,7 +127,6 @@ jQuery('.mkdru-facet-title').css({cursor:'pointer'}).click(function(){
 
 // Facet item
 Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
-
   var view = {
       terms: []
   }
@@ -136,7 +135,7 @@ Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
       view.terms.push(terms[key]);
     }
   }
-  var tpl = '{{#terms}}<a href="{{toggleLink}}" {{#selected}}class="cross"{{/selected}}>{{#selected}}<strong>{{/selected}}{{name}}{{#selected}}</strong>{{/selected}}</a><br />{{/terms}}'
+  var tpl = '{{#terms}}<a href="{{toggleLink}}" {{#selected}}class="cross"{{/selected}}>{{#selected}}<strong>{{/selected}}{{name}}{{#selected}}</strong>{{/selected}} ({{freq}})</a><br />{{/terms}}'
 
   return Mustache.render(tpl, view);
 };
