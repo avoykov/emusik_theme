@@ -45,7 +45,7 @@
     // Handle changes of hash.
     jQuery(window).hashchange(function() {
 
-      if (query.facet_group == undefined) {
+      if (query == undefined || query.facet_group == undefined) {
         return;
       }
 
