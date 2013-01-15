@@ -13,22 +13,22 @@
     var results = $('<div class="grid-9 omega"></div>');
     setTimeout(function() {
 
-      // Adopt mkdru facets markup.
+      // Adapt mkdru facets markup.
       $('.mkdru-facet-section').appendTo(facets);
       facets.prependTo($('.page-search-meta .grid-12.region-content .region-inner'));
 
-      // Adopt mkdru search result markup.
+      // Adapt mkdru search result markup.
       $('.page-search-meta .region-content .block-system-main').appendTo(results);
       results.appendTo($('.page-search-meta .grid-12.region-content .region-inner'));
 
       // Create custom facet group on top of search.
       var uri_fragment = $.deparam.fragment();
       var facets_ontop = $('<div class="mkdru-facet-section"><h3 class="mkdru-facet-title"></h3><div class="mkdru-facet mkdru-facet-custom"></div></div>');
-      $.each(custom_facets, function(i,e){
-        var link = $('<a href="">'+e.name+'</a> ').fragment($.extend(uri_fragment, e.fragment, {'facet_group': e.key}));
+      $.each(custom_facets, function(i, e){
+        var link = $('<a href="">' + e.name + '</a> ').fragment($.extend(uri_fragment, e.fragment, {'facet_group': e.key}));
         $('.mkdru-facet-custom', facets_ontop).append(link);
       });
-      $('.mkdru-facet-custom', facets_ontop).append('<a href="'+'/search/node/' + Drupal.settings.mkdru.search_query+'">'+Drupal.t('Editorial')+'</a>');
+      $('.mkdru-facet-custom', facets_ontop).append('<a href="' + '/search/node/' + Drupal.settings.mkdru.search_query+'">' + Drupal.t('Editorial') + '</a>');
 
       facets_ontop.prependTo($('.page-search-meta .grid-12.region-content .grid-9'));
     }, 1000);
@@ -42,28 +42,29 @@
       $(this).find('.field-name-body').prepend($(this).find('header'));
     });
 
-    // Handle changes of hash
-    jQuery(window).hashchange(function(){
+    // Handle changes of hash.
+    jQuery(window).hashchange(function() {
 
-      if (query.facet_group == undefined)
+      if (query.facet_group == undefined) {
         return;
+      }
 
       var query = jQuery.deparam.fragment();
 
       if (query.facet_group == 'streaming') {
         // Re-order facets.
-        jQuery(".mkdru-facet-section:has(.mkdru-facet-source):gt(0)").insertBefore(jQuery(".grid-3.alpha .mkdru-facet-section:first"));
-        jQuery(".mkdru-facet-section:has(.mkdru-facet-Album)").insertBefore(jQuery(".grid-3.alpha .mkdru-facet-section:first"));
-        jQuery(".mkdru-facet-section:has(.mkdru-facet-Date)").insertBefore(jQuery(".grid-3.alpha .mkdru-facet-section:first"));
-        jQuery(".mkdru-facet-section:has(.mkdru-facet-author)").insertBefore(jQuery(".grid-3.alpha .mkdru-facet-section:first"));
-        jQuery(".mkdru-facet-section:has(.mkdru-facet-Type)").insertBefore(jQuery(".grid-3.alpha .mkdru-facet-section:first"));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-source):gt(0)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-Album)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-Date)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-author)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-Type)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
       } else {
         // @TODO: Make this by making backup before ordering.
-        jQuery(".mkdru-facet-section:has(.mkdru-facet-Type):gt(0)").insertBefore(jQuery(".grid-3.alpha .mkdru-facet-section:first"));
-        jQuery(".mkdru-facet-section:has(.mkdru-facet-Date)").insertBefore(jQuery(".grid-3.alpha .mkdru-facet-section:first"));
-        jQuery(".mkdru-facet-section:has(.mkdru-facet-Album)").insertBefore(jQuery(".grid-3.alpha .mkdru-facet-section:first"));
-        jQuery(".mkdru-facet-section:has(.mkdru-facet-author)").insertBefore(jQuery(".grid-3.alpha .mkdru-facet-section:first"));
-        jQuery(".mkdru-facet-section:has(.mkdru-facet-source)").insertBefore(jQuery(".grid-3.alpha .mkdru-facet-section:first"));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-Type):gt(0)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-Date)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-Album)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-author)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-source)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
       }
 
     })
