@@ -31,6 +31,8 @@
       $('.mkdru-facet-custom', facets_ontop).append('<a href="' + '/search/node/' + Drupal.settings.mkdru.state.query+'">' + Drupal.t('Editorial') + '</a>');
 
       facets_ontop.prependTo($('.page-search-meta .grid-12.region-content .grid-9'));
+
+      window.facets_backup = facets.clone().detach();
     }, 1000);
 
     $('.mkdru-facet-title').live("click", function() {
@@ -50,23 +52,20 @@
         return;
       }
 
+      var container = jQuery('.grid-3.alpha');
       if (query.facet_group == 'streaming') {
         // Re-order facets.
-        jQuery('.mkdru-facet-section:has(.mkdru-facet-source):gt(0)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
-        jQuery('.mkdru-facet-section:has(.mkdru-facet-Album)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
-        jQuery('.mkdru-facet-section:has(.mkdru-facet-Date)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
-        jQuery('.mkdru-facet-section:has(.mkdru-facet-author)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
-        jQuery('.mkdru-facet-section:has(.mkdru-facet-Type)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
-      } else {
-        // @TODO: Make this by making backup before ordering.
-        jQuery('.mkdru-facet-section:has(.mkdru-facet-Type):gt(0)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
-        jQuery('.mkdru-facet-section:has(.mkdru-facet-Date)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
-        jQuery('.mkdru-facet-section:has(.mkdru-facet-Album)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
-        jQuery('.mkdru-facet-section:has(.mkdru-facet-author)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
-        jQuery('.mkdru-facet-section:has(.mkdru-facet-source)').insertBefore(jQuery('.grid-3.alpha .mkdru-facet-section:first'));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-source):gt(0)').insertBefore(jQuery('.mkdru-facet-section:first', container));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-Album)').insertBefore(jQuery('.mkdru-facet-section:first', container));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-Date)').insertBefore(jQuery('.mkdru-facet-section:first', container));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-author)').insertBefore(jQuery('.mkdru-facet-section:first', container));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-Type)').insertBefore(jQuery('.mkdru-facet-section:first', container));
+      } else if (container[0] != window.facets_backup[0]) {
+        // Restore original order of facets.
+        container.replaceWith(window.facets_backup.clone());
       }
 
-    })
+    });
 
   });
 })(jQuery);
