@@ -942,6 +942,66 @@ ul li.leaf {
   font-size: 1.2em;
 }
 
+/* Tag cloud styles */
+
+.pane-tagclouds-2 .pane-content {
+  background: #f0f0f0;
+  min-height: 380px;
+  padding: 10px;
+}
+
+.wrapper.tagclouds {
+  text-align : left;
+  margin-right: 0;
+}
+
+.tagclouds {
+  font-weight: bold;
+  letter-spacing: .05em;
+  line-height: 20px;
+  margin-right: 1.5em;
+  text-transform: uppercase;
+}
+
+.tagclouds.level1 {
+  font-size : 1em;
+}
+
+.tagclouds.level2 {
+  font-size : 1.1em;
+}
+
+.tagclouds.level3 {
+  font-size : 1.2em;
+}
+
+.tagclouds.level4 {
+  font-size : 1.3em;
+}
+
+.tagclouds.level5 {
+  font-size : 1.4em;
+}
+
+.tagclouds.level6 {
+  font-size : 1.5em;
+}
+.tagclouds.level7 {
+  font-size : 1.6em;
+}
+
+.tagclouds.level8 {
+  font-size : 1.7em;
+}
+
+.tagclouds.level9 {
+  font-size : 1.7em;
+}
+
+.tagclouds.level10 {
+  font-size : 1.7em;
+}
+
 #search-block-form input[name="search_block_form"] {
   color: #fff;
 }
