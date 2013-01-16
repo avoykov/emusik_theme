@@ -1002,6 +1002,11 @@ ul li.leaf {
   font-size : 1.7em;
 }
 
+.page-search-meta .mkdru-counts {
+  display: block;
+  margin-bottom: 10px;
+}
+
 #search-block-form input[name="search_block_form"] {
   color: #fff;
 }
