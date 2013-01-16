@@ -28,7 +28,7 @@
         var link = $('<a href="">' + e.name + '</a> ').fragment($.extend(uri_fragment, e.fragment, {'facet_group': e.key}));
         $('.mkdru-facet-custom', facets_ontop).append(link);
       });
-      $('.mkdru-facet-custom', facets_ontop).append('<a href="' + '/search/node/' + Drupal.settings.mkdru.search_query+'">' + Drupal.t('Editorial') + '</a>');
+      $('.mkdru-facet-custom', facets_ontop).append('<a href="' + '/search/node/' + Drupal.settings.mkdru.state.query+'">' + Drupal.t('Editorial') + '</a>');
 
       facets_ontop.prependTo($('.page-search-meta .grid-12.region-content .grid-9'));
     }, 1000);
@@ -45,7 +45,7 @@
     // Handle changes of hash.
     jQuery(window).hashchange(function() {
 
-      if (query.facet_group == undefined) {
+      if (query == undefined || query.facet_group == undefined) {
         return;
       }
 
