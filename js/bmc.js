@@ -45,11 +45,10 @@
     // Handle changes of hash.
     jQuery(window).hashchange(function() {
 
-      if (query == undefined || query.facet_group == undefined) {
+      var query = jQuery.deparam.fragment();
+      if (query.facet_group == undefined) {
         return;
       }
-
-      var query = jQuery.deparam.fragment();
 
       if (query.facet_group == 'streaming') {
         // Re-order facets.
