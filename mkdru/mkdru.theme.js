@@ -142,7 +142,7 @@ Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
       view.terms.push(terms[key]);
     }
   }
-  var tpl = '{{#terms}}<a href="{{toggleLink}}" {{#selected}}class="cross"{{/selected}}>{{#selected}}<strong>{{/selected}}{{name}}{{#selected}}</strong>{{/selected}} ({{freq}})</a><br />{{/terms}}'
+  var tpl = '{{#terms}}<a href="{{toggleLink}}" {{#selected}}class="cross"{{/selected}}>{{#selected}}<strong>{{/selected}}{{name}}{{#selected}}</strong>{{/selected}} (<span class="facet-freq">{{freq}}</span>)</a><br />{{/terms}}'
 
   return Mustache.render(tpl, view);
 };
