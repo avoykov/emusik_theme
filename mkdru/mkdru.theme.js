@@ -1,10 +1,3 @@
-// Modify the structure of results.
-var results = jQuery('<table><thead><tr><th>'+Drupal.t('Title')+'</th><th>'+Drupal.t('Author')+'</th><th>'+Drupal.t('Year')+'</th><th>'+Drupal.t('Category')+'</th><th>'+Drupal.t('Listen')+'</th></tr></thead><tbody class="mkdru-result-list"></tbody></table>')
-jQuery('.mkdru-result-list').replaceWith(results)
-
-// Move status to bottom of search results.
-jQuery('.mkdru-status').css({display:'block'}).appendTo('.mkdru-below');
-
 // Search result item.
 Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
   // Escape if there is no title to avoid showig empty blocks.
@@ -64,7 +57,7 @@ Drupal.theme.prototype.mkdruDetail = function(data, linkBack) {
 };
 
 /**
- * Pager theme
+ * Pager theme.
  *
  * @param pages Array of hrefs for page links.
  * @param start Number of first page.
