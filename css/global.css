@@ -962,6 +962,7 @@ ul li.leaf {
 .pane-tagclouds-2 .pane-content {
   background: #f0f0f0;
   min-height: 380px;
+  overflow: hidden;
   padding: 10px;
 }
 
