@@ -1022,6 +1022,10 @@ ul li.leaf {
   margin-bottom: 10px;
 }
 
+.not-front .row-1 .grid-3 .panel-pane {
+  margin-bottom: 20px;
+}
+
 #search-block-form input[name="search_block_form"] {
   color: #fff;
 }
