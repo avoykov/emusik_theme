@@ -519,6 +519,15 @@ ul li.leaf {
   display: none;
 }
 
+.mkdru-counts {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.mkdru-status {
+  float: right;
+}
+
 .page-search-meta h1.title {
   font-size: 1.8em;
   letter-spacing: .05em;
