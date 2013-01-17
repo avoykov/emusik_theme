@@ -117,13 +117,15 @@ Drupal.theme.prototype.mkdruStatus = function(activeClients, clients) {
          + clients + Drupal.t(' targets');
 };
 
-// Toggler for facet groups.
-jQuery('.mkdru-facet-title').css({cursor:'pointer'}).click(function(){
-    jQuery(this).siblings('.mkdru-facet').toggle()
-})
+// Toggler for facet.
+jQuery('.mkdru-facet-title').css({cursor:'pointer'}).live("click", function() {
+  jQuery(this).parent().toggleClass('closed-facet-group');
+  jQuery(this).siblings('.mkdru-facet').toggle()
+});
 
 // By default collapse all facets except first.
-jQuery('.mkdru-facet:not(:first)').toggle();
+jQuery('.mkdru-facet:not(:first)').hide().parent().addClass('closed-facet-group');
+jQuery('.mkdru-facet:first').show().parent().removeClass('closed-facet-group');
 
 // Facet item.
 Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
