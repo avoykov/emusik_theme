@@ -224,10 +224,16 @@ ul li.leaf {
   max-width: 100%;
 }
 
-.nodes .summary {
+.nodes .summary,
+.page-node .node .summary {
   font-size: 1.4em;
   font-weight: bold;
   line-height: 1.3em;
+}
+
+.page-node .node .summary {
+  color: #6c6c6c;
+  letter-spacing: .05em;
 }
 
 .node .author {
@@ -517,6 +523,15 @@ ul li.leaf {
 
 .mkdru-pager span:first-child:before {
   display: none;
+}
+
+.mkdru-counts {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.mkdru-status {
+  float: right;
 }
 
 .page-search-meta h1.title {
