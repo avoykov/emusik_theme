@@ -966,6 +966,10 @@ ul li.leaf {
   padding: 10px;
 }
 
+.pane-tagclouds-2 .more-link {
+  display: none;
+}
+
 .wrapper.tagclouds {
   text-align: left;
   margin-right: 0;
