@@ -14,13 +14,8 @@
         .append($('.page-search-meta .region-content .block-system-main'));
 
       init_facet_groups().prependTo($('.page-search-meta .grid-12.region-content .grid-9'));
-      window.facets_backup = facets.clone();
 
     }, 1000);
-
-    $('.mkdru-facet-title').live("click", function() {
-      $(this).parent().toggleClass('closed-facet-group');
-    });
 
     // Playlist title.
     $('.pane-emusik-playlist .node').each(function() {
@@ -36,7 +31,12 @@
       }
 
       var container = jQuery('.grid-3.alpha');
+      if (window.facets_backup == undefined) {
+        window.facets_backup = container;
+      }
+
       if (query.facet_group == 'streaming') {
+        window.facets_backup = container.clone(true);
         // Re-order facets.
         jQuery('.mkdru-facet-section:has(.mkdru-facet-source):gt(0)').insertBefore(jQuery('.mkdru-facet-section:first', container));
         jQuery('.mkdru-facet-section:has(.mkdru-facet-Album)').insertBefore(jQuery('.mkdru-facet-section:first', container));
@@ -46,8 +46,13 @@
       }
       else if (container[0] != window.facets_backup[0]) {
         // Restore original order of facets.
-        container.replaceWith(window.facets_backup.clone());
+        container.replaceWith(window.facets_backup.clone(true));
       }
+
+      // By default collapse all facets except first.
+      jQuery('.mkdru-facet').empty();
+      jQuery('.mkdru-facet:not(:first)').hide().parent().addClass('closed-facet-group');
+      jQuery('.mkdru-facet:first').show().parent().removeClass('closed-facet-group');
 
     });
   });
@@ -76,7 +81,7 @@
 
     // Create custom facet group on top of search.
     var uri_fragment = $.deparam.fragment();
-    var facets_ontop = $('<div class="mkdru-facet-section"><h3 class="mkdru-facet-title"></h3><div class="mkdru-facet mkdru-facet-groups"></div></div>');
+    var facets_ontop = $('<div class="mkdru-facet-section"><h3 class="mkdru-facet-title"></h3><div class="mkdru-facet-groups"></div></div>');
     $.each(custom_facets, function(i, e) {
       $('<a href="">' + e.name + ' (<span class="mkdru-facet-group-amount '+e.key+'">0</span>)</a> ')
         .fragment($.extend(uri_fragment, e.fragment, {'facet_group': e.key}))
