@@ -870,6 +870,7 @@ ul li.leaf {
   font-style: italic;
   font-weight: bold;
   margin-left: 5px;
+  padding-right: 5px;
   width: 10px;
 }
 
