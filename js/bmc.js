@@ -29,28 +29,40 @@
 
       related_sources = [];
 
+      // Handle only facet_group params.
       var query = jQuery.deparam.fragment();
       if (query.facet_group == undefined) {
         return;
       }
 
       var container = jQuery('.grid-3.alpha');
+
+      // Restore original order of facets.
+      container.restore = function(backup) {
+        if (this[0] != backup[0]) {
+          this.replaceWith(backup.clone(true));
+        }
+      };
+
+      // Store the backup.
       if (window.facets_backup == undefined) {
-        window.facets_backup = container;
+        window.facets_backup = container.clone(true);
       }
 
       if (query.facet_group == 'streaming') {
-        window.facets_backup = container.clone(true);
+        container.restore(window.facets_backup);
         // Re-order facets.
-        jQuery('.mkdru-facet-section:has(.mkdru-facet-source):gt(0)').insertBefore(jQuery('.mkdru-facet-section:first', container));
-        jQuery('.mkdru-facet-section:has(.mkdru-facet-Album)').insertBefore(jQuery('.mkdru-facet-section:first', container));
-        jQuery('.mkdru-facet-section:has(.mkdru-facet-Date)').insertBefore(jQuery('.mkdru-facet-section:first', container));
-        jQuery('.mkdru-facet-section:has(.mkdru-facet-author)').insertBefore(jQuery('.mkdru-facet-section:first', container));
-        jQuery('.mkdru-facet-section:has(.mkdru-facet-Type)').insertBefore(jQuery('.mkdru-facet-section:first', container));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-source):gt(0)').insertBefore(jQuery('.mkdru-facet-section:first'));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-Album)').insertBefore(jQuery('.mkdru-facet-section:first'));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-Date)').insertBefore(jQuery('.mkdru-facet-section:first'));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-author)').insertBefore(jQuery('.mkdru-facet-section:first'));
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-Type)').insertBefore(jQuery('.mkdru-facet-section:first'));
       }
-      else if (container[0] != window.facets_backup[0]) {
-        // Restore original order of facets.
-        container.replaceWith(window.facets_backup.clone(true));
+      else if (query.facet_group == 'books') {
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-author,.mkdru-facet-Type)', container).remove();
+      }
+      else {
+        container.restore(window.facets_backup);
       }
 
       // By default collapse all facets except first.
