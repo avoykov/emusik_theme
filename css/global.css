@@ -870,6 +870,7 @@ ul li.leaf {
   font-style: italic;
   font-weight: bold;
   margin-left: 5px;
+  padding-right: 5px;
   width: 10px;
 }
 
@@ -964,6 +965,10 @@ ul li.leaf {
   min-height: 380px;
   overflow: hidden;
   padding: 10px;
+}
+
+.pane-tagclouds-2 .more-link {
+  display: none;
 }
 
 .wrapper.tagclouds {
