@@ -569,6 +569,10 @@ ul li.leaf {
   padding-left: 33px;
 }
 
+.grid-3 .mkdru-facet a {
+  display: block;
+}
+
 .page-search-meta .grid-12.region-content {
   padding-top: 22px;
 }

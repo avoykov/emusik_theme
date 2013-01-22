@@ -22,8 +22,12 @@
       $(this).find('.field-name-body').prepend($(this).find('header'));
     });
 
+    var related_sources = [];
+
     // Handle changes of hash.
     jQuery(window).hashchange(function() {
+
+      related_sources = [];
 
       var query = jQuery.deparam.fragment();
       if (query.facet_group == undefined) {
@@ -58,6 +62,34 @@
       jQuery('.mkdru-facet-group-amount.'+query.facet_group).parent().addClass('active');
 
     });
+
+    // Show only source terms that exists in search results.
+    $(document).bind('mkdru.onterm', function(event, data) {
+      // Hide all not related facet terms.
+      $('.mkdru-facet-source a:not(.related_source)').hide();
+    });
+
+    // Populate facet terms from search results.
+    $(document).bind('mkdru.onshow', function(event, data) {
+      $.each(data, function(i, elements) {
+        $.each(elements, function(i, e) {
+          var id = '.' + e.location[0]['@id'].replace(/[\.\:]/g, "_");
+          related_sources.push(id);
+        });
+      });
+
+      // Hide all not related facet terms.
+      $('.mkdru-facet-source a:not(.related_source)').hide();
+
+      // Unique values in an array.
+      var sources = $.grep(related_sources, function(v, k) {
+        return $.inArray(v, related_sources) === k;
+      });
+
+      // Show terms found in results.
+      $(sources.join()).addClass('related_source').show();
+    });
+
   });
 
   // Initialize custom facet groups.
