@@ -54,6 +54,9 @@
       jQuery('.mkdru-facet:not(:first)').hide().parent().addClass('closed-facet-group');
       jQuery('.mkdru-facet:first').show().parent().removeClass('closed-facet-group');
 
+      // Mark according link as active.
+      jQuery('.mkdru-facet-group-amount.'+query.facet_group).parent().addClass('active');
+
     });
   });
 
@@ -85,9 +88,15 @@
     $.each(custom_facets, function(i, e) {
       $('<a href="">' + e.name + ' (<span class="mkdru-facet-group-amount '+e.key+'">0</span>)</a> ')
         .fragment($.extend(uri_fragment, e.fragment, {'facet_group': e.key}))
-        .appendTo($('.mkdru-facet-groups', facets_ontop));
+        .appendTo($('.mkdru-facet-groups', facets_ontop))
+        .click(function() {
+          $(this).addClass('active').siblings().removeClass('active');
+        });
     });
     $('.mkdru-facet-groups', facets_ontop).append('<a href="' + '/search/node/' + Drupal.settings.mkdru.state.query+'">' + Drupal.t('Editorial') + '</a>');
+
+    // Activate first group by default.
+    document.location.hash = $('.mkdru-facet-groups a:first', facets_ontop).attr('href');
 
     // Populate facet amounts.
     $(document).bind('mkdru.onterm', function(event, data) {
