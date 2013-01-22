@@ -224,10 +224,16 @@ ul li.leaf {
   max-width: 100%;
 }
 
-.nodes .summary {
+.nodes .summary,
+.page-node .node .summary {
   font-size: 1.4em;
   font-weight: bold;
   line-height: 1.3em;
+}
+
+.page-node .node .summary {
+  color: #6c6c6c;
+  letter-spacing: .05em;
 }
 
 .node .author {
@@ -423,11 +429,13 @@ ul li.leaf {
 }
 
 .mkdru-facet-title {
+  background: url(../images/facets-arrows.png) no-repeat right -24px;
   color: #000;
 }
 
 .closed-facet-group .mkdru-facet-title {
   color: #3f9666;
+  background-position: right 4px;
 }
 
 .region-content .grid-9 .mkdru-facet-title,
@@ -515,6 +523,15 @@ ul li.leaf {
 
 .mkdru-pager span:first-child:before {
   display: none;
+}
+
+.mkdru-counts {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.mkdru-status {
+  float: right;
 }
 
 .page-search-meta h1.title {
@@ -809,7 +826,6 @@ ul li.leaf {
 .pane-node-field-category,
 .pane-node-ding-content-tags {
   color: #3f966b;
-  float: left;
   font-weight: bold;
   letter-spacing: .05em;
   margin-right: 5px;
@@ -834,6 +850,15 @@ ul li.leaf {
   margin: 0;
 }
 
+.pane-node-field-ding-material-type a,
+.pane-node-field-ding-article-type a,
+.pane-node-field-ding-supplier a,
+.pane-node-field-artist-ablum-track a,
+.pane-node-field-category a,
+.pane-node-ding-content-tags a {
+  font-weight: bold;
+}
+
 .pane-node-field-ding-material-type a:after,
 .pane-node-field-ding-article-type a:after,
 .pane-node-field-ding-supplier a:after,
@@ -845,6 +870,7 @@ ul li.leaf {
   font-style: italic;
   font-weight: bold;
   margin-left: 5px;
+  padding-right: 5px;
   width: 10px;
 }
 
@@ -930,4 +956,97 @@ ul li.leaf {
 .node-type-emusik-playlist .field-type-text-with-summary {
   color: #666;
   font-size: 1.2em;
+}
+
+/* Tag cloud styles */
+
+.pane-tagclouds-2 .pane-content {
+  background: #f0f0f0;
+  min-height: 380px;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.pane-tagclouds-2 .more-link {
+  display: none;
+}
+
+.wrapper.tagclouds {
+  text-align: left;
+  margin-right: 0;
+}
+
+.tagclouds {
+  font-weight: bold;
+  letter-spacing: .05em;
+  line-height: 20px;
+  margin-right: 1.5em;
+  text-transform: uppercase;
+}
+
+.tagclouds.level1 {
+  font-size: 1em;
+}
+
+.tagclouds.level2 {
+  font-size: 1.1em;
+}
+
+.tagclouds.level3 {
+  font-size: 1.2em;
+}
+
+.tagclouds.level4 {
+  font-size: 1.3em;
+}
+
+.tagclouds.level5 {
+  font-size: 1.4em;
+}
+
+.tagclouds.level6 {
+  font-size: 1.5em;
+}
+.tagclouds.level7 {
+  font-size: 1.6em;
+}
+
+.tagclouds.level8 {
+  font-size: 1.7em;
+}
+
+.tagclouds.level9 {
+  font-size: 1.7em;
+}
+
+.tagclouds.level10 {
+  font-size: 1.7em;
+}
+
+.page-search-meta .mkdru-counts {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.not-front .row-1 .grid-3 .panel-pane {
+  margin-bottom: 20px;
+}
+
+#search-block-form input[name="search_block_form"] {
+  color: #fff;
+}
+#search-block-form input[name="search_block_form"]::-webkit-input-placeholder {
+  color: #fff;
+}
+#search-block-form input[name="search_block_form"]:-moz-placeholder {
+  color: #fff;
+}
+#search-block-form input[name="search_block_form"]::-moz-placeholder {
+  color: #fff;
+}
+#search-block-form input[name="search_block_form"]:-ms-input-placeholder {
+  color: #fff;
+}
+#search-block-form input[name="search_block_form"].placeholder-text {
+  color: #fff;
 }

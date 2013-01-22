@@ -1,8 +1,4 @@
-// Modify the structure of results
-var results = jQuery('<table><thead><tr><th>'+Drupal.t('Title')+'</th><th>'+Drupal.t('Author')+'</th><th>'+Drupal.t('Year')+'</th><th>'+Drupal.t('Listen')+'</th></tr></thead><tbody class="mkdru-result-list"></tbody></table>')
-jQuery('.mkdru-result-list').replaceWith(results)
-
-// Search result item
+// Search result item.
 Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
   // Escape if there is no title to avoid showig empty blocks.
   if (hit["md-title"] == undefined) {
@@ -13,7 +9,7 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
       detailLink: detailLink,
       title: hit["md-title"],
       author: hit["md-author"],
-      category: hit["md-title"],
+      category: hit["md-subject"] != undefined ? hit["md-subject"][0] : '',
       year: hit["md-date"],
       external_link: mkdruParseResources(hit.location)
   };
@@ -24,6 +20,7 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
           '<td class="e-mkdru-result-author">{{author}}</td>',
           '<!--<td class="e-mkdru-result-category">{{category}}</td>-->',
           '<td class="e-mkdru-result-year">{{year}}</td>',
+          '<td class="e-mkdru-result-category">{{category}}</td>',
           '<td class="external">{{&external_link}}</td>',
       '</tr>'].join('');
 
@@ -34,10 +31,11 @@ mkdruParseResources = function(data) {
   var resources = {};
   var tpl = '<a href="{{link}}" class="{{classname}}" target="_blank"></a>';
   for(var i in data) {
-    if (!data[i]['md-electronic-url']) continue;
+    var url = choose_url(data[i]);
+    if (!url) continue;
     var classname = mkdruResourceTitle2ClassName(data[i]['@name']);
     var view = {
-      link : data[i]['md-electronic-url'][0],
+      link : url,
       classname: classname
     };
     resources[classname] = Mustache.render(tpl, view);
@@ -53,13 +51,13 @@ mkdruResourceTitle2ClassName = function(res) {
   return res.match(/(\w+)\s/)[0].toLowerCase();
 };
 
-// Details of found item
+// Details of found item.
 Drupal.theme.prototype.mkdruDetail = function(data, linkBack) {
     return ' ';
 };
 
 /**
- * Pager theme
+ * Pager theme.
  *
  * @param pages Array of hrefs for page links.
  * @param start Number of first page.
@@ -69,7 +67,6 @@ Drupal.theme.prototype.mkdruDetail = function(data, linkBack) {
  * @param next Href for next page.
  */
 Drupal.theme.prototype.mkdruPager = function (pages, start, current, total, prev, next) {
-
   var indexed_pages = [];
   for (key in pages)
       indexed_pages.push({'current': parseInt(key)+parseInt(start)==current, page: parseInt(key)+parseInt(start),'link': pages[key]});
@@ -102,12 +99,13 @@ Drupal.theme.prototype.mkdruPager = function (pages, start, current, total, prev
   return Mustache.render(tpl, view);
 };
 
-// Counts
+// Counts.
 Drupal.theme.prototype.mkdruCounts = function(first, last, available, total) {
-  return ' '
+  var tpl = '{{first}} to {{last}} of {{available}} available ({{total}} found)';
+  return Mustache.render(tpl, {first: first, last: last, available: available, total: total});
 };
 
-// Search status
+// Search status.
 Drupal.theme.prototype.mkdruStatus = function(activeClients, clients) {
 
   if (activeClients == 0)
@@ -119,14 +117,18 @@ Drupal.theme.prototype.mkdruStatus = function(activeClients, clients) {
          + clients + Drupal.t(' targets');
 };
 
-// Toggler for facet groups
-jQuery('.mkdru-facet-title').css({cursor:'pointer'}).click(function(){
-    jQuery(this).siblings('.mkdru-facet').toggle()
-})
+// Toggler for facet.
+jQuery('.mkdru-facet-title').css({cursor:'pointer'}).live("click", function() {
+  jQuery(this).parent().toggleClass('closed-facet-group');
+  jQuery(this).siblings('.mkdru-facet').toggle()
+});
 
-// Facet item
+// By default collapse all facets except first.
+jQuery('.mkdru-facet:not(:first)').hide().parent().addClass('closed-facet-group');
+jQuery('.mkdru-facet:first').show().parent().removeClass('closed-facet-group');
+
+// Facet item.
 Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
-
   var view = {
       terms: []
   }
@@ -135,7 +137,7 @@ Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
       view.terms.push(terms[key]);
     }
   }
-  var tpl = '{{#terms}}<a href="{{toggleLink}}" {{#selected}}class="cross"{{/selected}}>{{#selected}}<strong>{{/selected}}{{name}}{{#selected}}</strong>{{/selected}}</a><br />{{/terms}}'
+  var tpl = '{{#terms}}<a href="{{toggleLink}}" {{#selected}}class="cross"{{/selected}}>{{#selected}}<strong>{{/selected}}{{name}}{{#selected}}</strong>{{/selected}} (<span class="facet-freq">{{freq}}</span>)</a><br />{{/terms}}'
 
   return Mustache.render(tpl, view);
 };
