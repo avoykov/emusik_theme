@@ -1045,3 +1045,16 @@ ul li.leaf {
 #search-block-form input[name="search_block_form"].placeholder-text {
   color: #fff;
 }
+
+/* Equal columns height */
+.panel-display > .panel-panel {
+  overflow: hidden;
+  clear: both;
+}
+
+.panel-panel > .panel-panel {
+  float: left;
+  padding-bottom: 100000px;
+  margin-bottom: -100000px;
+  background-color: white;
+}
