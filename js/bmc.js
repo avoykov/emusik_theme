@@ -130,21 +130,22 @@
     var uri_fragment = $.deparam.fragment();
     var facets_ontop = $('<div class="mkdru-facet-section"><h3 class="mkdru-facet-title"></h3><div class="mkdru-facet-groups"></div></div>');
     $.each(custom_facets, function(i, e) {
-      $('<a href="">' + e.name + ' (<span class="mkdru-facet-group-amount '+e.key+'">0</span>)</a> ')
+      $('<a href="">' + e.name + ' (<span class="mkdru-facet-group-amount ' + e.key + '">0</span>)</a> ')
         .fragment($.extend(uri_fragment, e.fragment, {'facet_group': e.key}))
         .appendTo($('.mkdru-facet-groups', facets_ontop))
         .click(function() {
           $(this).addClass('active').siblings().removeClass('active');
         });
     });
-    $('.mkdru-facet-groups', facets_ontop).append('<a href="' + '/search/node/' + Drupal.settings.mkdru.state.query+'">' + Drupal.t('Editorial') + '</a>');
+    $('.mkdru-facet-groups', facets_ontop)
+      .append('<a href="' + '/search/node/' + Drupal.settings.mkdru.state.query + '">' + Drupal.t('Editorial') + ' (<span class="mkdru-facet-group-amount editorial">0</span>)</a>');
 
     // Activate first group by default.
     document.location.hash = $('.mkdru-facet-groups a:first', facets_ontop).attr('href');
 
     // Populate facet amounts.
     $(document).bind('mkdru.onterm', function(event, data) {
-      $('.mkdru-facet-group-amount').text(0);
+      $('.mkdru-facet-group-amount:not(.editorial)').text(0);
       $.each(data, function(i, e) {
         $.each(e, function(i, term) {
           $.each(custom_facets, function(i, e) {
@@ -157,6 +158,11 @@
           });
         });
       });
+    });
+
+    // Amount of editorial search results.
+    $.getJSON('/json/search/node/' + Drupal.settings.mkdru.state.query, function(data) {
+      $('.mkdru-facet-group-amount.editorial').text(data.count);
     });
 
     return facets_ontop;
