@@ -457,6 +457,10 @@ ul li.leaf {
   margin: 15px;
 }
 
+.region-content .grid-9 .mkdru-facet-section a.active {
+  color: black;
+}
+
 .mkdru-results {
   background: #fff;
   padding: 16px 16px 32px 24px;
@@ -563,6 +567,10 @@ ul li.leaf {
 
 .grid-3 .mkdru-facet {
   padding-left: 33px;
+}
+
+.grid-3 .mkdru-facet a {
+  display: block;
 }
 
 .page-search-meta .grid-12.region-content {
@@ -807,6 +815,13 @@ ul li.leaf {
 .mkdru-result-list .external a.youtube:hover,
 .mkdru-results tr:hover .external a.youtube {
   background-position: -152px 0;
+}
+
+.pane-emusik-playlist table a.fm,
+.mkdru-result-list .external a.fm,
+.mkdru-result-list .external a.fm:hover,
+.mkdru-results tr:hover .external a.fm {
+  background-position: -92px 0;
 }
 
 .mkdru-result-list .external a.dbc,
