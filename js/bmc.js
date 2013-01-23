@@ -38,8 +38,8 @@
       var container = jQuery('.grid-3.alpha');
 
       // Restore original order of facets.
-      container.restore = function(backup) {
-        if (this[0] != backup[0]) {
+      container.restore = function (backup) {
+        if (this[0] !== backup[0]) {
           this.replaceWith(backup.clone(true));
         }
       };
@@ -71,7 +71,7 @@
       jQuery('.mkdru-facet:first').show().parent().removeClass('closed-facet-group');
 
       // Mark according link as active.
-      jQuery('.mkdru-facet-group-amount.'+query.facet_group).parent().addClass('active');
+      jQuery('.mkdru-facet-group-amount.' + query.facet_group).parent().addClass('active');
 
     });
 
