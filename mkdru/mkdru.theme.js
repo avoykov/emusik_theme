@@ -48,7 +48,7 @@ mkdruParseResources = function(data) {
 };
 
 mkdruResourceTitle2ClassName = function(res) {
-  return res.match(/(\w+)\s/)[0].toLowerCase();
+  return res.match(/(\w+)\s?/)[0].toLowerCase();
 };
 
 // Details of found item.
