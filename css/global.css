@@ -457,6 +457,10 @@ ul li.leaf {
   margin: 15px;
 }
 
+.region-content .grid-9 .mkdru-facet-section a.active {
+  color: black;
+}
+
 .mkdru-results {
   background: #fff;
   padding: 16px 16px 32px 24px;
@@ -563,6 +567,10 @@ ul li.leaf {
 
 .grid-3 .mkdru-facet {
   padding-left: 33px;
+}
+
+.grid-3 .mkdru-facet a {
+  display: block;
 }
 
 .page-search-meta .grid-12.region-content {
@@ -768,9 +776,9 @@ ul li.leaf {
   background: url(../images/source-icon.png) no-repeat 0 0;
   display: block;
   float: left;
-  height: 17px;
+  height: 16px;
   margin-right: 7px;
-  width: 17px;
+  width: 16px;
 }
 
 .mkdru-result-list .external {
@@ -782,37 +790,46 @@ ul li.leaf {
   text-indent: -9000px;
 }
 
+.pane-emusik-playlist table a.dk,
+.mkdru-result-list .external a.dk,
+.mkdru-result-list .external a.dk:hover,
+.mkdru-results tr:hover .external a.dk {
+  background-position: 0 0;
+}
+
 .pane-emusik-playlist table a.bibzoom,
 .mkdru-result-list .external a.bibzoom,
 .mkdru-result-list .external a.bibzoom:hover,
 .mkdru-results tr:hover .external a.bibzoom {
-  background-position: -27px 0;
+  background-position: 0 -16px;
 }
 
 .pane-emusik-playlist table a.wimp,
 .mkdru-result-list .external a.wimp,
 .mkdru-result-list .external a.wimp:hover,
 .mkdru-results tr:hover .external a.wimp {
-  background-position: -60px 0;
+  background-position: 0 -32px;
+}
+
+.pane-emusik-playlist table a.fm,
+.mkdru-result-list .external a.fm,
+.mkdru-result-list .external a.fm:hover,
+.mkdru-results tr:hover .external a.fm {
+  background-position: 0 -48px;
 }
 
 .pane-emusik-playlist table a.spotify,
 .mkdru-result-list .external a.spotify,
 .mkdru-result-list .external a.spotify:hover,
 .mkdru-results tr:hover .external a.spotify {
-  background-position: -121px 0;
+  background-position: 0 -64px;
 }
 
+.pane-emusik-playlist table a.youtube,
 .mkdru-result-list .external a.youtube,
 .mkdru-result-list .external a.youtube:hover,
 .mkdru-results tr:hover .external a.youtube {
-  background-position: -152px 0;
-}
-
-.mkdru-result-list .external a.dbc,
-.mkdru-result-list .external a.dbc:hover,
-.mkdru-results tr:hover .external a.dbc {
-  display: none;
+  background-position: 0 -80px;
 }
 
 .node-social-icons {

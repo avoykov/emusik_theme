@@ -130,14 +130,18 @@ jQuery('.mkdru-facet:first').show().parent().removeClass('closed-facet-group');
 // Facet item.
 Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
   var view = {
-      terms: []
+    terms: []
   }
   for (var key in terms.slice(0, max)) {
     if (terms[key].name != 'video' && terms[key].name != 'artist') {
+      if (terms[key].id != undefined) {
+        // Escape special chars to use as CSS class.
+        terms[key].id = terms[key].id.replace(/[\.\:]/g, "_");
+      }
       view.terms.push(terms[key]);
     }
   }
-  var tpl = '{{#terms}}<a href="{{toggleLink}}" {{#selected}}class="cross"{{/selected}}>{{#selected}}<strong>{{/selected}}{{name}}{{#selected}}</strong>{{/selected}} (<span class="facet-freq">{{freq}}</span>)</a><br />{{/terms}}'
+  var tpl = '{{#terms}}<a href="{{toggleLink}}" class="{{#selected}}cross{{/selected}} {{id}}">{{#selected}}<strong>{{/selected}}{{name}}{{#selected}}</strong>{{/selected}} (<span class="facet-freq">{{freq}}</span>)</a>{{/terms}}'
 
   return Mustache.render(tpl, view);
 };
