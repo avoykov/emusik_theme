@@ -1084,3 +1084,7 @@ ul li.leaf {
   margin-bottom: -100000px;
   background-color: white;
 }
+
+.hidden {
+  /*display: none;*/
+}
