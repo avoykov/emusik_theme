@@ -98,7 +98,7 @@
         return $.inArray(v, related_sources) === k;
       });
 
-      // Show terms found in results.
+      // Show only terms found in results.
       $(sources.join()).addClass('related_source').show();
     });
 
