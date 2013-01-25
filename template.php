@@ -18,6 +18,34 @@ drupal_add_js(drupal_get_path('theme', 'bmc_theme') . '/mkdru/recipe.js');
 drupal_add_js(drupal_get_path('theme', 'bmc_theme') . '/mkdru/mkdru.theme.js', array('scope' => 'footer', 'weight' => 100));
 
 /**
+ * Implements hook_preprocess_views_view.
+ */
+function bmc_theme_preprocess_views_view(&$vars) {
+
+  if ('ding_node_search' != $vars['view']->name) {
+    return;
+  }
+
+  drupal_add_js(variable_get('pz2_js_path', '/pazpar2/js') . '/pz2.js', array(
+    'type' => 'external',
+    'scope' => 'footer',
+    'defer' => FALSE,
+    'preprocess' => TRUE)
+  );
+  drupal_add_js(drupal_get_path('theme', 'bmc_theme') . '/mkdru/pz2.editorial.js', array(
+    'scope' => 'footer',
+    'weight' => 100)
+  );
+  drupal_add_js(array(
+    'mkdru' => array(
+      'settings' => json_encode(variable_get('mkdru_defaults')),
+      'search_query' => arg(2),
+    )),
+    'setting'
+  );
+}
+
+/**
  * Implements hook_form_alter().
  *
  * Preprocess the search form, adding a placeholder into the textfield.

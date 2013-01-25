@@ -557,6 +557,10 @@ ul li.leaf {
   padding: 20px;
 }
 
+.page-search-node .mkdru-facet-section {
+  margin-top: 22px;
+}
+
 .page-search-meta .grid-12.region-content .grid-3 {
   padding-top: 39px;
 }
