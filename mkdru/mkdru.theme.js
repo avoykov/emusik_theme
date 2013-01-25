@@ -5,138 +5,25 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
     return;
   }
   var view = {
-      recid: 'rec_' + hit.recid,
+      recid: hit.recid[0],
+      recid_html: (new MkdruRecid(hit.recid[0])).toHtmlAttr(),
+      is_album: (jQuery.inArray("album", hit["md-medium"]) > -1),
       detailLink: detailLink,
       title: hit["md-title"],
       author: hit["md-author"],
       category: hit["md-subject"] != undefined ? hit["md-subject"][0] : '',
       year: hit["md-date"],
-      external_link: mkdruParseResources(hit.location),
-      album: null
+      external_link: mkdruParseResources(hit.location)
   };
 
-  var tracks_tpl = [
-    '<table class="e-track-list">',
-      '<thead>',
-        '<tr>',
-          '<th class="b-header position">{{position}}</th>',
-          '<th class="b-header title">{{title}}</th>',
-          '<th class="b-header duration">{{duration}}</th>',
-          '<th class="b-header externals">{{externals}}</th>',
-        '</tr>',
-      '<thead>',
-      '{{#items}}<tbody>',
-        '<tr>',
-          '<td class="b-data position">{{position}}</td>',
-          '<td class="b-data title">{{title}}</td>',
-          '<td class="b-data duration">{{duration}}</td>',
-          '<td class="b-data external">{{#externals}}<a href="{{url}}" class="{{source}}" target="_blank"></a> {{/externals}}</td>',
-        '</tr>',
-      '</tbody>{{/items}}',
-    '</table>',
-  ].join('');
-
-  // Check if record type is album.
-  if (jQuery.inArray("album", hit["md-medium"]) > -1) {
-    view.album = {
-      thumb: 'http://userserve-ak.last.fm/serve/126/150774.jpg',
-      label: {
-        name: Drupal.t('Label'),
-        value: 'label'
-      },
-      date: {
-        name: Drupal.t('Date'),
-        value: 'date'
-      },
-      length: {
-        name: Drupal.t('Length'),
-        value: 'length'
-      },
-      duration: {
-        name: Drupal.t('Duration'),
-        value: 'duration'
-      },
-      tracks: function () {
-        var data = {
-          position: Drupal.t('Position'),
-          title: Drupal.t('Title'),
-          duration: Drupal.t('Duration'),
-          externals: Drupal.t('Externals'),
-          items: [{
-            position: 1,
-            title: 'title',
-            duration: 'duration',
-            externals: [{
-              url: 'http://example.com',
-              source: 'bizboom'
-            }]
-          }]
-        };
-        return Mustache.render(tracks_tpl, data);
-      },
-      bio: {
-        title: Drupal.t('Biography'),
-        content: 'Slash had played with McKagan in Road Crew and with'
-      },
-      suggested_albums: {
-        title: Drupal.t('Other albums'),
-        items: [{url: 'http://example.com', 'title': 'Some title'}],
-      },
-      suggested_articles: {
-        title: Drupal.t('Other articles'),
-        items: [{url: 'http://example.com', 'title': 'Some title'}]
-      }
-    };
-  }
-
   var tpl = [
-    '<tr class="mkdru-result" id="{{recid}}">',
-      '<td class="e-mkdru-result-title">{{title}}</td>',
+    '<tr class="mkdru-result" id="{{recid_html}}">',
+      '<td class="e-mkdru-result-title">{{title}}{{#is_album}} <a href="javascript: bindMkdruDetailsHandler(); mkdru.pz2.record(\'{{recid}}\')">DETAILS</a>{{/is_album}}</td>',
       '<td class="e-mkdru-result-author">{{author}}</td>',
       '<td class="e-mkdru-result-year">{{year}}</td>',
       '<td class="e-mkdru-result-category">{{category}}</td>',
       '<td class="external">{{&external_link}}</td>',
-    '</tr>',
-    '{{#album}}<tr class="mkdru-result hidden">',
-      '<td colspan="5" class="mkdru-result-details">',
-        '<div class="mkdru-result-details-album">',
-          '<div class="b-album-info">',
-            '<div class="e-album-info-thumb"><img src="{{album.thumb}}" ></div>',
-            '<div class="e-album-info-item label">',
-              '<span class="b-album-info-item name">{{album.label.name}}</span>',
-              '<span class="b-album-info-item value">{{album.label.value}}</span>',
-            '</div>',
-            '<div class="e-album-info-item date">',
-              '<span class="b-album-info-item name">{{album.date.name}}</span>',
-              '<span class="b-album-info-item value">{{album.date.value}}</span>',
-            '</div>',
-            '<div class="e-album-info-item length">',
-              '<span class="b-album-info-item name">{{album.length.name}}</span>',
-              '<span class="b-album-info-item value">{{album.length.value}}</span>',
-            '</div>',
-            '<div class="e-album-info-item duration">',
-              '<span class="b-album-info-item name">{{album.duration.name}}</span>',
-              '<span class="b-album-info-item value">{{album.duration.value}}</span>',
-            '</div>',
-          '</div>',
-          '<div class="b-tracks">{{&tracks}}</div>',
-        '</div>',
-        '<div class="mkdru-result-details-suggestions">',
-          '<div class="e-bio">',
-            '<h4 class="b-bio-title">{{bio.title}}</h4>',
-            '<div class="b-bio-content">{{bio.content}}</div>',
-          '</div>',
-          '<div class="e-suggestion albums">',
-            '<h4 class="b-suggestion-title">{{title}}</h4>',
-            '<ul class="b-suggestions">{{#suggested_albums}}<li><a href="{{url}}">{{title}}</a></li></ul>{{/suggested_albums}}</ul>',
-          '</div>',
-          '<div class="e-suggestion editorial">',
-            '<h4 class="b-suggestion-title">{{title}}</h4>',
-            '<ul class="b-suggestions">{{#suggested_articles}}<li><a href="{{url}}">{{title}}</a></li></ul>{{/suggested_articles}}</ul>',
-          '</div>',
-        '</div>',
-      '</td>',
-    '</tr>{{/album}}',
+    '</tr>'
   ].join('');
 
   return Mustache.render(tpl, view);
@@ -163,7 +50,144 @@ mkdruParseResources = function(data) {
 };
 
 mkdruResourceTitle2ClassName = function(res) {
-  return res.match(/(\w+)\s?/)[0].toLowerCase();
+  return res.match(/(\w+)?/)[0].toLowerCase();
+};
+
+// Item details.
+Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
+
+  var view = {
+    thumb: data.lfm[1].album[0].image[2]['#text'],
+    label: {
+      name: Drupal.t('Label'),
+      value: data.lfm[1].album[0].name[0]
+    },
+    date: {
+      name: Drupal.t('Date'),
+      value: data.lfm[1].album[0].releasedate[0]
+    },
+    length: {
+      name: Drupal.t('Length'),
+      value: data.lfm[1].album[0].tracks[0].track.length
+    },
+    duration: {
+      name: Drupal.t('Duration'),
+      value: function () {
+        var duration = 0;
+        jQuery.each(data.lfm[1].album[0].tracks[0].track, function (i, e) {
+          duration += parseInt(e.duration[0]);
+        });
+
+        return duration.toString().toHHMMSS();
+      }
+    },
+    tracks: function () {
+      var tracks_view = {
+        position: Drupal.t('Position'),
+        title: Drupal.t('Title'),
+        duration: Drupal.t('Duration'),
+        externals: Drupal.t('Externals'),
+        items: []
+      };
+
+      jQuery.each(data.lfm[1].album[0].tracks[0].track, function (i, e) {
+        tracks_view.items.push({
+          position: i+1,
+          title: e.name[0],
+          duration: e.duration[0].toHHMMSS(),
+          externals: [{
+            url: e.url[0],
+            source: 'fm'
+          }]
+        })
+      });
+
+      return Mustache.render(tracks_tpl, tracks_view);
+    },
+    bio: {
+      title: Drupal.t('Biography'),
+      content: data.lfm[0].artist[0].bio[0].summary[0].replace(/(<([^>]+)>)/ig, ""),
+      thumb: data.lfm[0].artist[0].image[2]['#text']
+    },
+    suggested_albums: {
+      /* This will be replaced while implementation.
+      title: Drupal.t('Other albums'),
+      items: [{url: 'http://example.com', 'title': 'Some title'}]
+      */
+    },
+    suggested_articles: {
+      /* This will be replaced while implementation.
+      title: Drupal.t('Other articles'),
+      items: [{url: 'http://example.com', 'title': 'Some title'}]
+      */
+    }
+  };
+
+  var tracks_tpl = [
+    '<table class="e-track-list">',
+      '<thead>',
+        '<tr>',
+          '<th class="b-header position">{{position}}</th>',
+          '<th class="b-header title">{{title}}</th>',
+          '<th class="b-header duration">{{duration}}</th>',
+          '<th class="b-header externals">{{externals}}</th>',
+        '</tr>',
+      '<thead>',
+      '{{#items}}<tbody>',
+        '<tr>',
+          '<td class="b-data position">{{position}}</td>',
+          '<td class="b-data title">{{title}}</td>',
+          '<td class="b-data duration">{{duration}}</td>',
+          '<td class="b-data external">{{#externals}}<a href="{{url}}" class="{{source}}" target="_blank"></a> {{/externals}}</td>',
+        '</tr>',
+      '</tbody>{{/items}}',
+    '</table>',
+  ].join('');
+
+  var tpl = ['<tr class="mkdru-result details">',
+      '<td colspan="5" class="mkdru-result-details">',
+        '<div class="mkdru-result-details-album">',
+          '<div class="b-album-info">',
+            '<div class="e-album-info-thumb"><img src="{{thumb}}" ></div>',
+            '<div class="e-album-info-item label">',
+              '<span class="b-album-info-item name">{{label.name}}</span>',
+              '<span class="b-album-info-item value">{{label.value}}</span>',
+            '</div>',
+            '<div class="e-album-info-item date">',
+              '<span class="b-album-info-item name">{{date.name}}</span>',
+              '<span class="b-album-info-item value">{{date.value}}</span>',
+            '</div>',
+            '<div class="e-album-info-item length">',
+              '<span class="b-album-info-item name">{{length.name}}</span>',
+              '<span class="b-album-info-item value">{{length.value}}</span>',
+            '</div>',
+            '<div class="e-album-info-item duration">',
+              '<span class="b-album-info-item name">{{duration.name}}</span>',
+              '<span class="b-album-info-item value">{{duration.value}}</span>',
+            '</div>',
+          '</div>',
+          '<div class="b-tracks">{{&tracks}}</div>',
+        '</div>',
+        '<div class="mkdru-result-details-suggestions">',
+          '<div class="e-bio">',
+            '<h4 class="b-bio-title">{{bio.title}}</h4>',
+            '<img class="b-bio-thumb" src="{{bio.thumb}}" >',
+            '<div class="b-bio-content">{{&bio.content}}</div>',
+          '</div>',
+          '{{#suggested_albums}}<div class="e-suggestion albums">',
+            '<h4 class="b-suggestion-title">{{suggested_albums.title}}</h4>',
+            '<ul class="b-suggestions">{{#suggested_albums.items}}<li><a href="{{url}}">{{title}}</a></li></ul>{{/suggested_albums.items}}</ul>',
+          '</div>{{/suggested_albums}}',
+          '{{#suggested_articles}}<div class="e-suggestion editorial">',
+            '<h4 class="b-suggestion-title">{{suggested_articles.title}}</h4>',
+            '<ul class="b-suggestions">{{#suggested_articles.items}}<li><a href="{{url}}">{{title}}</a></li></ul>{{/suggested_articles.items}}</ul>',
+          '</div>{{/suggested_articles}}',
+        '</div>',
+      '</td>',
+    '</tr>'
+  ].join('');
+
+  return Mustache.render(tpl, view);
 };
 
 // Details of found item.
@@ -259,4 +283,45 @@ Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
   var tpl = '{{#terms}}<a href="{{toggleLink}}" class="{{#selected}}cross{{/selected}} {{id}}">{{#selected}}<strong>{{/selected}}{{name}}{{#selected}}</strong>{{/selected}} (<span class="facet-freq">{{freq}}</span>)</a>{{/terms}}'
 
   return Mustache.render(tpl, view);
+};
+
+// Mkdru record id wrapper.
+function MkdruRecid(recid) {
+  this.recid = recid;
+  this.toHtmlAttr = function() {
+    return this.recid.replace(/[\s\:]+/g, '_');
+  };
+}
+
+// Helper to format seconds.
+String.prototype.toHHMMSS = function () {
+  sec_numb    = parseInt(this);
+  var hours   = Math.floor(sec_numb / 3600);
+  var minutes = Math.floor((sec_numb - (hours * 3600)) / 60);
+  var seconds = sec_numb - (hours * 3600) - (minutes * 60);
+
+  if (minutes < 10) {minutes = "0" + minutes;}
+  if (seconds < 10) {seconds = "0" + seconds;}
+  var time = minutes + ':' + seconds;
+
+  if (hours > 0) {
+    if (hours < 10) {
+      time = "0" + hours + ":" + time;
+    }
+    else {
+      time = hours + ":" + time;
+    }
+  }
+
+  return time;
+}
+
+function bindMkdruDetailsHandler() {
+  jQuery(document).unbind('mkdru.onrecord');
+  jQuery(document).bind('mkdru.onrecord', function(event, data) {
+    clearTimeout(mkdru.pz2.showTimer);
+    var selector = '#' + (new MkdruRecid(data.recid[0])).toHtmlAttr();
+    jQuery(Drupal.theme('mkdruEmusicDetail', data)).insertAfter(selector);
+    clearTimeout(mkdru.pz2.recordTimer);
+  });
 };
