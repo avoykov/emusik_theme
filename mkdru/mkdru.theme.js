@@ -57,28 +57,60 @@ mkdruResourceTitle2ClassName = function(res) {
 Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
 
   var view = {
-    thumb: getor(data.lfm[1].album[0].image[2]['#text'], null),
+    thumb: function () {
+      try {
+        return data.lfm[1].album[0].image[2]['#text'];
+      }
+      catch(e) {
+        return null;
+      }
+    },
     label: {
       name: Drupal.t('Label'),
-      value: getor(data.lfm[1].album[0].name[0], null)
+      value: function () {
+        try {
+          return data.lfm[1].album[0].name[0];
+        }
+        catch(e) {
+          return null;
+        }
+      }
     },
     date: {
       name: Drupal.t('Date'),
-      value: getor(data.lfm[1].album[0].releasedate[0], null)
+      value: function () {
+        try {
+          return data.lfm[1].album[0].releasedate[0];
+        }
+        catch (e) {
+          return null;
+        }
+      }
     },
     length: {
       name: Drupal.t('Length'),
-      value: getor(data.lfm[1].album[0].tracks[0].track.length, null)
+      value: function () {
+        try {
+          return data.lfm[1].album[0].tracks[0].track.length;
+        }
+        catch (e) {
+          return null;
+        }
+      }
     },
     duration: {
       name: Drupal.t('Duration'),
       value: function () {
-        var duration = 0;
-        jQuery.each(getor(data.lfm[1].album[0].tracks[0].track, []), function (i, e) {
-          duration += parseInt(e.duration[0]);
-        });
-
-        return duration.toString().toHHMMSS();
+        try {
+          var duration = 0;
+          jQuery.each(data.lfm[1].album[0].tracks[0].track, function (i, e) {
+            duration += parseInt(e.duration[0]);
+          });
+          return duration.toString().toHHMMSS();
+        }
+        catch (e) {
+          return 0;
+        }
       }
     },
     tracks: function () {
@@ -90,24 +122,43 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
         items: []
       };
 
-      jQuery.each(getor(data.lfm[1].album[0].tracks[0].track, []), function (i, e) {
-        tracks_view.items.push({
-          position: i+1,
-          title: e.name[0],
-          duration: e.duration[0].toHHMMSS(),
-          externals: [{
-            url: e.url[0],
-            source: 'fm'
-          }]
-        })
-      });
+      try {
+        jQuery.each(data.lfm[1].album[0].tracks[0].track, function (i, e) {
+          tracks_view.items.push({
+            position: i+1,
+            title: e.name[0],
+            duration: e.duration[0].toHHMMSS(),
+            externals: [{
+              url: e.url[0],
+              source: 'fm'
+            }]
+          })
+        });
+      }
+      catch (e) {
+        // Do nothing here.
+      }
 
       return Mustache.render(tracks_tpl, tracks_view);
     },
     bio: {
       title: Drupal.t('Biography'),
-      content: getor(data.lfm[0].artist[0].bio[0].summary[0], new String()).replace(/(<([^>]+)>)/ig, ""),
-      thumb: getor(data.lfm[0].artist[0].image[2]['#text'], null)
+      content: function () {
+        try {
+          data.lfm[0].artist[0].bio[0].summary[0].replace(/(<([^>]+)>)/ig, "");
+        }
+        catch (e) {
+          return null;
+        }
+      },
+      thumb: function () {
+        try {
+          return data.lfm[0].artist[0].image[2]['#text'];
+        }
+        catch (e) {
+          return null;
+        }
+      }
     },
     suggested_albums: {
       /* This will be replaced while implementation.
@@ -316,20 +367,7 @@ String.prototype.toHHMMSS = function () {
   return time;
 }
 
-// Helper function to silently test if variable is undefined.
-function getor(val, instead) {
-    if (val === undefined) {
-      return instead;
-    }
-
-    return val;
-}
-
 function bindMkdruDetailsHandler(recid) {
-
-  console.log(mkdru.pz2);
-  mkdru.pz2.stop();
-
   jQuery('.mkdru-result.details').hide();
 
   var selector = jQuery('#' + (new MkdruRecid(recid)).toHtmlAttr());
@@ -339,9 +377,10 @@ function bindMkdruDetailsHandler(recid) {
   // Clear mkdru handler and set own.
   jQuery(document).unbind('mkdru.onrecord');
   jQuery(document).bind('mkdru.onrecord', function(event, data) {
-    console.log(mkdru.pz2.showTimer);
+    var selector = jQuery('#' + (new MkdruRecid(data.recid[0])).toHtmlAttr());
+
     clearTimeout(mkdru.pz2.showTimer);
-    loader.remove();
+    jQuery('.mkdru-loader').remove();
 
     var details = jQuery(Drupal.theme('mkdruEmusicDetail', data))
       .insertAfter(selector);
