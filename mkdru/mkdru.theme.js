@@ -328,11 +328,15 @@ function bindMkdruDetailsHandler(recid_html) {
   jQuery(document).bind('mkdru.onrecord', function(event, data) {
     clearTimeout(mkdru.pz2.showTimer);
     loader.remove();
-    var offset = jQuery(Drupal.theme('mkdruEmusicDetail', data))
-      .insertAfter(selector)
-      .offset();
+
+    var details = jQuery(Drupal.theme('mkdruEmusicDetail', data))
+      .insertAfter(selector);
+
+    // Copy external links from album to each track.
+    jQuery('.external a', selector).appendTo(jQuery('.b-data.external', details));
 
     // Scroll to details.
+    var offset = details.offset();
     jQuery('html, body').animate({
       scrollTop: offset.top-50,
       scrollLeft: offset.left
