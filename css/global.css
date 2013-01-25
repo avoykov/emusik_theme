@@ -1090,7 +1090,44 @@ ul li.leaf {
 }
 
 .mkdru-result-details {
+  color: #323230;
+  font-size: .833em;
+  overflow: hidden;
   padding: 0 212px 0 0;
+}
+
+.mkdru-result-details ul {
+  margin: 0;
+}
+
+.mkdru-result-details ul li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mkdru-result-details .b-bio-content {
+  line-height: 1.2em;
+}
+
+.mkdru-results .mkdru-result-details table,
+.mkdru-results .mkdru-result-details th {
+  color: #323230;
+  font-size: 1em; 
+}
+
+.mkdru-results .mkdru-result-details table {
+  margin: 0 4px 10px;
+}
+
+.mkdru-results .mkdru-result-details th {
+  font-weight: bold;
+}
+
+.mkdru-result-details-album,
+.mkdru-result-details-suggestions {
+  padding-bottom: 100000px;
+  margin-bottom: -100000px;
 }
 
 .mkdru-result-details-album {
@@ -1103,9 +1140,68 @@ ul li.leaf {
   background-color: #dcdcdc;
   float: right;
   margin-right: -212px;
-  width: 212px;
+  padding: 10px 10px 100000px 10px;
+  width: 192px;
+}
+
+.mkdru-result-details-suggestions a {
+  font-weight: bold;
+}
+
+.mkdru-result-details-suggestions h4 {
+  font-size: 1em;
+  font-weight: bold;
+  letter-spacing: .02em;
+  margin: 0 0 4px 0;
+  padding: 0;
+  text-transform: uppercase;
 }
 
 .mkdru-result-details .b-album-info {
-  padding: 16px 14px;
+  padding: 16px 14px 0 14px;
+}
+
+.mkdru-result-details .e-bio {
+  margin-bottom: 23px;
+}
+
+.mkdru-result-details .e-bio img {
+  float: right;
+  height: auto;
+  margin: 0 0 10px 10px;
+  max-width: 99px;
+}
+
+.mkdru-result-details .e-suggestion {
+  clear: both;
+  margin-bottom: 11px;
+}
+
+.mkdru-result-details .e-album-info-thumb {
+  float: left;
+  margin: 0 10px 10px 0;
+}
+
+.mkdru-result-details .e-album-info-item {
+  line-height: 1.5em;
+}
+
+.mkdru-result-details .e-album-info-item .name,
+.mkdru-result-details .e-album-info-item .value {
+  display: block;
+}
+
+.mkdru-result-details .e-album-info-item .value {
+  margin-bottom: 14px;
+}
+
+.mkdru-results .mkdru-result-details thead th,
+.mkdru-results .mkdru-result-details th,
+.mkdru-results .mkdru-result-details tr {
+  border-bottom: none;
+}
+
+.mkdru-results .mkdru-result-details thead th,
+.mkdru-results .mkdru-result-details th {
+  padding-top: 0;
 }
