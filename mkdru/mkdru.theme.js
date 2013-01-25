@@ -18,7 +18,7 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
 
   var tpl = [
     '<tr class="mkdru-result {{#is_album}}album{{/is_album}}" id="{{recid_html}}">',
-      '<td class="e-mkdru-result-title">{{title}}{{#is_album}} <a href="javascript: bindMkdruDetailsHandler(\'{{recid_html}}\'); mkdru.pz2.record(\'{{recid}}\')">DETAILS</a>{{/is_album}}</td>',
+      '<td class="e-mkdru-result-title">{{#is_album}}<a href="javascript: bindMkdruDetailsHandler(\'{{recid}}\');">{{/is_album}}{{title}}{{#is_album}}</a>{{/is_album}}</td>',
       '<td class="e-mkdru-result-author">{{author}}</td>',
       '<td class="e-mkdru-result-year">{{year}}</td>',
       '<td class="e-mkdru-result-category">{{category}}</td>',
@@ -57,24 +57,24 @@ mkdruResourceTitle2ClassName = function(res) {
 Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
 
   var view = {
-    thumb: data.lfm[1].album[0].image[2]['#text'],
+    thumb: getor(data.lfm[1].album[0].image[2]['#text'], null),
     label: {
       name: Drupal.t('Label'),
-      value: data.lfm[1].album[0].name[0]
+      value: getor(data.lfm[1].album[0].name[0], null)
     },
     date: {
       name: Drupal.t('Date'),
-      value: data.lfm[1].album[0].releasedate[0]
+      value: getor(data.lfm[1].album[0].releasedate[0], null)
     },
     length: {
       name: Drupal.t('Length'),
-      value: data.lfm[1].album[0].tracks[0].track.length
+      value: getor(data.lfm[1].album[0].tracks[0].track.length, null)
     },
     duration: {
       name: Drupal.t('Duration'),
       value: function () {
         var duration = 0;
-        jQuery.each(data.lfm[1].album[0].tracks[0].track, function (i, e) {
+        jQuery.each(getor(data.lfm[1].album[0].tracks[0].track, []), function (i, e) {
           duration += parseInt(e.duration[0]);
         });
 
@@ -90,7 +90,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
         items: []
       };
 
-      jQuery.each(data.lfm[1].album[0].tracks[0].track, function (i, e) {
+      jQuery.each(getor(data.lfm[1].album[0].tracks[0].track, []), function (i, e) {
         tracks_view.items.push({
           position: i+1,
           title: e.name[0],
@@ -106,8 +106,8 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
     },
     bio: {
       title: Drupal.t('Biography'),
-      content: data.lfm[0].artist[0].bio[0].summary[0].replace(/(<([^>]+)>)/ig, ""),
-      thumb: data.lfm[0].artist[0].image[2]['#text']
+      content: getor(data.lfm[0].artist[0].bio[0].summary[0], new String()).replace(/(<([^>]+)>)/ig, ""),
+      thumb: getor(data.lfm[0].artist[0].image[2]['#text'], null)
     },
     suggested_albums: {
       /* This will be replaced while implementation.
@@ -316,16 +316,30 @@ String.prototype.toHHMMSS = function () {
   return time;
 }
 
-function bindMkdruDetailsHandler(recid_html) {
+// Helper function to silently test if variable is undefined.
+function getor(val, instead) {
+    if (val === undefined) {
+      return instead;
+    }
+
+    return val;
+}
+
+function bindMkdruDetailsHandler(recid) {
+
+  console.log(mkdru.pz2);
+  mkdru.pz2.stop();
+
   jQuery('.mkdru-result.details').hide();
 
-  var selector = jQuery('#' + recid_html);
+  var selector = jQuery('#' + (new MkdruRecid(recid)).toHtmlAttr());
   var loader = jQuery('<img class="mkdru-loader" src="data:image/png;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAAKAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQACgABACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkEAAoAAgAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkEAAoAAwAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkEAAoABAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQACgAFACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQACgAGACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAAKAAcALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==">');
   selector.after(loader);
 
   // Clear mkdru handler and set own.
   jQuery(document).unbind('mkdru.onrecord');
   jQuery(document).bind('mkdru.onrecord', function(event, data) {
+    console.log(mkdru.pz2.showTimer);
     clearTimeout(mkdru.pz2.showTimer);
     loader.remove();
 
@@ -344,4 +358,7 @@ function bindMkdruDetailsHandler(recid_html) {
 
     clearTimeout(mkdru.pz2.recordTimer);
   });
+
+  // Call to pz webservice.
+  mkdru.pz2.record(recid);
 };
