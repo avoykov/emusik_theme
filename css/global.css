@@ -1102,8 +1102,7 @@ ul li.leaf {
   clear: both;
 }
 
-.panel-panel > .panel-panel {
-  float: left;
+.front .pane-content {
   padding-bottom: 100000px;
   margin-bottom: -100000px;
   background-color: white;
