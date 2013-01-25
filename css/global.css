@@ -1088,3 +1088,24 @@ ul li.leaf {
 .hidden {
   /*display: none;*/
 }
+
+.mkdru-result-details {
+  padding: 0 212px 0 0;
+}
+
+.mkdru-result-details-album {
+  background-color: #f0f0f0;
+  float: left;
+  width: 100%;
+}
+
+.mkdru-result-details-suggestions {
+  background-color: #dcdcdc;
+  float: right;
+  margin-right: -212px;
+  width: 212px;
+}
+
+.mkdru-result-details .b-album-info {
+  padding: 16px 14px;
+}
