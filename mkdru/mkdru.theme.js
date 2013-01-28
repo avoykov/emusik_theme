@@ -17,7 +17,7 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
   };
 
   var tpl = [
-    '<tr class="mkdru-result {{#is_album}}album{{/is_album}}" id="{{recid_html}}">',
+    '<tr class="mkdru-result {{#is_album}}album{{/is_album}}" id="{{recid_html}}" {{#is_album}}onclick="javascript: bindMkdruDetailsHandler(\'{{recid}}\');"{{/is_album}}>',
       '<td class="e-mkdru-result-title">{{#is_album}}<a href="javascript: bindMkdruDetailsHandler(\'{{recid}}\');">{{/is_album}}{{title}}{{#is_album}}</a>{{/is_album}}</td>',
       '<td class="e-mkdru-result-author">{{author}}</td>',
       '<td class="e-mkdru-result-year">{{year}}</td>',
