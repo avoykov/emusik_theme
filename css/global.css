@@ -430,12 +430,12 @@ ul li.leaf {
 }
 
 .mkdru-facet-title,
-.mkdru-results .album .e-mkdru-result-title:before {
+.mkdru-result.album .e-mkdru-result-title:before {
   background: url(../images/facets-arrows.png) no-repeat right -24px;
   color: #000;
 }
 
-.mkdru-results .album .e-mkdru-result-title:before {
+.mkdru-result.album .e-mkdru-result-title:before {
   content: ">";
   background-position: right 4px;
   display: block;
