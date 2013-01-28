@@ -1241,3 +1241,7 @@ ul li.leaf {
 .mkdru-results .mkdru-result-details th {
   padding-top: 0;
 }
+
+.mkdru-result.album {
+  cursor: pointer;
+}
