@@ -1,6 +1,7 @@
 (function($) {
   $(document).ready(function() {
     $('.page-node .node-details .date-value').after($('.page-node .pane-node-content .pane-title'));
+    $('.pane-views-panes .view.concerts').parent().addClass('concerts-content');
 
     // Adapt default mkdru markup to panel layout.
     var facets = $('<div class="grid-3 alpha"></div>');
