@@ -7,7 +7,14 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
   var view = {
       recid: hit.recid[0],
       recid_html: (new MkdruRecid(hit.recid[0])).toHtmlAttr(),
-      is_album: (jQuery.inArray("album", hit["md-medium"]) > -1),
+      is_album: function() {
+        try {
+          return (jQuery.inArray("album", hit["md-medium"]) > -1);
+        }
+        catch (e) {
+          return false;
+        }
+      },
       detailLink: detailLink,
       title: hit["md-title"],
       author: hit["md-author"],
