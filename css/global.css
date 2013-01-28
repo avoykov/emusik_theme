@@ -494,7 +494,7 @@ ul li.leaf {
 }
 
 .mkdru-results > table > thead > tr > th:first-child,
-.mkdru-results > table > tbody > tr > td:first-child {
+.mkdru-results .e-mkdru-result-title {
   padding-left: 15px;
 }
 
