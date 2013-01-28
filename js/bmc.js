@@ -22,18 +22,22 @@
       $(this).find('.field-name-body').prepend($(this).find('header'));
     });
 
-    var related_sources = [];
+    window.related_sources = [];
+    var last_facet_group;
 
     // Handle changes of hash.
     jQuery(window).hashchange(function() {
 
-      related_sources = [];
-
       // Handle only facet_group params.
       var query = jQuery.deparam.fragment();
-      if (query.facet_group == undefined) {
+      if (query.facet_group == undefined || last_facet_group == query.facet_group) {
         return;
       }
+
+      last_facet_group = query.facet_group;
+
+      // Reset sources list. It will be filled on search result processing.
+      window.related_sources = [];
 
       var container = jQuery('.grid-3.alpha');
 
@@ -76,9 +80,12 @@
     });
 
     // Show only source terms that exists in search results.
-    $(document).bind('mkdru.onterm', function(event, data) {
+    $(document).bind('mkdru.theme.onAfterFacet', function(event, data) {
       // Hide all not related facet terms.
       $('.mkdru-facet-source a:not(.related_source)').hide();
+
+      // Show only terms found in results.
+      $(window.related_sources.join()).addClass('related_source').show();
     });
 
     // Populate facet terms from search results.
@@ -86,20 +93,16 @@
       $.each(data, function(i, elements) {
         $.each(elements, function(i, e) {
           var id = '.' + e.location[0]['@id'].replace(/[\.\:]/g, "_");
-          related_sources.push(id);
+          window.related_sources.push(id);
         });
       });
 
-      // Hide all not related facet terms.
-      $('.mkdru-facet-source a:not(.related_source)').hide();
-
-      // Unique values in an array.
-      var sources = $.grep(related_sources, function(v, k) {
-        return $.inArray(v, related_sources) === k;
+      // Unique values in array.
+      var sources = $.grep(window.related_sources, function(v, k) {
+        return $.inArray(v, window.related_sources) === k;
       });
 
-      // Show only terms found in results.
-      $(sources.join()).addClass('related_source').show();
+      window.related_sources = sources;
     });
 
   });
