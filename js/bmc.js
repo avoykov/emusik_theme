@@ -76,9 +76,12 @@
     });
 
     // Show only source terms that exists in search results.
-    $(document).bind('mkdru.onterm', function(event, data) {
+    $(document).bind('mkdru.theme.onAfterFacet', function(event, data) {
       // Hide all not related facet terms.
       $('.mkdru-facet-source a:not(.related_source)').hide();
+
+      // Show only terms found in results.
+      $(related_sources.join()).addClass('related_source').show();
     });
 
     // Populate facet terms from search results.
@@ -90,16 +93,12 @@
         });
       });
 
-      // Hide all not related facet terms.
-      $('.mkdru-facet-source a:not(.related_source)').hide();
-
       // Unique values in an array.
       var sources = $.grep(related_sources, function(v, k) {
         return $.inArray(v, related_sources) === k;
       });
 
-      // Show only terms found in results.
-      $(sources.join()).addClass('related_source').show();
+      related_sourec = sources;
     });
 
   });
