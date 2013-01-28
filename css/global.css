@@ -833,7 +833,9 @@ ul li.leaf {
 }
 
 .node-social-icons {
-  float: right;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .pane-node-field-ding-material-type,
@@ -841,7 +843,14 @@ ul li.leaf {
 .pane-node-field-ding-supplier,
 .pane-node-field-artist-ablum-track,
 .pane-node-field-category,
-.pane-node-ding-content-tags {
+.pane-node-ding-content-tags,
+.pane-node-field-playlist-material-type,
+.pane-node-field-playlist-article-type,
+.pane-node-field-playlist-supplier,
+.pane-node-field-playlist-artist-ablum-track,
+.pane-node-field-playlist-category,
+.pane-node-field-pl-artist-album-track,
+.pane-node-field-playlist-tags {
   color: #3f966b;
   font-weight: bold;
   letter-spacing: .05em;
@@ -872,7 +881,14 @@ ul li.leaf {
 .pane-node-field-ding-supplier a,
 .pane-node-field-artist-ablum-track a,
 .pane-node-field-category a,
-.pane-node-ding-content-tags a {
+.pane-node-ding-content-tags a,
+.pane-node-field-playlist-material-type a,
+.pane-node-field-playlist-article-type a,
+.pane-node-field-playlist-supplier a,
+.pane-node-field-playlist-artist-ablum-track a,
+.pane-node-field-playlist-category a,
+.pane-node-field-pl-artist-album-track a,
+.pane-node-field-playlist-tags a {
   font-weight: bold;
 }
 
@@ -881,7 +897,14 @@ ul li.leaf {
 .pane-node-field-ding-supplier a:after,
 .pane-node-field-artist-ablum-track a:after,
 .pane-node-field-category a:after,
-.pane-node-ding-content-tags a:after {
+.pane-node-ding-content-tags a:after,
+.pane-node-field-playlist-material-type a:after,
+.pane-node-field-playlist-article-type a:after,
+.pane-node-field-playlist-supplier a:after,
+.pane-node-field-playlist-artist-ablum-track a:after,
+.pane-node-field-playlist-category a:after,
+.pane-node-field-pl-artist-album-track a:after,
+.pane-node-field-playlist-tags a:after {
   content: "/";
   color: #000;
   font-style: italic;
@@ -889,6 +912,11 @@ ul li.leaf {
   margin-left: 5px;
   padding-right: 5px;
   width: 10px;
+}
+
+.node-type-emusik-playlist .pane-emusik-playlist,
+.node-type-emusik-playlist .pane-node-content {
+  margin-top: 10px;
 }
 
 .pager li {
@@ -1074,8 +1102,7 @@ ul li.leaf {
   clear: both;
 }
 
-.panel-panel > .panel-panel {
-  float: left;
+.front .pane-content {
   padding-bottom: 100000px;
   margin-bottom: -100000px;
   background-color: white;

@@ -50,7 +50,7 @@ mkdruParseResources = function(data) {
 };
 
 mkdruResourceTitle2ClassName = function(res) {
-  return res.match(/(\w+)?/)[0].toLowerCase();
+  return res.match(/(\w+)/)[0].toLowerCase();
 };
 
 // Item details.
