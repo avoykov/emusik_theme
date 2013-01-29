@@ -94,7 +94,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
       name: Drupal.t('Date'),
       value: function () {
         try {
-          return data.lfm[1].album[0].releasedate[0];
+          return data.lfm[1].album[0].releasedate[0].replace('/, 00:00/', '');
         }
         catch (e) {
           return null;
