@@ -214,6 +214,11 @@ ul li.leaf {
   line-height: 1.5em;
 }
 
+.node-emusik-playlist .body {
+  clear: none;
+  margin-top: 14px;
+}
+
 .node .field-type-image {
   float: left;
   margin: 0 26px 20px 0;
