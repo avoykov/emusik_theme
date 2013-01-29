@@ -1178,6 +1178,7 @@ ul li.leaf {
 
 .mkdru-result-details .b-album-info {
   padding: 16px 14px 0 14px;
+  overflow: auto;
 }
 
 .mkdru-result-details .e-bio {
