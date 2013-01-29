@@ -24,7 +24,7 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
   };
 
   var tpl = [
-    '<tr class="mkdru-result {{#is_album}}album{{/is_album}}" id="{{recid_html}}">',
+    '<tr class="mkdru-result {{#is_album}}album{{/is_album}}" id="{{recid_html}}" {{#is_album}}onclick="javascript: bindMkdruDetailsHandler(\'{{recid}}\');"{{/is_album}}>',
       '<td class="e-mkdru-result-title">{{#is_album}}<a href="javascript: bindMkdruDetailsHandler(\'{{recid}}\');">{{/is_album}}{{title}}{{#is_album}}</a>{{/is_album}}</td>',
       '<td class="e-mkdru-result-author">{{author}}</td>',
       '<td class="e-mkdru-result-year">{{year}}</td>',
@@ -64,6 +64,20 @@ mkdruResourceTitle2ClassName = function(res) {
 Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
 
   var view = {
+    available: {
+      // In some cases pz2 response has no both artist and album sections.
+      lastfm: {
+        status: function () {
+          try {
+            return data.lfm.length > 1;
+          }
+          catch (e) {
+            return false;
+          }
+        },
+        message: Drupal.t('<p>Sorry, no data available.</p>')
+      }
+    },
     thumb: function () {
       try {
         return data.lfm[1].album[0].image[2]['#text'];
@@ -204,7 +218,8 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
 
   var tpl = ['<tr class="mkdru-result details">',
       '<td colspan="5" class="mkdru-result-details">',
-        '<div class="mkdru-result-details-album">',
+        '{{^available.lastfm.status}}{{&available.lastfm.message}}{{/available.lastfm.status}}',
+        '{{#available.lastfm.status}}<div class="mkdru-result-details-album">',
           '<div class="b-album-info">',
             '<div class="e-album-info-thumb"><img src="{{thumb}}" ></div>',
             '<div class="e-album-info-item label">',
@@ -240,7 +255,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
             '<h4 class="b-suggestion-title">{{suggested_articles.title}}</h4>',
             '<ul class="b-suggestions">{{#suggested_articles.items}}<li><a href="{{url}}">{{title}}</a></li></ul>{{/suggested_articles.items}}</ul>',
           '</div>{{/suggested_articles}}',
-        '</div>',
+        '</div>{{/available.lastfm.status}}',
       '</td>',
     '</tr>'
   ].join('');

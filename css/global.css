@@ -85,6 +85,7 @@ a:visited {
 
 .section-footer {
   background: #fdfdfd;
+  clear: both;
   padding: 20px 0;
 }
 
@@ -428,9 +429,21 @@ ul li.leaf {
   text-transform: uppercase;
 }
 
-.mkdru-facet-title {
+.mkdru-facet-title,
+.mkdru-result.album .e-mkdru-result-title:before {
   background: url(../images/facets-arrows.png) no-repeat right -24px;
   color: #000;
+}
+
+.mkdru-result.album .e-mkdru-result-title:before {
+  content: ">";
+  background-position: right 4px;
+  display: block;
+  float: left;
+  height: 20px;
+  margin-left: -25px;
+  text-indent: -9000px;
+  width: 20px;
 }
 
 .closed-facet-group .mkdru-facet-title {
@@ -478,6 +491,11 @@ ul li.leaf {
   color: #3f9666;
   font-size: 1.2em;
   font-weight: bold;
+}
+
+.mkdru-results > table > thead > tr > th:first-child,
+.mkdru-results .e-mkdru-result-title {
+  padding-left: 15px;
 }
 
 .mkdru-results th {
@@ -1222,4 +1240,8 @@ ul li.leaf {
 
 .mkdru-results .mkdru-result-details th {
   padding-top: 0;
+}
+
+.mkdru-result.album {
+  cursor: pointer;
 }
