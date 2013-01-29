@@ -141,7 +141,7 @@
         });
     });
     $('.mkdru-facet-groups', facets_ontop)
-      .append('<a href="' + '/search/node/' + Drupal.settings.mkdru.state.query + '">' + Drupal.t('Editorial') + ' (<span class="mkdru-facet-group-amount editorial">0</span>)</a>');
+      .append('<a href="' + '/search/node/' + Drupal.settings.mkdru.search_query + '">' + Drupal.t('Editorial') + ' (<span class="mkdru-facet-group-amount editorial">0</span>)</a>');
 
     // Activate first group by default.
     document.location.hash = $('.mkdru-facet-groups a:first', facets_ontop).attr('href');
@@ -164,7 +164,7 @@
     });
 
     // Amount of editorial search results.
-    $.getJSON('/json/search/node/' + Drupal.settings.mkdru.state.query, function(data) {
+    $.getJSON('/json/search/node/' + Drupal.settings.mkdru.search_query, function(data) {
       $('.mkdru-facet-group-amount.editorial').text(data.count);
     });
 
