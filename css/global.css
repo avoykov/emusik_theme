@@ -238,6 +238,7 @@ ul li.leaf {
 }
 
 .node .author {
+  color: #666;
   font-size: 1.2em;
   font-style: italic;
   font-weight: bold;
@@ -267,8 +268,12 @@ ul li.leaf {
   padding: 10px;
 }
 
-.pane-views-panes .view.concerts {
+.pane-views-panes .concerts-content {
   background: url(../images/black-bg.png) transparent;
+}
+
+.pane-views-panes .view.concerts {
+  background: none;
   color: #fff;
   font-weight: bold;
   padding: 10px;
@@ -286,32 +291,26 @@ ul li.leaf {
   max-width: 100%;
 }
 
-.library-recommendations .views-field-title a,
-.library-recommendations .view-footer a,
-.blog-recommendations .views-field-title a,
-.blog-recommendations .view-footer a,
-.upcoming-concert .view-footer a,
-.latest-article .view-footer a,
-.album-recommendations .view-footer a,
+.view-emusik .view-footer a,
+.view-emusik .views-field-title a,
 .page-search-node .search-results .title {
   font-weight: bold;
   letter-spacing: .02em;
   text-transform: uppercase;
 }
 
-.library-recommendations .view-footer a {
-  font-size: 1.8em;
-  margin-top: -2px;
+.view-emusik .view-footer a {
+  font-size: 1.4em;
 }
 
-.blog-recommendations .view-footer a  {
-  font-size: 1.2em;
-}
-
-.library-recommendations .views-field-title a {
+.view-emusik .views-field-title a {
   color: #000;
-  font-size: 1.2em;
-  margin-bottom: 5px;
+  display: block;
+  font-size: 3em;
+  font-weight: bold;
+  line-height: 1.2em;
+  margin-bottom: 17px;
+  overflow: hidden;
 }
 
 .views-field-created {
@@ -323,23 +322,17 @@ ul li.leaf {
   color: #7c7a74;
 }
 
-.library-recommendations .views-field-field-ding-teaser {
-  font-size: 1.2em;
+.view-emusik .views-field-field-ding-teaser {
+  font-size: 1.4em;
   font-weight: bold;
-  line-height: 1.25em;
-  margin-bottom: 18px;
+  line-height: 1.3em;
+  margin-bottom: 14px;
 }
 
-.blog-recommendations .views-field-title a {
-  color: #000;
-  font-size: 1.2em;
+.view-emusik .views-field-field-list-image {
+  margin-bottom: 20px;
 }
 
-.blog-recommendations .views-field-field-list-image {
-  margin-bottom: 18px;
-}
-
-.blog-recommendations .views-field-field-ding-teaser,
 .page-search-node .search-results p {
   font-size: 1.2em;
   font-weight: bold;
@@ -347,32 +340,10 @@ ul li.leaf {
   margin-top: -2px;
 }
 
-.upcoming-concert .views-field-title a,
-.latest-article .views-field-title a,
-.album-recommendations .views-field-title a,
-.concerts a {
-  color: #000;
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-.upcoming-concert .views-field-field-ding-teaser,
-.latest-article .views-field-field-ding-teaser,
-.album-recommendations .views-field-field-ding-teaser {
-  font-size: 1.2em;
-  font-weight: bold;
-  line-height: 1.3em;
-  margin-top: -2px;
-}
-
-.upcoming-concert .view-footer a,
-.latest-article .view-footer a,
-.album-recommendations .view-footer a {
-  font-size: 1.4em;
-}
-
-.concerts a {
+.view-emusik.concerts .views-field-title a {
   color: #fff;
+  font-size: 1.2em;
+  font-weight: bold;
 }
 
 .concerts .views-field-title {
@@ -717,6 +688,11 @@ ul li.leaf {
   padding: 30px 20px 20px 20px;
 }
 
+.emusik-playlist-item {
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
 .page-node .pane-emusik-playlist .node {
   background: #f0f0f0;
   padding: 10px 10px 30px 10px;
@@ -732,9 +708,6 @@ ul li.leaf {
 }
 
 .pane-emusik-playlist .field-type-image {
-  margin-bottom: 0;
-  margin-right: 23px;
-  margin-left: 0;
   width: 180px;
 }
 
@@ -769,12 +742,7 @@ ul li.leaf {
 }
 
 .pane-emusik-playlist .field-type-text-with-summary {
-  font-size: 1.2em;
-  line-height: 1.2em;
-}
-
-.pane-emusik-playlist p {
-  margin: 0;
+  color: #666;
 }
 
 .pane-emusik-playlist thead th,
@@ -1018,7 +986,6 @@ ul li.leaf {
 
 .node-type-emusik-playlist .field-type-text-with-summary {
   color: #666;
-  font-size: 1.2em;
 }
 
 /* Tag cloud styles */
