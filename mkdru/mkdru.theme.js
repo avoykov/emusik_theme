@@ -25,7 +25,7 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
 
   var tpl = [
     '<tr class="mkdru-result {{#is_album}}album{{/is_album}}" id="{{recid_html}}" {{#is_album}}onclick="javascript: bindMkdruDetailsHandler(\'{{recid}}\');"{{/is_album}}>',
-      '<td class="e-mkdru-result-title">{{#is_album}}<a href="javascript: bindMkdruDetailsHandler(\'{{recid}}\');">{{/is_album}}{{title}}{{#is_album}}</a>{{/is_album}}</td>',
+      '<td class="e-mkdru-result-title">{{title}}</td>',
       '<td class="e-mkdru-result-author">{{author}}</td>',
       '<td class="e-mkdru-result-year">{{year}}</td>',
       '<td class="e-mkdru-result-category">{{category}}</td>',
@@ -101,7 +101,8 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
       name: Drupal.t('Date'),
       value: function () {
         try {
-          return data.lfm[1].album[0].releasedate[0];
+          // Replace dublicated spaces and time.
+          return data.lfm[1].album[0].releasedate[0].replace(/(\s{2,}|, 00:00)/g, '');
         }
         catch (e) {
           return null;
@@ -157,7 +158,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
         });
       }
       catch (e) {
-        // Do nothing here.
+        return false;
       }
 
       return Mustache.render(tracks_tpl, tracks_view);
@@ -166,7 +167,8 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
       title: Drupal.t('Biography'),
       content: function () {
         try {
-          data.lfm[0].artist[0].bio[0].summary[0].replace(/(<([^>]+)>)/ig, "");
+          // Also strip HTML tags.
+          return data.lfm[0].artist[0].bio[0].summary[0].replace(/(<([^>]+)>)/ig, "");
         }
         catch (e) {
           return null;
@@ -221,25 +223,25 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
         '{{^available.lastfm.status}}{{&available.lastfm.message}}{{/available.lastfm.status}}',
         '{{#available.lastfm.status}}<div class="mkdru-result-details-album">',
           '<div class="b-album-info">',
-            '<div class="e-album-info-thumb"><img src="{{thumb}}" ></div>',
-            '<div class="e-album-info-item label">',
+            '{{#thumb}}<div class="e-album-info-thumb"><img src="{{thumb}}" ></div>{{/thumb}}',
+            '{{#label.value}}<div class="e-album-info-item label">',
               '<span class="b-album-info-item name">{{label.name}}</span>',
               '<span class="b-album-info-item value">{{label.value}}</span>',
-            '</div>',
-            '<div class="e-album-info-item date">',
+            '</div>{{/label.value}}',
+            '{{#date.value}}<div class="e-album-info-item date">',
               '<span class="b-album-info-item name">{{date.name}}</span>',
               '<span class="b-album-info-item value">{{date.value}}</span>',
-            '</div>',
-            '<div class="e-album-info-item length">',
+            '</div>{{/date.value}}',
+            '{{#length.value}}<div class="e-album-info-item length">',
               '<span class="b-album-info-item name">{{length.name}}</span>',
               '<span class="b-album-info-item value">{{length.value}}</span>',
-            '</div>',
-            '<div class="e-album-info-item duration">',
+            '</div>{{/length.value}}',
+            '{{#duration.value}}<div class="e-album-info-item duration">',
               '<span class="b-album-info-item name">{{duration.name}}</span>',
               '<span class="b-album-info-item value">{{duration.value}}</span>',
-            '</div>',
+            '</div>{{/duration.value}}',
           '</div>',
-          '<div class="b-tracks">{{&tracks}}</div>',
+          '{{#tracks}}<div class="b-tracks">{{&tracks}}</div>{{/tracks}}',
         '</div>',
         '<div class="mkdru-result-details-suggestions">',
           '<div class="e-bio">',
@@ -325,8 +327,9 @@ Drupal.theme.prototype.mkdruStatus = function(activeClients, clients) {
 
   var loader = '<img class="mkdru-status-loader" src="data:image/png;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAAKAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQACgABACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkEAAoAAgAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkEAAoAAwAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkEAAoABAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQACgAFACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQACgAGACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAAKAAcALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="> ';
 
-  return loader + Drupal.t('Waiting on ') + activeClients + Drupal.t(' out of ')
-         + clients + Drupal.t(' targets');
+  return loader + Drupal.t('Waiting on @activeClients out of @clients targets',
+    {'@activeClients': activeClients, '@clients': clients}
+  );
 };
 
 // Toggler for facet.
