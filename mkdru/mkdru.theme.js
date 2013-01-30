@@ -352,7 +352,7 @@ Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
   var tpl = '{{#terms}}<a href="{{toggleLink}}" class="{{#selected}}cross{{/selected}} {{id}}">{{#selected}}<strong>{{/selected}}{{name}}{{#selected}}</strong>{{/selected}} (<span class="facet-freq">{{freq}}</span>)</a>{{/terms}}'
 
   // Trigger onAfterFacet event.
-  setTimeout(100, jQuery(document).trigger('mkdru.theme.onAfterFacet'));
+  setTimeout(function () { jQuery(document).trigger('mkdru.theme.onAfterFacet'); }, 100);
 
   return Mustache.render(tpl, view);
 };
