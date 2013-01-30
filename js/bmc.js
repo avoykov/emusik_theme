@@ -55,8 +55,8 @@
       }
 
       if (query.facet_group == 'streaming') {
-        container.restore(window.facets_backup);
         // Re-order facets.
+        container.restore(window.facets_backup);
         jQuery('.mkdru-facet-section:has(.mkdru-facet-source):gt(0)').insertBefore(jQuery('.mkdru-facet-section:first'));
         jQuery('.mkdru-facet-section:has(.mkdru-facet-Album)').insertBefore(jQuery('.mkdru-facet-section:first'));
         jQuery('.mkdru-facet-section:has(.mkdru-facet-Date)').insertBefore(jQuery('.mkdru-facet-section:first'));
@@ -65,6 +65,11 @@
       }
       else if (query.facet_group == 'books') {
         jQuery('.mkdru-facet-section:has(.mkdru-facet-author,.mkdru-facet-Type)', container).remove();
+      }
+      else if (query.facet_group == 'videos') {
+        // Re-order facets.
+        container.restore(window.facets_backup);
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-author)').insertBefore(jQuery('.mkdru-facet-section:first'));
       }
       else {
         container.restore(window.facets_backup);
