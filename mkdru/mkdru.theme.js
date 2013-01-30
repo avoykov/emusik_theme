@@ -159,7 +159,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
       title: Drupal.t('Biography'),
       content: function () {
         try {
-          data.lfm[0].artist[0].bio[0].summary[0].replace(/(<([^>]+)>)/ig, "");
+          return data.lfm[0].artist[0].bio[0].summary[0].replace(/(<([^>]+)>)/ig, "");
         }
         catch (e) {
           return null;
