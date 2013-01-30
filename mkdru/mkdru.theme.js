@@ -95,10 +95,14 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
       value: function () {
         try {
           // Replace dublicated spaces and time.
-          return data.lfm[1].album[0].releasedate[0].replace(/(\s{2,}|, 00:00)/g, '');
+          var date = data.lfm[1].album[0].releasedate[0].replace(/(\s{2,}|, 00:00)/g, '');
+          if (!date) {
+            throw 'Date is empty';
+          }
+          return date;
         }
         catch (e) {
-          return null;
+          return Drupal.t('n/a');
         }
       }
     },
@@ -109,7 +113,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
           return data.lfm[1].album[0].tracks[0].track.length;
         }
         catch (e) {
-          return null;
+          return Drupal.t('n/a');
         }
       }
     },
@@ -124,7 +128,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
           return duration.toString().toHHMMSS();
         }
         catch (e) {
-          return 0;
+            return Drupal.t('n/a');
         }
       }
     },
@@ -164,7 +168,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
           return data.lfm[0].artist[0].bio[0].summary[0].replace(/(<([^>]+)>)/ig, "");
         }
         catch (e) {
-          return null;
+          return Drupal.t('n/a');
         }
       },
       thumb: function () {
@@ -177,10 +181,29 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
       }
     },
     suggested_albums: {
-      /* This will be replaced while implementation.
       title: Drupal.t('Other albums'),
-      items: [{url: 'http://example.com', 'title': 'Some title'}]
-      */
+      items: function() {
+        try {
+          var albums = [];
+          var uri_fragment = jQuery.deparam.fragment();
+
+          for (var i=0; i <= 3; i++) {
+            var fragment = jQuery.extend({}, uri_fragment); // clone.
+            var title = data.lfm[2].topalbums[0].album[i].name[0];
+            fragment.limit_Album = encodeURI(title);
+
+            albums.push({
+              url: jQuery('<a>').fragment(fragment).attr('href'),
+              'title': title
+            })
+          }
+
+          return albums;
+        }
+        catch (e) {
+          return false;
+        }
+      }
     },
     suggested_articles: {
       /* This will be replaced while implementation.
@@ -221,18 +244,18 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
               '<span class="b-album-info-item name">{{label.name}}</span>',
               '<span class="b-album-info-item value">{{label.value}}</span>',
             '</div>{{/label.value}}',
-            '{{#date.value}}<div class="e-album-info-item date">',
+            '<div class="e-album-info-item date">',
               '<span class="b-album-info-item name">{{date.name}}</span>',
               '<span class="b-album-info-item value">{{date.value}}</span>',
-            '</div>{{/date.value}}',
-            '{{#length.value}}<div class="e-album-info-item length">',
+            '</div>',
+            '<div class="e-album-info-item length">',
               '<span class="b-album-info-item name">{{length.name}}</span>',
               '<span class="b-album-info-item value">{{length.value}}</span>',
-            '</div>{{/length.value}}',
-            '{{#duration.value}}<div class="e-album-info-item duration">',
+            '</div>',
+            '<div class="e-album-info-item duration">',
               '<span class="b-album-info-item name">{{duration.name}}</span>',
               '<span class="b-album-info-item value">{{duration.value}}</span>',
-            '</div>{{/duration.value}}',
+            '</div>',
           '</div>',
           '{{#tracks}}<div class="b-tracks">{{&tracks}}</div>{{/tracks}}',
         '</div>',
@@ -244,11 +267,11 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
           '</div>',
           '{{#suggested_albums}}<div class="e-suggestion albums">',
             '<h4 class="b-suggestion-title">{{suggested_albums.title}}</h4>',
-            '<ul class="b-suggestions">{{#suggested_albums.items}}<li><a href="{{url}}">{{title}}</a></li></ul>{{/suggested_albums.items}}</ul>',
+            '<ul class="b-suggestions">{{#suggested_albums.items}}<li><a href="{{url}}">{{title}}</a></li>{{/suggested_albums.items}}</ul>',
           '</div>{{/suggested_albums}}',
           '{{#suggested_articles}}<div class="e-suggestion editorial">',
             '<h4 class="b-suggestion-title">{{suggested_articles.title}}</h4>',
-            '<ul class="b-suggestions">{{#suggested_articles.items}}<li><a href="{{url}}">{{title}}</a></li></ul>{{/suggested_articles.items}}</ul>',
+            '<ul class="b-suggestions">{{#suggested_articles.items}}<li><a href="{{url}}">{{title}}</a></li>{{/suggested_articles.items}}</ul>',
           '</div>{{/suggested_articles}}',
         '</div>{{/available.lastfm.status}}',
       '</td>',

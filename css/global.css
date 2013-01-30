@@ -492,6 +492,9 @@ ul li.leaf {
 .mkdru-results tr:hover th,
 .mkdru-results tr:hover a {
   background: none;
+}
+
+.mkdru-results tr a:hover {
   color: #000;
 }
 
