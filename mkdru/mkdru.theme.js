@@ -81,24 +81,21 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
     },
     label: {
       name: Drupal.t('Label'),
-      value: function () {
-        try {
-          return data.lfm[1].album[0].name[0];
-        }
-        catch(e) {
-          return null;
-        }
-      }
+      value: null
     },
     date: {
       name: Drupal.t('Date'),
       value: function () {
         try {
           // Replace dublicated spaces and time.
-          return data.lfm[1].album[0].releasedate[0].replace(/(\s{2,}|, 00:00)/g, '');
+          var date = data.lfm[1].album[0].releasedate[0].replace(/(\s{2,}|, 00:00)/g, '');
+          if (!date) {
+            throw 'Date is empty';
+          }
+          return date;
         }
         catch (e) {
-          return null;
+          return Drupal.t('n/a');
         }
       }
     },
@@ -109,7 +106,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
           return data.lfm[1].album[0].tracks[0].track.length;
         }
         catch (e) {
-          return null;
+          return Drupal.t('n/a');
         }
       }
     },
@@ -124,7 +121,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
           return duration.toString().toHHMMSS();
         }
         catch (e) {
-          return 0;
+            return Drupal.t('n/a');
         }
       }
     },
@@ -164,7 +161,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
           return data.lfm[0].artist[0].bio[0].summary[0].replace(/(<([^>]+)>)/ig, "");
         }
         catch (e) {
-          return null;
+          return Drupal.t('n/a');
         }
       },
       thumb: function () {
@@ -221,18 +218,18 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
               '<span class="b-album-info-item name">{{label.name}}</span>',
               '<span class="b-album-info-item value">{{label.value}}</span>',
             '</div>{{/label.value}}',
-            '{{#date.value}}<div class="e-album-info-item date">',
+            '<div class="e-album-info-item date">',
               '<span class="b-album-info-item name">{{date.name}}</span>',
               '<span class="b-album-info-item value">{{date.value}}</span>',
-            '</div>{{/date.value}}',
-            '{{#length.value}}<div class="e-album-info-item length">',
+            '</div>',
+            '<div class="e-album-info-item length">',
               '<span class="b-album-info-item name">{{length.name}}</span>',
               '<span class="b-album-info-item value">{{length.value}}</span>',
-            '</div>{{/length.value}}',
-            '{{#duration.value}}<div class="e-album-info-item duration">',
+            '</div>',
+            '<div class="e-album-info-item duration">',
               '<span class="b-album-info-item name">{{duration.name}}</span>',
               '<span class="b-album-info-item value">{{duration.value}}</span>',
-            '</div>{{/duration.value}}',
+            '</div>',
           '</div>',
           '{{#tracks}}<div class="b-tracks">{{&tracks}}</div>{{/tracks}}',
         '</div>',
