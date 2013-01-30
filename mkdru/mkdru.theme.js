@@ -88,14 +88,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
     },
     label: {
       name: Drupal.t('Label'),
-      value: function () {
-        try {
-          return data.lfm[1].album[0].name[0];
-        }
-        catch(e) {
-          return null;
-        }
-      }
+      value: false // This is a stub. For now there is no data.
     },
     date: {
       name: Drupal.t('Date'),
