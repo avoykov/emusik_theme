@@ -194,7 +194,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
           return albums;
         }
         catch (e) {
-          return [];
+          return false;
         }
       }
     },
