@@ -175,6 +175,9 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
     },
     suggested_albums: {
       title: Drupal.t('Other albums'),
+      status: function () {
+        return this.suggested_albums.items().length > 0;
+      },
       items: function() {
         try {
           var albums = [];
@@ -194,7 +197,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
           return albums;
         }
         catch (e) {
-          return false;
+          return [];
         }
       }
     },
@@ -258,10 +261,10 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
             '<img class="b-bio-thumb" src="{{bio.thumb}}" >',
             '<div class="b-bio-content">{{&bio.content}}</div>',
           '</div>',
-          '{{#suggested_albums.items}}<div class="e-suggestion albums">',
+          '{{#suggested_albums.status}}<div class="e-suggestion albums">',
             '<h4 class="b-suggestion-title">{{suggested_albums.title}}</h4>',
             '<ul class="b-suggestions">{{#suggested_albums.items}}<li><a href="{{url}}">{{title}}</a></li>{{/suggested_albums.items}}</ul>',
-          '</div>{{/suggested_albums.items}}',
+          '</div>{{/suggested_albums.status}}',
           '{{#suggested_articles}}<div class="e-suggestion editorial">',
             '<h4 class="b-suggestion-title">{{suggested_articles.title}}</h4>',
             '<ul class="b-suggestions">{{#suggested_articles.items}}<li><a href="{{url}}">{{title}}</a></li>{{/suggested_articles.items}}</ul>',
