@@ -263,7 +263,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
           '</div>',
           '{{#suggested_albums.status}}<div class="e-suggestion albums">',
             '<h4 class="b-suggestion-title">{{suggested_albums.title}}</h4>',
-            '<ul class="b-suggestions">{{#suggested_albums.items}}<li><a href="{{url}}">{{title}}</a></li>{{/suggested_albums.items}}</ul>',
+            '<ul class="b-suggestions">{{#suggested_albums.items}}<li>{{title}}</li>{{/suggested_albums.items}}</ul>',
           '</div>{{/suggested_albums.status}}',
           '{{#suggested_articles}}<div class="e-suggestion editorial">',
             '<h4 class="b-suggestion-title">{{suggested_articles.title}}</h4>',
