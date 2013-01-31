@@ -24,8 +24,8 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
   };
 
   var tpl = [
-    '<tr class="mkdru-result {{#is_album}}album{{/is_album}}" id="{{recid_html}}">',
-      '<td class="e-mkdru-result-title">{{#is_album}}<a href="javascript: bindMkdruDetailsHandler(\'{{recid}}\');">{{/is_album}}{{title}}{{#is_album}}</a>{{/is_album}}</td>',
+    '<tr class="mkdru-result {{#is_album}}album{{/is_album}}" id="{{recid_html}}" {{#is_album}}onclick="javascript: bindMkdruDetailsHandler(\'{{recid}}\');"{{/is_album}}>',
+      '<td class="e-mkdru-result-title">{{title}}</td>',
       '<td class="e-mkdru-result-author">{{author}}</td>',
       '<td class="e-mkdru-result-year">{{year}}</td>',
       '<td class="e-mkdru-result-category">{{category}}</td>',
@@ -64,6 +64,20 @@ mkdruResourceTitle2ClassName = function(res) {
 Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
 
   var view = {
+    available: {
+      // In some cases pz2 response has no both artist and album sections.
+      lastfm: {
+        status: function () {
+          try {
+            return data.lfm.length > 1;
+          }
+          catch (e) {
+            return false;
+          }
+        },
+        message: Drupal.t('<p>Sorry, no data available.</p>')
+      }
+    },
     thumb: function () {
       try {
         return data.lfm[1].album[0].image[2]['#text'];
@@ -74,23 +88,21 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
     },
     label: {
       name: Drupal.t('Label'),
-      value: function () {
-        try {
-          return data.lfm[1].album[0].name[0];
-        }
-        catch(e) {
-          return null;
-        }
-      }
+      value: false // This is a stub. For now there is no data.
     },
     date: {
       name: Drupal.t('Date'),
       value: function () {
         try {
-          return data.lfm[1].album[0].releasedate[0];
+          // Replace dublicated spaces and time.
+          var date = data.lfm[1].album[0].releasedate[0].replace(/(\s{2,}|, 00:00)/g, '');
+          if (!date) {
+            throw 'Date is empty';
+          }
+          return date;
         }
         catch (e) {
-          return null;
+          return Drupal.t('n/a');
         }
       }
     },
@@ -101,7 +113,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
           return data.lfm[1].album[0].tracks[0].track.length;
         }
         catch (e) {
-          return null;
+          return Drupal.t('n/a');
         }
       }
     },
@@ -116,7 +128,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
           return duration.toString().toHHMMSS();
         }
         catch (e) {
-          return 0;
+            return Drupal.t('n/a');
         }
       }
     },
@@ -143,7 +155,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
         });
       }
       catch (e) {
-        // Do nothing here.
+        return false;
       }
 
       return Mustache.render(tracks_tpl, tracks_view);
@@ -152,10 +164,11 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
       title: Drupal.t('Biography'),
       content: function () {
         try {
-          data.lfm[0].artist[0].bio[0].summary[0].replace(/(<([^>]+)>)/ig, "");
+          // Also strip HTML tags.
+          return data.lfm[0].artist[0].bio[0].summary[0].replace(/(<([^>]+)>)/ig, "");
         }
         catch (e) {
-          return null;
+          return Drupal.t('n/a');
         }
       },
       thumb: function () {
@@ -168,10 +181,29 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
       }
     },
     suggested_albums: {
-      /* This will be replaced while implementation.
       title: Drupal.t('Other albums'),
-      items: [{url: 'http://example.com', 'title': 'Some title'}]
-      */
+      items: function() {
+        try {
+          var albums = [];
+          var uri_fragment = jQuery.deparam.fragment();
+
+          for (var i=0; i <= 3; i++) {
+            var fragment = jQuery.extend({}, uri_fragment); // clone.
+            var title = data.lfm[2].topalbums[0].album[i].name[0];
+            fragment.limit_Album = encodeURI(title);
+
+            albums.push({
+              url: jQuery('<a>').fragment(fragment).attr('href'),
+              'title': title
+            })
+          }
+
+          return albums;
+        }
+        catch (e) {
+          return false;
+        }
+      }
     },
     suggested_articles: {
       /* This will be replaced while implementation.
@@ -204,13 +236,14 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
 
   var tpl = ['<tr class="mkdru-result details">',
       '<td colspan="5" class="mkdru-result-details">',
-        '<div class="mkdru-result-details-album">',
+        '{{^available.lastfm.status}}{{&available.lastfm.message}}{{/available.lastfm.status}}',
+        '{{#available.lastfm.status}}<div class="mkdru-result-details-album">',
           '<div class="b-album-info">',
-            '<div class="e-album-info-thumb"><img src="{{thumb}}" ></div>',
-            '<div class="e-album-info-item label">',
+            '{{#thumb}}<div class="e-album-info-thumb"><img src="{{thumb}}" ></div>{{/thumb}}',
+            '{{#label.value}}<div class="e-album-info-item label">',
               '<span class="b-album-info-item name">{{label.name}}</span>',
               '<span class="b-album-info-item value">{{label.value}}</span>',
-            '</div>',
+            '</div>{{/label.value}}',
             '<div class="e-album-info-item date">',
               '<span class="b-album-info-item name">{{date.name}}</span>',
               '<span class="b-album-info-item value">{{date.value}}</span>',
@@ -224,7 +257,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
               '<span class="b-album-info-item value">{{duration.value}}</span>',
             '</div>',
           '</div>',
-          '<div class="b-tracks">{{&tracks}}</div>',
+          '{{#tracks}}<div class="b-tracks">{{&tracks}}</div>{{/tracks}}',
         '</div>',
         '<div class="mkdru-result-details-suggestions">',
           '<div class="e-bio">',
@@ -232,15 +265,15 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
             '<img class="b-bio-thumb" src="{{bio.thumb}}" >',
             '<div class="b-bio-content">{{&bio.content}}</div>',
           '</div>',
-          '{{#suggested_albums}}<div class="e-suggestion albums">',
+          '{{#suggested_albums.items}}<div class="e-suggestion albums">',
             '<h4 class="b-suggestion-title">{{suggested_albums.title}}</h4>',
-            '<ul class="b-suggestions">{{#suggested_albums.items}}<li><a href="{{url}}">{{title}}</a></li></ul>{{/suggested_albums.items}}</ul>',
-          '</div>{{/suggested_albums}}',
+            '<ul class="b-suggestions">{{#suggested_albums.items}}<li><a href="{{url}}">{{title}}</a></li>{{/suggested_albums.items}}</ul>',
+          '</div>{{/suggested_albums.items}}',
           '{{#suggested_articles}}<div class="e-suggestion editorial">',
             '<h4 class="b-suggestion-title">{{suggested_articles.title}}</h4>',
-            '<ul class="b-suggestions">{{#suggested_articles.items}}<li><a href="{{url}}">{{title}}</a></li></ul>{{/suggested_articles.items}}</ul>',
+            '<ul class="b-suggestions">{{#suggested_articles.items}}<li><a href="{{url}}">{{title}}</a></li>{{/suggested_articles.items}}</ul>',
           '</div>{{/suggested_articles}}',
-        '</div>',
+        '</div>{{/available.lastfm.status}}',
       '</td>',
     '</tr>'
   ].join('');
@@ -310,8 +343,9 @@ Drupal.theme.prototype.mkdruStatus = function(activeClients, clients) {
 
   var loader = '<img class="mkdru-status-loader" src="data:image/png;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAAKAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQACgABACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkEAAoAAgAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkEAAoAAwAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkEAAoABAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQACgAFACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQACgAGACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAAKAAcALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="> ';
 
-  return loader + Drupal.t('Waiting on ') + activeClients + Drupal.t(' out of ')
-         + clients + Drupal.t(' targets');
+  return loader + Drupal.t('Waiting on @activeClients out of @clients targets',
+    {'@activeClients': activeClients, '@clients': clients}
+  );
 };
 
 // Toggler for facet.
@@ -341,7 +375,7 @@ Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
   var tpl = '{{#terms}}<a href="{{toggleLink}}" class="{{#selected}}cross{{/selected}} {{id}}">{{#selected}}<strong>{{/selected}}{{name}}{{#selected}}</strong>{{/selected}} (<span class="facet-freq">{{freq}}</span>)</a>{{/terms}}'
 
   // Trigger onAfterFacet event.
-  setTimeout(100, jQuery(document).trigger('mkdru.theme.onAfterFacet'));
+  setTimeout(function () { jQuery(document).trigger('mkdru.theme.onAfterFacet'); }, 100);
 
   return Mustache.render(tpl, view);
 };

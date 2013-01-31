@@ -113,12 +113,11 @@ ul li.leaf {
   display: inline;
   font-size: 1.4em;
   font-weight: bold;
-  letter-spacing: .05em;
   text-transform: uppercase;
 }
 
 .block-main-menu {
-  padding: 12px 0 0 0;
+  padding: 11px 0 0 0;
 }
 
 .block-main-menu li a:before {
@@ -130,6 +129,111 @@ ul li.leaf {
 .block-main-menu li:first-child a:before {
   content: "";
   padding: 0;
+}
+
+.block-main-menu .expanded .menu {
+  display: none;
+}
+
+.block-main-menu .expanded.active {
+  padding-left: 18px;
+  position: relative;
+  z-index: 11;
+}
+
+.block-main-menu .expanded li a.active {
+  color: #fff;
+}
+
+.block-main-menu .expanded.active:first-child {
+  margin-left: -16px;
+}
+
+.block-main-menu .expanded.active > a {
+  color: #fff;
+  margin-left: -2px;
+  padding-bottom: 3px;
+  padding-top: 5px;
+  position: static;
+}
+
+.block-main-menu .expanded.active > a:before,
+.block-main-menu .expanded.active > a:after {
+  background: url(../images/active-menu-corners.png) no-repeat 0 0 transparent;
+}
+
+.block-main-menu .expanded.active > a:before {
+  content: "/";
+  display: block;
+  height: 23px;
+  left: -2px;
+  padding: 0;
+  position: absolute;
+  text-indent: -9000px;
+  top: -5px;
+  width: 18px;
+}
+
+.block-main-menu .expanded.active > a:after {
+  content: "/";
+  background-position: -14px 0;
+  display: block;
+  height: 23px;
+  right: -18px;
+  padding: 0;
+  position: absolute;
+  text-indent: -9000px;
+  top: -5px;
+  width: 18px;
+}
+
+.block-main-menu .expanded.active .menu {
+  display: block;
+  left: -2px;
+  min-width: 100px;
+  padding: 3px 16px 9px 16px;
+  position: absolute;
+  top: 18px;
+  z-index: 10;
+}
+
+.block-main-menu .active .menu a:before {
+  display: none;
+}
+
+.block-main-menu .active .menu li:before {
+  content: "-";
+  background: #fff;
+  clear: both;
+  display: block;
+  height: 3px;
+  margin: 3px 0;
+  padding: 0;
+  text-indent: -9000px;
+  width: 15px;
+}
+
+.block-main-menu .active .menu li:first-child:before {
+  display: none;
+}
+
+.block-main-menu .active .menu li {
+  clear: both;
+  display: block;
+}
+
+.block-main-menu .expanded.active li {
+  font-size: 1em;
+}
+
+li.expanded,
+li.collapsed,
+li.leaf {
+  padding: 0;
+}
+
+ul.menu li {
+  margin: 0;
 }
 
 .pane-title {
@@ -214,6 +318,11 @@ ul li.leaf {
   line-height: 1.5em;
 }
 
+.node-emusik-playlist .body {
+  clear: none;
+  margin-top: 14px;
+}
+
 .node .field-type-image {
   float: left;
   margin: 0 26px 20px 0;
@@ -268,7 +377,9 @@ ul li.leaf {
   padding: 10px;
 }
 
-.pane-views-panes .concerts-content {
+.pane-views-panes .concerts-content,
+.block-main-menu .expanded.active a,
+.block-main-menu .expanded.active .menu {
   background: url(../images/black-bg.png) transparent;
 }
 
@@ -487,6 +598,9 @@ ul li.leaf {
 .mkdru-results tr:hover th,
 .mkdru-results tr:hover a {
   background: none;
+}
+
+.mkdru-results tr a:hover {
   color: #000;
 }
 
@@ -1163,6 +1277,7 @@ ul li.leaf {
 
 .mkdru-result-details .b-album-info {
   padding: 16px 14px 0 14px;
+  overflow: auto;
 }
 
 .mkdru-result-details .e-bio {
@@ -1207,4 +1322,8 @@ ul li.leaf {
 
 .mkdru-results .mkdru-result-details th {
   padding-top: 0;
+}
+
+.mkdru-result.album {
+  cursor: pointer;
 }

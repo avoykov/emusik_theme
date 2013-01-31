@@ -3,6 +3,11 @@
     $('.page-node .node-details .date-value').after($('.page-node .pane-node-content .pane-title'));
     $('.pane-views-panes .view.concerts').parent().addClass('concerts-content');
 
+    // Adds active menu class on hover.
+    $('.block-main-menu .expanded').hover(function() {
+      $(this).toggleClass('active');
+    });
+
     // Adapt default mkdru markup to panel layout.
     var facets = $('<div class="grid-3 alpha"></div>');
     var results = $('<div class="grid-9 omega"></div>');
@@ -55,8 +60,8 @@
       }
 
       if (query.facet_group == 'streaming') {
-        container.restore(window.facets_backup);
         // Re-order facets.
+        container.restore(window.facets_backup);
         jQuery('.mkdru-facet-section:has(.mkdru-facet-source):gt(0)').insertBefore(jQuery('.mkdru-facet-section:first'));
         jQuery('.mkdru-facet-section:has(.mkdru-facet-Album)').insertBefore(jQuery('.mkdru-facet-section:first'));
         jQuery('.mkdru-facet-section:has(.mkdru-facet-Date)').insertBefore(jQuery('.mkdru-facet-section:first'));
@@ -65,6 +70,11 @@
       }
       else if (query.facet_group == 'books') {
         jQuery('.mkdru-facet-section:has(.mkdru-facet-author,.mkdru-facet-Type)', container).remove();
+      }
+      else if (query.facet_group == 'videos') {
+        // Re-order facets.
+        container.restore(window.facets_backup);
+        jQuery('.mkdru-facet-section:has(.mkdru-facet-author)').insertBefore(jQuery('.mkdru-facet-section:first'));
       }
       else {
         container.restore(window.facets_backup);
@@ -142,7 +152,7 @@
         });
     });
     $('.mkdru-facet-groups', facets_ontop)
-      .append('<a href="' + '/search/node/' + Drupal.settings.mkdru.state.query + '">' + Drupal.t('Editorial') + ' (<span class="mkdru-facet-group-amount editorial">0</span>)</a>');
+      .append('<a href="' + '/search/node/' + Drupal.settings.mkdru.search_query + '">' + Drupal.t('Editorial') + ' (<span class="mkdru-facet-group-amount editorial">0</span>)</a>');
 
     // Activate first group by default.
     document.location.hash = $('.mkdru-facet-groups a:first', facets_ontop).attr('href');
@@ -165,7 +175,7 @@
     });
 
     // Amount of editorial search results.
-    $.getJSON('/json/search/node/' + Drupal.settings.mkdru.state.query, function(data) {
+    $.getJSON('/json/search/node/' + Drupal.settings.mkdru.search_query, function(data) {
       $('.mkdru-facet-group-amount.editorial').text(data.count);
     });
 

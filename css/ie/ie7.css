@@ -5,3 +5,49 @@
 .section-footer {
   margin-top: 25px;
 }
+
+.section-header,
+.section-content {
+  position: relative;
+}
+
+.section-header {
+  z-index: 11;
+}
+
+.section-content {
+  z-index: 10;
+}
+
+.block-main-menu li {
+  margin: 10px;
+  padding: 0 10px;
+}
+
+.block-main-menu li a {
+  padding-left: 10px;
+}
+
+.block-main-menu li a li a,
+.block-main-menu li a li {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.block-main-menu .expanded.active .menu {
+  left: 10px;
+  padding-left: 0;
+  top: 23px;
+}
+
+.block-main-menu .expanded.active > a {
+  margin-left: 0;
+}
+
+.block-main-menu .expanded.active {
+  padding: 0 10px;
+}
+
+.block-main-menu .expanded.active:first-child {
+  margin-left: 0;
+}
