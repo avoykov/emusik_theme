@@ -29,7 +29,7 @@
     <?php print render($content['field_main_image']); ?>
     <div class="node-details">
       <div class="date-value"><?php print $date; ?></div>
-      <h2 class="pane-title"><?php print htmlspecialchars($title); ?></h2>
+      <h2 class="pane-title"><?php print check_plain($title); ?></h2>
       <div class="summary"></div>
       <div class="author"><?php print t('by '); ?><?php print $name; ?></div>
       <div class="body"><?php print render($content['field_ding_body']); ?></div>
