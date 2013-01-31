@@ -32,6 +32,7 @@ $field_ding_teaser = field_get_items('node', $variables['elements']['#node'], 'f
   <?php print render($content['field_main_image']);?>
   <div class="node-details">
     <div class="date-value"><?php print $date; ?></div>
+    <h2 class="pane-title"><?php print htmlspecialchars($title); ?></h2>
     <?php if (isset($field_ding_teaser[0]['safe_value'])): ?>
       <div class="summary"><?php print $field_ding_teaser[0]['safe_value']; ?></div>
     <?php endif; ?>
