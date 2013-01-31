@@ -5,7 +5,16 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
     return;
   }
   var view = {
-      recid: 'rec_' + hit.recid,
+      recid: hit.recid[0],
+      recid_html: (new MkdruRecid(hit.recid[0])).toHtmlAttr(),
+      is_album: function() {
+        try {
+          return (jQuery.inArray("album", hit["md-medium"]) > -1);
+        }
+        catch (e) {
+          return false;
+        }
+      },
       detailLink: detailLink,
       title: hit["md-title"],
       author: hit["md-author"],
@@ -15,14 +24,14 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
   };
 
   var tpl = [
-      '<tr class="mkdru-result" id="{{recid}}">',
-          '<td class="e-mkdru-result-title">{{title}}</td>',
-          '<td class="e-mkdru-result-author">{{author}}</td>',
-          '<!--<td class="e-mkdru-result-category">{{category}}</td>-->',
-          '<td class="e-mkdru-result-year">{{year}}</td>',
-          '<td class="e-mkdru-result-category">{{category}}</td>',
-          '<td class="external">{{&external_link}}</td>',
-      '</tr>'].join('');
+    '<tr class="mkdru-result {{#is_album}}album{{/is_album}}" id="{{recid_html}}" {{#is_album}}onclick="javascript: bindMkdruDetailsHandler(\'{{recid}}\');"{{/is_album}}>',
+      '<td class="e-mkdru-result-title">{{title}}</td>',
+      '<td class="e-mkdru-result-author">{{author}}</td>',
+      '<td class="e-mkdru-result-year">{{year}}</td>',
+      '<td class="e-mkdru-result-category">{{category}}</td>',
+      '<td class="external">{{&external_link}}</td>',
+    '</tr>'
+  ].join('');
 
   return Mustache.render(tpl, view);
 };
@@ -48,7 +57,231 @@ mkdruParseResources = function(data) {
 };
 
 mkdruResourceTitle2ClassName = function(res) {
-  return res.match(/(\w+)\s/)[0].toLowerCase();
+  return res.match(/(\w+)/)[0].toLowerCase();
+};
+
+// Item details.
+Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
+
+  var view = {
+    available: {
+      // In some cases pz2 response has no both artist and album sections.
+      lastfm: {
+        status: function () {
+          try {
+            return data.lfm.length > 1;
+          }
+          catch (e) {
+            return false;
+          }
+        },
+        message: Drupal.t('<p>Sorry, no data available.</p>')
+      }
+    },
+    thumb: function () {
+      try {
+        return data.lfm[1].album[0].image[2]['#text'];
+      }
+      catch(e) {
+        return null;
+      }
+    },
+    label: {
+      name: Drupal.t('Label'),
+      value: false // This is a stub. For now there is no data.
+    },
+    date: {
+      name: Drupal.t('Date'),
+      value: function () {
+        try {
+          // Replace dublicated spaces and time.
+          var date = data.lfm[1].album[0].releasedate[0].replace(/(\s{2,}|, 00:00)/g, '');
+          if (!date) {
+            throw 'Date is empty';
+          }
+          return date;
+        }
+        catch (e) {
+          return Drupal.t('n/a');
+        }
+      }
+    },
+    length: {
+      name: Drupal.t('Length'),
+      value: function () {
+        try {
+          return data.lfm[1].album[0].tracks[0].track.length;
+        }
+        catch (e) {
+          return Drupal.t('n/a');
+        }
+      }
+    },
+    duration: {
+      name: Drupal.t('Duration'),
+      value: function () {
+        try {
+          var duration = 0;
+          jQuery.each(data.lfm[1].album[0].tracks[0].track, function (i, e) {
+            duration += parseInt(e.duration[0]);
+          });
+          return duration.toString().toHHMMSS();
+        }
+        catch (e) {
+            return Drupal.t('n/a');
+        }
+      }
+    },
+    tracks: function () {
+      var tracks_view = {
+        position: Drupal.t('Position'),
+        title: Drupal.t('Title'),
+        duration: Drupal.t('Duration'),
+        externals: Drupal.t('Externals'),
+        items: []
+      };
+
+      try {
+        jQuery.each(data.lfm[1].album[0].tracks[0].track, function (i, e) {
+          tracks_view.items.push({
+            position: i+1,
+            title: e.name[0],
+            duration: e.duration[0].toHHMMSS(),
+            externals: [{
+              url: e.url[0],
+              source: 'fm'
+            }]
+          })
+        });
+      }
+      catch (e) {
+        return false;
+      }
+
+      return Mustache.render(tracks_tpl, tracks_view);
+    },
+    bio: {
+      title: Drupal.t('Biography'),
+      content: function () {
+        try {
+          // Also strip HTML tags.
+          return data.lfm[0].artist[0].bio[0].summary[0].replace(/(<([^>]+)>)/ig, "");
+        }
+        catch (e) {
+          return Drupal.t('n/a');
+        }
+      },
+      thumb: function () {
+        try {
+          return data.lfm[0].artist[0].image[2]['#text'];
+        }
+        catch (e) {
+          return null;
+        }
+      }
+    },
+    suggested_albums: {
+      title: Drupal.t('Other albums'),
+      status: function () {
+        return this.suggested_albums.items().length > 0;
+      },
+      items: function() {
+        try {
+          var albums = [];
+          var uri_fragment = jQuery.deparam.fragment();
+
+          for (var i=0; i <= 3; i++) {
+            var fragment = jQuery.extend({}, uri_fragment); // clone.
+            var title = data.lfm[2].topalbums[0].album[i].name[0];
+            fragment.limit_Album = encodeURI(title);
+
+            albums.push({
+              url: jQuery('<a>').fragment(fragment).attr('href'),
+              'title': title
+            })
+          }
+
+          return albums;
+        }
+        catch (e) {
+          return [];
+        }
+      }
+    },
+    suggested_articles: {
+      /* This will be replaced while implementation.
+      title: Drupal.t('Other articles'),
+      items: [{url: 'http://example.com', 'title': 'Some title'}]
+      */
+    }
+  };
+
+  var tracks_tpl = [
+    '<table class="e-track-list">',
+      '<thead>',
+        '<tr>',
+          '<th class="b-header position">{{position}}</th>',
+          '<th class="b-header title">{{title}}</th>',
+          '<th class="b-header duration">{{duration}}</th>',
+          '<th class="b-header externals">{{externals}}</th>',
+        '</tr>',
+      '<thead>',
+      '{{#items}}<tbody>',
+        '<tr>',
+          '<td class="b-data position">{{position}}</td>',
+          '<td class="b-data title">{{title}}</td>',
+          '<td class="b-data duration">{{duration}}</td>',
+          '<td class="b-data external">{{#externals}}<a href="{{url}}" class="{{source}}" target="_blank"></a> {{/externals}}</td>',
+        '</tr>',
+      '</tbody>{{/items}}',
+    '</table>',
+  ].join('');
+
+  var tpl = ['<tr class="mkdru-result details">',
+      '<td colspan="5" class="mkdru-result-details">',
+        '{{^available.lastfm.status}}{{&available.lastfm.message}}{{/available.lastfm.status}}',
+        '{{#available.lastfm.status}}<div class="mkdru-result-details-album">',
+          '<div class="b-album-info">',
+            '{{#thumb}}<div class="e-album-info-thumb"><img src="{{thumb}}" ></div>{{/thumb}}',
+            '{{#label.value}}<div class="e-album-info-item label">',
+              '<span class="b-album-info-item name">{{label.name}}</span>',
+              '<span class="b-album-info-item value">{{label.value}}</span>',
+            '</div>{{/label.value}}',
+            '<div class="e-album-info-item date">',
+              '<span class="b-album-info-item name">{{date.name}}</span>',
+              '<span class="b-album-info-item value">{{date.value}}</span>',
+            '</div>',
+            '<div class="e-album-info-item length">',
+              '<span class="b-album-info-item name">{{length.name}}</span>',
+              '<span class="b-album-info-item value">{{length.value}}</span>',
+            '</div>',
+            '<div class="e-album-info-item duration">',
+              '<span class="b-album-info-item name">{{duration.name}}</span>',
+              '<span class="b-album-info-item value">{{duration.value}}</span>',
+            '</div>',
+          '</div>',
+          '{{#tracks}}<div class="b-tracks">{{&tracks}}</div>{{/tracks}}',
+        '</div>',
+        '<div class="mkdru-result-details-suggestions">',
+          '<div class="e-bio">',
+            '<h4 class="b-bio-title">{{bio.title}}</h4>',
+            '<img class="b-bio-thumb" src="{{bio.thumb}}" >',
+            '<div class="b-bio-content">{{&bio.content}}</div>',
+          '</div>',
+          '{{#suggested_albums.status}}<div class="e-suggestion albums">',
+            '<h4 class="b-suggestion-title">{{suggested_albums.title}}</h4>',
+            '<ul class="b-suggestions">{{#suggested_albums.items}}<li><a href="{{url}}">{{title}}</a></li>{{/suggested_albums.items}}</ul>',
+          '</div>{{/suggested_albums.status}}',
+          '{{#suggested_articles}}<div class="e-suggestion editorial">',
+            '<h4 class="b-suggestion-title">{{suggested_articles.title}}</h4>',
+            '<ul class="b-suggestions">{{#suggested_articles.items}}<li><a href="{{url}}">{{title}}</a></li>{{/suggested_articles.items}}</ul>',
+          '</div>{{/suggested_articles}}',
+        '</div>{{/available.lastfm.status}}',
+      '</td>',
+    '</tr>'
+  ].join('');
+
+  return Mustache.render(tpl, view);
 };
 
 // Details of found item.
@@ -109,12 +342,13 @@ Drupal.theme.prototype.mkdruCounts = function(first, last, available, total) {
 Drupal.theme.prototype.mkdruStatus = function(activeClients, clients) {
 
   if (activeClients == 0)
-    return ' '
+    return ' ';
 
-  var loader = '<img class="mkdru-status-loader" src="data:image/png;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAAKAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQACgABACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkEAAoAAgAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkEAAoAAwAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkEAAoABAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQACgAFACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQACgAGACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAAKAAcALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA== "> '
+  var loader = '<img class="mkdru-status-loader" src="data:image/png;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAAKAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQACgABACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkEAAoAAgAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkEAAoAAwAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkEAAoABAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQACgAFACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQACgAGACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAAKAAcALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="> ';
 
-  return loader + Drupal.t('Waiting on ') + activeClients + Drupal.t(' out of ')
-         + clients + Drupal.t(' targets');
+  return loader + Drupal.t('Waiting on @activeClients out of @clients targets',
+    {'@activeClients': activeClients, '@clients': clients}
+  );
 };
 
 // Toggler for facet.
@@ -130,14 +364,87 @@ jQuery('.mkdru-facet:first').show().parent().removeClass('closed-facet-group');
 // Facet item.
 Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
   var view = {
-      terms: []
+    terms: []
   }
   for (var key in terms.slice(0, max)) {
     if (terms[key].name != 'video' && terms[key].name != 'artist') {
+      if (terms[key].id != undefined) {
+        // Escape special chars to use as CSS class.
+        terms[key].id = terms[key].id.replace(/[\.\:]/g, "_");
+      }
       view.terms.push(terms[key]);
     }
   }
-  var tpl = '{{#terms}}<a href="{{toggleLink}}" {{#selected}}class="cross"{{/selected}}>{{#selected}}<strong>{{/selected}}{{name}}{{#selected}}</strong>{{/selected}} (<span class="facet-freq">{{freq}}</span>)</a><br />{{/terms}}'
+  var tpl = '{{#terms}}<a href="{{toggleLink}}" class="{{#selected}}cross{{/selected}} {{id}}">{{#selected}}<strong>{{/selected}}{{name}}{{#selected}}</strong>{{/selected}} (<span class="facet-freq">{{freq}}</span>)</a>{{/terms}}'
+
+  // Trigger onAfterFacet event.
+  setTimeout(function () { jQuery(document).trigger('mkdru.theme.onAfterFacet'); }, 100);
 
   return Mustache.render(tpl, view);
+};
+
+// Mkdru record id wrapper.
+function MkdruRecid(recid) {
+  this.recid = recid;
+  this.toHtmlAttr = function() {
+    return this.recid.replace(/[\s\:]+/g, '_');
+  };
+}
+
+// Helper to format seconds.
+String.prototype.toHHMMSS = function () {
+  sec_numb    = parseInt(this);
+  var hours   = Math.floor(sec_numb / 3600);
+  var minutes = Math.floor((sec_numb - (hours * 3600)) / 60);
+  var seconds = sec_numb - (hours * 3600) - (minutes * 60);
+
+  if (minutes < 10) {minutes = "0" + minutes;}
+  if (seconds < 10) {seconds = "0" + seconds;}
+  var time = minutes + ':' + seconds;
+
+  if (hours > 0) {
+    if (hours < 10) {
+      time = "0" + hours + ":" + time;
+    }
+    else {
+      time = hours + ":" + time;
+    }
+  }
+
+  return time;
+}
+
+function bindMkdruDetailsHandler(recid) {
+  jQuery('.mkdru-result.details').hide();
+
+  var selector = jQuery('#' + (new MkdruRecid(recid)).toHtmlAttr());
+  var loader = jQuery('<img class="mkdru-loader" src="data:image/png;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAAKAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQACgABACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkEAAoAAgAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkEAAoAAwAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkEAAoABAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQACgAFACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQACgAGACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAAKAAcALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==">');
+  selector.after(loader);
+
+  // Clear mkdru handler and set own.
+  jQuery(document).unbind('mkdru.onrecord');
+  jQuery(document).bind('mkdru.onrecord', function(event, data) {
+    var selector = jQuery('#' + (new MkdruRecid(data.recid[0])).toHtmlAttr());
+
+    clearTimeout(mkdru.pz2.showTimer);
+    jQuery('.mkdru-loader').remove();
+
+    var details = jQuery(Drupal.theme('mkdruEmusicDetail', data))
+      .insertAfter(selector);
+
+    // Copy external links from album to each track.
+    jQuery('.external a', selector).appendTo(jQuery('.b-data.external', details));
+
+    // Scroll to details.
+    var offset = details.offset();
+    jQuery('html, body').animate({
+      scrollTop: offset.top-50,
+      scrollLeft: offset.left
+    });
+
+    clearTimeout(mkdru.pz2.recordTimer);
+  });
+
+  // Call to pz webservice.
+  mkdru.pz2.record(recid);
 };
