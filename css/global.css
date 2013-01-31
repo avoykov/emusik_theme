@@ -190,7 +190,7 @@ ul li.leaf {
 .block-main-menu .expanded.active .menu {
   display: block;
   left: -2px;
-  min-width: 100px;
+  min-width: 185px;
   padding: 3px 16px 9px 16px;
   position: absolute;
   top: 18px;
