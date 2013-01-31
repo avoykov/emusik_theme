@@ -429,11 +429,13 @@ ul.menu li {
 }
 
 .views-field-field-ding-teaser,
-.page-search-node .search-results p {
+.page-search-node .search-results p,
+.view-emusik .views-field-field-ding-body {
   color: #7c7a74;
 }
 
-.view-emusik .views-field-field-ding-teaser {
+.view-emusik .views-field-field-ding-teaser,
+.view-emusik .views-field-field-ding-body {
   font-size: 1.4em;
   font-weight: bold;
   line-height: 1.3em;
