@@ -918,6 +918,13 @@ ul.menu li {
   background-position: 0 -48px;
 }
 
+.pane-emusik-playlist table a.last,
+.mkdru-result-list .external a.last,
+.mkdru-result-list .external a.last:hover,
+.mkdru-results tr:hover .external a.last {
+  background-position: 0 -48px;
+}
+
 .pane-emusik-playlist table a.spotify,
 .mkdru-result-list .external a.spotify,
 .mkdru-result-list .external a.spotify:hover,
