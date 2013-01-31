@@ -3,6 +3,11 @@
     $('.page-node .node-details .date-value').after($('.page-node .pane-node-content .pane-title'));
     $('.pane-views-panes .view.concerts').parent().addClass('concerts-content');
 
+    // Adds active menu class on hover.
+    $('.block-main-menu .expanded').hover(function() {
+      $(this).toggleClass('active');
+    });
+
     // Adapt default mkdru markup to panel layout.
     var facets = $('<div class="grid-3 alpha"></div>');
     var results = $('<div class="grid-9 omega"></div>');
