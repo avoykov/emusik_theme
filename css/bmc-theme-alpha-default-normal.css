@@ -29,21 +29,6 @@
   min-height: 240px;
 }
 
-.library-recommendations .views-field-field-ding-teaser {
-  font-size: 1.8em;
-}
-
-.library-recommendations .views-field-title a {
-  font-size: 2em;
-}
-
-.upcoming-concert .views-field-field-ding-teaser,
-.latest-article .views-field-field-ding-teaser,
-.album-recommendations .views-field-field-ding-teaser,
-.blog-recommendations .views-field-title a,
-.upcoming-concert .views-field-title a,
-.latest-article .views-field-title a,
-.album-recommendations .views-field-title a,
 .concerts a {
   font-size: 1.4em;
 }
