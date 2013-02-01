@@ -1,4 +1,4 @@
-(function($) {
+(function ($) {
   $(document).ready(function() {
     $('.pane-views-panes .view.concerts').parent().addClass('concerts-content');
 
@@ -11,4 +11,5 @@
     $('.pane-emusik-playlist .node').each(function() {
       $(this).find('.field-name-body').prepend($(this).find('header'));
     });
+  });
 })})(jQuery);
