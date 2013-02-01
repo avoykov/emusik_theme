@@ -1062,11 +1062,6 @@ ul.menu li {
 .pager li.pager-next a,
 .pager li.pager-last a {
   text-align: left;
- first a,
-.pager li.pager-previous a,
-.pager li.pager-next a,
-.pager li.pager-last a {
-  text-align: left;
   width: inherit;
 }
 
@@ -1330,4 +1325,10 @@ ul.menu li {
 
 .mkdru-result.album {
   cursor: pointer;
+}
+
+.page-search .view-empty {
+  color: #666;
+  font-size: 1.2em;
+  line-height: 1.5em;
 }
