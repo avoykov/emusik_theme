@@ -1,37 +1,3 @@
-.library-recommendations .views-row,
-.library-recommendations .view-footer,
-.upcoming-concert .views-row,
-.upcoming-concert .view-footer {
-  padding-left: 270px;
-}
-
-.library-recommendations .views-field-field-list-image,
-.upcoming-concert .views-field-field-list-image {
-  float: left;
-  margin-left: -270px;
-}
-
-.library-recommendations .views-field-field-list-image img,
-.upcoming-concert .views-field-field-list-image img {
-  max-width: 260px;
-}
-
-.omega-12-mainpage-standard .row-1 .view {
-  min-height: 330px;
-}
-
-.omega-12-mainpage-standard .row-2 .view {
-  min-height: 245px;
-}
-
-.omega-12-mainpage-standard .row-3 .view {
-  min-height: 275px;
-}
-
-.omega-12-article-page .row-2 .view {
-  min-height: 270px;
-}
-
 .node .pane-title {
   font-size: 3em;
 }
