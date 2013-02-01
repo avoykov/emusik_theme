@@ -335,8 +335,7 @@ ul.menu li {
 }
 
 .nodes .summary,
-.page-node .node .summary,
-.page-taxonomy-term .node .content .field-name-field-ding-body {
+.page-node .node .summary {
   font-size: 1.4em;
   font-weight: bold;
   line-height: 1.3em;
@@ -761,7 +760,8 @@ ul.menu li {
 
 .pane-taxonomy-term .field-type-text-with-summary,
 .page-search-node .pane-nodesearch .views-field-field-ding-body,
-.page-koncerter .view-ding-event .views-field-field-ding-body {
+.page-koncerter .view-ding-event .views-field-field-ding-body,
+.page-taxonomy-term .node .content .field-name-field-ding-body {
   color: #646464;
   font-size: 1.2em;
   line-height: 1.25em;
