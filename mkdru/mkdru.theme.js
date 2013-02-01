@@ -437,10 +437,12 @@ function bindMkdruDetailsHandler(recid) {
 
     // Scroll to details.
     var offset = details.offset();
-    jQuery('html, body').animate({
-      scrollTop: offset.top-50,
-      scrollLeft: offset.left
-    });
+    if (offset) {
+      jQuery('html, body').animate({
+        scrollTop: offset.top-50,
+        scrollLeft: offset.left
+      });
+    }
 
     clearTimeout(mkdru.pz2.recordTimer);
   });
