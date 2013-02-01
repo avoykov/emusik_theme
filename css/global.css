@@ -190,7 +190,7 @@ ul li.leaf {
 .block-main-menu .expanded.active .menu {
   display: block;
   left: -2px;
-  min-width: 100px;
+  min-width: 185px;
   padding: 3px 16px 9px 16px;
   position: absolute;
   top: 18px;
@@ -335,13 +335,15 @@ ul.menu li {
 }
 
 .nodes .summary,
-.page-node .node .summary {
+.page-node .node .summary,
+.page-taxonomy-term .node .content .field-name-field-ding-body {
   font-size: 1.4em;
   font-weight: bold;
   line-height: 1.3em;
 }
 
-.page-node .node .summary {
+.page-node .node .summary,
+.page-taxonomy-term .node .content .field-name-field-ding-body {
   color: #6c6c6c;
   letter-spacing: .05em;
 }
@@ -710,18 +712,21 @@ ul.menu li {
   margin-bottom: 30px;
 }
 
-.pane-taxonomy-term .pane-title {
+.pane-taxonomy-term .pane-title,
+.page-koncerter h1.title {
   font-size: 1.8em;
   margin-bottom: 5px;
 }
 
-.view-taxonomy-term {
+.view-taxonomy-term,
+.page-koncerter .view-ding-event {
   padding: 21px 14px 14px 18px;
 }
 
 .pane-taxonomy-term h2.node-title,
 .page-search-node .pane-nodesearch h2.node-title,
-.page-search-node .pane-nodesearch .views-field-title {
+.page-search-node .pane-nodesearch .views-field-title,
+.page-koncerter h3.title {
   font-size: 1.8em;
   line-height: 1.2em;
   margin: 1px 0 0;
@@ -749,11 +754,17 @@ ul.menu li {
 }
 
 .pane-taxonomy-term .field-type-text-with-summary,
-.page-search-node .pane-nodesearch .views-field-field-ding-body {
+.page-search-node .pane-nodesearch .views-field-field-ding-body,
+.page-koncerter .view-ding-event .views-field-field-ding-body {
   color: #646464;
   font-size: 1.2em;
   line-height: 1.25em;
   margin-top: -2px;
+}
+
+.page-koncerter .view-ding-event .views-field-field-ding-body {
+  font-weight: bold;
+  margin-top: 5px;
 }
 
 .page-search-node .pane-nodesearch p {
@@ -774,27 +785,44 @@ ul.menu li {
 }
 
 .pane-taxonomy-term .date,
-.page-search-node .pane-nodesearch .views-field-changed {
+.page-search-node .pane-nodesearch .views-field-changed,
+.page-koncerter .view-ding-event .views-field-field-event-date {
   font-weight: bold;
 }
 
-.pane-taxonomy-term .node .field-type-image {
+.pane-taxonomy-term .node .field-type-image,
+.page-koncerter .view-ding-event .field-type-image {
   margin: 0 16px 0 0;
   max-width: inherit;
   width: auto;
 }
 
+.page-koncerter .view-ding-event .views-field-field-list-image {
+  float: left;
+  margin: 0 20px 0 0;
+  width: 200px;
+}
+
 .pane-taxonomy-term .node .field-type-image img,
-.page-search-node .node .field-type-image img {
+.page-search-node .node .field-type-image img,
+.page-koncerter .view-ding-event .field-type-image img {
   height: auto;
   width: 200px;
 }
 
-.pane-taxonomy-term .views-row {
+.pane-taxonomy-term .views-row,
+.page-koncerter .view-ding-event .views-row  {
+  clear: both;
   margin-top: 20px;
+  overflow: hidden;
 }
 
-.pane-taxonomy-term .views-row:first-child {
+.page-koncerter .view-ding-event .views-row p {
+  margin: 0;
+}
+
+.pane-taxonomy-term .views-row:first-child,
+.page-koncerter .view-ding-event .views-row:first-child {
   margin-top: 0;
 }
 
@@ -895,12 +923,7 @@ ul.menu li {
 .pane-emusik-playlist table a.dk,
 .mkdru-result-list .external a.dk,
 .mkdru-result-list .external a.dk:hover,
-.mkdru-results tr:hover .external a.dk {
-  background-position: 0 0;
-}
-
-.pane-emusik-playlist table a.bibzoom,
-.mkdru-result-list .external a.bibzoom,
+.mkdru-results lt-list .external a.bibzoom,
 .mkdru-result-list .external a.bibzoom:hover,
 .mkdru-results tr:hover .external a.bibzoom {
   background-position: 0 -16px;
@@ -913,10 +936,10 @@ ul.menu li {
   background-position: 0 -32px;
 }
 
-.pane-emusik-playlist table a.fm,
-.mkdru-result-list .external a.fm,
-.mkdru-result-list .external a.fm:hover,
-.mkdru-results tr:hover .external a.fm {
+.pane-emusik-playlist table a.last,
+.mkdru-result-list .external a.last,
+.mkdru-result-list .external a.last:hover,
+.mkdru-results tr:hover .external a.last {
   background-position: 0 -48px;
 }
 
@@ -1328,4 +1351,10 @@ ul.menu li {
 
 .mkdru-result.album {
   cursor: pointer;
+}
+
+.page-search .view-empty {
+  color: #666;
+  font-size: 1.2em;
+  line-height: 1.5em;
 }

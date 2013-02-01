@@ -1,6 +1,5 @@
 (function($) {
   $(document).ready(function() {
-    $('.page-node .node-details .date-value').after($('.page-node .pane-node-content .pane-title'));
     $('.pane-views-panes .view.concerts').parent().addClass('concerts-content');
 
     // Adds active menu class on hover.
