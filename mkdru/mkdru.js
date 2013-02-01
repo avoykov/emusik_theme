@@ -1,11 +1,5 @@
 (function($) {
   $(document).ready(function() {
-    $('.pane-views-panes .view.concerts').parent().addClass('concerts-content');
-
-    // Adds active menu class on hover.
-    $('.block-main-menu .expanded').hover(function() {
-      $(this).toggleClass('active');
-    });
 
     // Adapt default mkdru markup to panel layout.
     var facets = $('<div class="grid-3 alpha"></div>');
@@ -21,11 +15,6 @@
       init_facet_groups().prependTo($('.page-search-meta .grid-12.region-content .grid-9'));
 
     }, 1000);
-
-    // Playlist title.
-    $('.pane-emusik-playlist .node').each(function() {
-      $(this).find('.field-name-body').prepend($(this).find('header'));
-    });
 
     window.related_sources = [];
     var last_facet_group;

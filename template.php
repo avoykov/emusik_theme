@@ -43,7 +43,7 @@ function bmc_theme_mkdru_js(&$variables) {
   drupal_add_js(drupal_get_path('theme', 'bmc_theme') . '/mkdru/mustache.js');
   drupal_add_js(drupal_get_path('theme', 'bmc_theme') . '/mkdru/recipe.js');
   drupal_add_js(drupal_get_path('theme', 'bmc_theme') . '/mkdru/mkdru.theme.js', array('scope' => 'footer', 'weight' => 100));
-  drupal_add_js(drupal_get_path('theme', 'bmc_theme') . '/mkdru/bmc.js', array('scope' => 'footer', 'weight' => 100));
+  drupal_add_js(drupal_get_path('theme', 'bmc_theme') . '/mkdru/mkdru.js', array('scope' => 'footer', 'weight' => 100));
 }
 
 /**
