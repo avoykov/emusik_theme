@@ -910,10 +910,10 @@ ul.menu li {
   background-position: 0 -32px;
 }
 
-.pane-emusik-playlist table a.fm,
-.mkdru-result-list .external a.fm,
-.mkdru-result-list .external a.fm:hover,
-.mkdru-results tr:hover .external a.fm {
+.pane-emusik-playlist table a.last,
+.mkdru-result-list .external a.last,
+.mkdru-result-list .external a.last:hover,
+.mkdru-results tr:hover .external a.last {
   background-position: 0 -48px;
 }
 
