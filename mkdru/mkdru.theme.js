@@ -178,20 +178,20 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
       status: function () {
         return this.suggested_albums.items().length > 0;
       },
-      items: function() {
+      items: function () {
         try {
           var albums = [];
           var uri_fragment = jQuery.deparam.fragment();
 
-          for (var i=0; i <= 3; i++) {
+          for (var i = 0; i <= 3; i++) {
             var fragment = jQuery.extend({}, uri_fragment); // clone.
             var title = data.lfm[2].topalbums[0].album[i].name[0];
             fragment.limit_Album = encodeURI(title);
 
             albums.push({
               url: jQuery('<a>').fragment(fragment).attr('href'),
-              'title': title
-            })
+              title: title
+            });
           }
 
           return albums;
