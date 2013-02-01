@@ -91,7 +91,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
       value: false // This is a stub. For now there is no data.
     },
     date: {
-      name: Drupal.t('Date'),
+      name: Drupal.t('Release date'),
       value: function () {
         try {
           // Replace dublicated spaces and time.
@@ -107,7 +107,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
       }
     },
     length: {
-      name: Drupal.t('Length'),
+      name: Drupal.t('Running length'),
       value: function () {
         try {
           return data.lfm[1].album[0].tracks[0].track.length;
@@ -118,7 +118,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
       }
     },
     duration: {
-      name: Drupal.t('Duration'),
+      name: Drupal.t('Running time'),
       value: function () {
         try {
           var duration = 0;
