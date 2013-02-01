@@ -335,13 +335,15 @@ ul.menu li {
 }
 
 .nodes .summary,
-.page-node .node .summary {
+.page-node .node .summary,
+.page-taxonomy-term .node .content .field-name-field-ding-body {
   font-size: 1.4em;
   font-weight: bold;
   line-height: 1.3em;
 }
 
-.page-node .node .summary {
+.page-node .node .summary,
+.page-taxonomy-term .node .content .field-name-field-ding-body {
   color: #6c6c6c;
   letter-spacing: .05em;
 }
@@ -895,12 +897,7 @@ ul.menu li {
 .pane-emusik-playlist table a.dk,
 .mkdru-result-list .external a.dk,
 .mkdru-result-list .external a.dk:hover,
-.mkdru-results tr:hover .external a.dk {
-  background-position: 0 0;
-}
-
-.pane-emusik-playlist table a.bibzoom,
-.mkdru-result-list .external a.bibzoom,
+.mkdru-results lt-list .external a.bibzoom,
 .mkdru-result-list .external a.bibzoom:hover,
 .mkdru-results tr:hover .external a.bibzoom {
   background-position: 0 -16px;
@@ -1061,6 +1058,11 @@ ul.menu li {
 }
 
 .pager li.pager-first a,
+.pager li.pager-previous a,
+.pager li.pager-next a,
+.pager li.pager-last a {
+  text-align: left;
+ first a,
 .pager li.pager-previous a,
 .pager li.pager-next a,
 .pager li.pager-last a {
