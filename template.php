@@ -17,6 +17,11 @@ drupal_add_js(drupal_get_path('theme', 'bmc_theme') . '/mkdru/jquery.ba-hashchan
 drupal_add_js(drupal_get_path('theme', 'bmc_theme') . '/mkdru/recipe.js');
 drupal_add_js(drupal_get_path('theme', 'bmc_theme') . '/mkdru/mkdru.theme.js', array('scope' => 'footer', 'weight' => 100));
 
+drupal_add_js(
+  array('images_path' => '/' . drupal_get_path('theme', 'bmc_theme') . '/images'),
+  'setting'
+);
+
 /**
  * Implements hook_preprocess_views_view.
  */
