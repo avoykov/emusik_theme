@@ -399,9 +399,11 @@ ul.menu li {
   padding: 24px 18px;
 }
 
-.pane-views-panes .views-field-field-list-image img {
+.pane-views-panes .views-field-field-list-image img,
+.pane-views-panes .views-field-field-playlist-image img {
   height: auto;
   max-width: 100%;
+  width: 100%;
 }
 
 .view-emusik .view-footer a,
@@ -422,8 +424,12 @@ ul.menu li {
   font-size: 3em;
   font-weight: bold;
   line-height: 1.2em;
-  margin-bottom: 17px;
+  margin-bottom: 6px;
   overflow: hidden;
+}
+
+.view-emusik .views-field-created {
+  margin-bottom: 6px;
 }
 
 .views-field-created {
@@ -1226,7 +1232,9 @@ ul.menu li {
   clear: both;
 }
 
-.front .pane-content {
+.front .pane-content,
+.not-front .row-2 .pane-content,
+.not-front .row-3 .pane-content {
   padding-bottom: 100000px;
   margin-bottom: -100000px;
   background-color: white;
@@ -1357,4 +1365,27 @@ ul.menu li {
   color: #666;
   font-size: 1.2em;
   line-height: 1.5em;
+}
+
+.grid-8 .view-emusik .views-row,
+.grid-6 .view-emusik .views-row,
+.grid-8 .view-emusik .view-footer,
+.grid-6 .view-emusik .view-footer {
+  padding-left: 270px;
+}
+
+.grid-8 .view-emusik .views-row .views-field-field-list-image,
+.grid-6 .view-emusik .views-row .views-field-field-list-image,
+.grid-8 .view-emusik .views-row .views-field-field-playlist-image,
+.grid-6 .view-emusik .views-row .views-field-field-playlist-image {
+  float: left;
+  margin-left: -270px;
+}
+
+.grid-8 .view-emusik .views-row .views-field-field-list-image img,
+.grid-6 .view-emusik .views-row .views-field-field-list-image img,
+.grid-8 .view-emusik .views-row .views-field-field-playlist-image img,
+.grid-6 .view-emusik .views-row .views-field-field-playlist-image img {
+  height: auto;
+  width: 260px;
 }
