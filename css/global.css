@@ -508,6 +508,7 @@ ul.menu li {
 
 .mkdru-facet-section {
   margin-bottom: 5px;
+  display: none;
 }
 
 .mkdru-facet-title,
