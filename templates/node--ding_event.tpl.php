@@ -28,11 +28,12 @@
   <article<?php print $attributes; ?>>
     <?php print render($content['field_main_image']); ?>
     <?php
-      $body = field_get_items('node', $node, 'field_ding_body')
+      $body = field_get_items('node', $node, 'field_ding_body');
     ?>
     <div class="node-details">
-      <div class="date-value"><?php print $date; ?></div>
+      <div class="date-value"><?php print render($content['field_event_date']); ?></div>
       <h2 class="pane-title"><?php print check_plain($title); ?></h2>
+      <div class="address"><?php print render($content['field_address']); ?></div>
       <?php if ($body[0]['summary']): ?>
         <div class="summary"><?php print render($body[0]['summary']); ?></div>
       <?php endif; ?>

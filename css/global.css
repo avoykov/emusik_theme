@@ -347,6 +347,14 @@ ul.menu li {
   letter-spacing: .05em;
 }
 
+.page-node .node .address {
+  font-size: 1.2em;
+}
+
+.addressfield-container-inline:after {
+  display: inline;
+}
+
 .node .author {
   color: #666;
   font-size: 1.2em;
