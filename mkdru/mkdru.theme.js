@@ -344,7 +344,7 @@ Drupal.theme.prototype.mkdruStatus = function(activeClients, clients) {
   if (activeClients == 0)
     return ' ';
 
-  var loader = '<img class="mkdru-status-loader" src="' + Drupal.settings.images_path + '/loader.png"> ';
+  var loader = '<img class="mkdru-status-loader" src="data:image/png;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAAKAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQACgABACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkEAAoAAgAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkEAAoAAwAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkEAAoABAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQACgAFACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQACgAGACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAAKAAcALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="> ';
 
   return loader + Drupal.t('Waiting on @activeClients out of @clients targets',
     {'@activeClients': activeClients, '@clients': clients}
@@ -415,11 +415,16 @@ String.prototype.toHHMMSS = function () {
 }
 
 function bindMkdruDetailsHandler(recid) {
-  jQuery('.mkdru-result.details').hide();
+  // Are details already loading?
+  if (jQuery('.mkdru-details-loader').length) {
+    return;
+  }
 
   var selector = jQuery('#' + (new MkdruRecid(recid)).toHtmlAttr());
-  var loader = jQuery('<img class="mkdru-loader" src="' + Drupal.settings.images_path + '/loader.png">');
+  var loader = jQuery('<img class="mkdru-details-loader" src="data:image/png;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAAKAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQACgABACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkEAAoAAgAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkEAAoAAwAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkEAAoABAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQACgAFACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQACgAGACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAAKAAcALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==">');
   selector.after(loader);
+
+  jQuery('.mkdru-result.details').hide();
 
   // Clear mkdru handler and set own.
   jQuery(document).unbind('mkdru.onrecord');
@@ -427,7 +432,7 @@ function bindMkdruDetailsHandler(recid) {
     var selector = jQuery('#' + (new MkdruRecid(data.recid[0])).toHtmlAttr());
 
     clearTimeout(mkdru.pz2.showTimer);
-    jQuery('.mkdru-loader').remove();
+    jQuery('.mkdru-details-loader').remove();
 
     var details = jQuery(Drupal.theme('mkdruEmusicDetail', data))
       .insertAfter(selector);
@@ -444,9 +449,13 @@ function bindMkdruDetailsHandler(recid) {
       });
     }
 
+    mkdru.pz2.errorHandler = null;
     clearTimeout(mkdru.pz2.recordTimer);
   });
 
   // Call to pz webservice.
+  mkdru.pz2.errorHandler = function () {
+    jQuery('.mkdru-details-loader').replaceWith(Drupal.theme('mkdruEmusicDetail'));
+  };
   mkdru.pz2.record(recid);
 };
