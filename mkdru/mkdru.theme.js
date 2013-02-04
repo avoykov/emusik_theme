@@ -90,6 +90,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
       name: Drupal.t('Label'),
       value: false // This is a stub. For now there is no data.
     },
+    close: Drupal.t('Close'),
     date: {
       name: Drupal.t('Release date'),
       value: function () {
@@ -242,6 +243,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
         '{{^available.lastfm.status}}{{&available.lastfm.message}}{{/available.lastfm.status}}',
         '{{#available.lastfm.status}}<div class="mkdru-result-details-album">',
           '<div class="b-album-info">',
+            '<div class="e-close">{{close}}</div>',
             '{{#thumb}}<div class="e-album-info-thumb"><img src="{{thumb}}" ></div>{{/thumb}}',
             '{{#label.value}}<div class="e-album-info-item label">',
               '<span class="b-album-info-item name">{{label.name}}</span>',
@@ -344,7 +346,7 @@ Drupal.theme.prototype.mkdruStatus = function(activeClients, clients) {
   if (activeClients == 0)
     return ' ';
 
-  var loader = '<img class="mkdru-status-loader" src="data:image/png;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAAKAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQACgABACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkEAAoAAgAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkEAAoAAwAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkEAAoABAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQACgAFACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQACgAGACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAAKAAcALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="> ';
+  var loader = '<img class="mkdru-status-loader" src="' + Drupal.settings.images_path + '/loader.png"> ';
 
   return loader + Drupal.t('Waiting on @activeClients out of @clients targets',
     {'@activeClients': activeClients, '@clients': clients}
@@ -414,17 +416,27 @@ String.prototype.toHHMMSS = function () {
   return time;
 }
 
+// Open details box.
 function bindMkdruDetailsHandler(recid) {
+  // Try to close details box if it open.
+  if (closeDetailsBox(recid)) {
+    return;
+  }
+
   // Are details already loading?
   if (jQuery('.mkdru-details-loader').length) {
     return;
   }
 
   var selector = jQuery('#' + (new MkdruRecid(recid)).toHtmlAttr());
-  var loader = jQuery('<img class="mkdru-details-loader" src="data:image/png;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAAKAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQACgABACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkEAAoAAgAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkEAAoAAwAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkEAAoABAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQACgAFACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQACgAGACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAAKAAcALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==">');
+  var loader = jQuery('<img class="mkdru-details-loader" src="' + Drupal.settings.images_path + '/loader.png">');
   selector.after(loader);
 
-  jQuery('.mkdru-result.details').hide();
+  // Hide all other details boxes if any.
+  jQuery.each(jQuery('.mkdru-result.details'), function(i, e) {
+    closeDetailsBox(jQuery(this).prev().attr('id'));
+    jQuery(this).remove();
+  });
 
   // Clear mkdru handler and set own.
   jQuery(document).unbind('mkdru.onrecord');
@@ -436,6 +448,12 @@ function bindMkdruDetailsHandler(recid) {
 
     var details = jQuery(Drupal.theme('mkdruEmusicDetail', data))
       .insertAfter(selector);
+
+    details.find('.e-close').click(function () {
+      closeDetailsBox(recid);
+    });
+
+    selector.addClass('open');
 
     // Copy external links from album to each track.
     jQuery('.external a', selector).appendTo(jQuery('.b-data.external', details));
@@ -459,3 +477,15 @@ function bindMkdruDetailsHandler(recid) {
   };
   mkdru.pz2.record(recid);
 };
+
+// Close details box.
+function closeDetailsBox(recid) {
+  var row = jQuery('#' + (new MkdruRecid(recid)).toHtmlAttr());
+  var details = row.next();
+  if (details.hasClass('mkdru-result details')) {
+    details.remove();
+    row.removeClass('open');
+    return true;
+  }
+  return false;
+}
