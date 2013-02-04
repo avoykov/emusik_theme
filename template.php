@@ -31,7 +31,8 @@ function bmc_theme_mkdru_js(&$variables) {
     'type' => 'file', 'scope' => 'footer', 'defer' => FALSE, 'preprocess' => TRUE
   ));
   drupal_add_js($variables['setting'], 'setting');
-  drupal_add_js(array(
+  drupal_add_js(
+    array(
       'mkdru' => array('search_query' => arg(2)),
       'images_path' => '/' . drupal_get_path('theme', 'bmc_theme') . '/images'
     ),
