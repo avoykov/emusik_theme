@@ -556,6 +556,16 @@ ul.menu li {
   color: #000;
 }
 
+.mkdru-result.details .e-close {
+  cursor: pointer;
+  float: right;
+  color: #3f9666;
+}
+
+.mkdru-result.details .e-close:hover {
+  color: #000;
+}
+
 .closed-facet-group .mkdru-facet-title {
   color: #3f9666;
   background-position: right 4px;

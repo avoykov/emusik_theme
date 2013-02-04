@@ -242,6 +242,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
         '{{^available.lastfm.status}}{{&available.lastfm.message}}{{/available.lastfm.status}}',
         '{{#available.lastfm.status}}<div class="mkdru-result-details-album">',
           '<div class="b-album-info">',
+            '<div class="e-close">close</div>',
             '{{#thumb}}<div class="e-album-info-thumb"><img src="{{thumb}}" ></div>{{/thumb}}',
             '{{#label.value}}<div class="e-album-info-item label">',
               '<span class="b-album-info-item name">{{label.name}}</span>',
@@ -446,6 +447,10 @@ function bindMkdruDetailsHandler(recid) {
 
     var details = jQuery(Drupal.theme('mkdruEmusicDetail', data))
       .insertAfter(selector);
+
+    details.find('.e-close').click(function() {
+      closeDetailsBox(recid);
+    });
 
     selector.addClass('open');
 
