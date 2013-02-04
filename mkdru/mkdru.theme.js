@@ -442,7 +442,7 @@ function bindMkdruDetailsHandler(recid) {
 
   var selector = jQuery('#' + (new MkdruRecid(recid)).toHtmlAttr());
   var loader = jQuery('<img class="mkdru-details-loader" src="' + Drupal.settings.images_path + '/loader.png">');
-  selector.after(loader);
+  jQuery('.e-mkdru-result-title', selector).append(loader);
 
   // Hide all other details boxes if any.
   jQuery.each(jQuery('.mkdru-result.details'), function(i, e) {
@@ -456,7 +456,7 @@ function bindMkdruDetailsHandler(recid) {
     var selector = jQuery('#' + (new MkdruRecid(data.recid[0])).toHtmlAttr());
 
     clearTimeout(mkdru.pz2.showTimer);
-    jQuery('.mkdru-details-loader').remove();
+    jQuery('.mkdru-details-loader, .mkdru-result.details').remove();
 
     var details = jQuery(Drupal.theme('mkdruEmusicDetail', data))
       .insertAfter(selector);
@@ -468,7 +468,7 @@ function bindMkdruDetailsHandler(recid) {
     selector.addClass('open');
 
     // Copy external links from album to each track.
-    jQuery('.external a', selector).appendTo(jQuery('.b-data.external', details));
+    jQuery('.external a', selector).clone().appendTo(jQuery('.b-data.external', details));
 
     // Scroll to details.
     var offset = details.offset();
@@ -485,7 +485,8 @@ function bindMkdruDetailsHandler(recid) {
 
   // Call to pz webservice.
   mkdru.pz2.errorHandler = function () {
-    jQuery('.mkdru-details-loader').replaceWith(Drupal.theme('mkdruEmusicDetail'));
+    selector.after(Drupal.theme('mkdruEmusicDetail'))
+      .find('.mkdru-details-loader').remove();
   };
   mkdru.pz2.record(recid);
 };
