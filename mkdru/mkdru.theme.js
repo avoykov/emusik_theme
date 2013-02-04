@@ -417,7 +417,7 @@ String.prototype.toHHMMSS = function () {
 
 // Open details box.
 function bindMkdruDetailsHandler(recid) {
-  // Close details box.
+  // Try to close details box if it open.
   if (closeDetailsBox(recid)) {
     return;
   }
@@ -432,7 +432,7 @@ function bindMkdruDetailsHandler(recid) {
   selector.after(loader);
 
   // Hide all other details boxes if any.
-  jQuery.each(jQuery('.mkdru-result.details'), function (i, e) {
+  jQuery.each(jQuery('.mkdru-result.details'), function(i, e) {
     closeDetailsBox(jQuery(this).prev().attr('id'));
     jQuery(this).remove();
   });
@@ -448,7 +448,7 @@ function bindMkdruDetailsHandler(recid) {
     var details = jQuery(Drupal.theme('mkdruEmusicDetail', data))
       .insertAfter(selector);
 
-    details.find('.e-close').click(function() {
+    details.find('.e-close').click(function () {
       closeDetailsBox(recid);
     });
 
