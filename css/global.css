@@ -567,6 +567,10 @@ ul.menu li {
   color: #000;
 }
 
+.mkdru-result.details .b-bio-backlink {
+  margin-top: 6px;
+}
+
 .closed-facet-group .mkdru-facet-title {
   color: #3f9666;
   background-position: right 4px;

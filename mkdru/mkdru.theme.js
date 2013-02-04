@@ -179,6 +179,17 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
         catch (e) {
           return null;
         }
+      },
+      backlink: {
+        url: function () {
+          try {
+            return this.bio.backlink.url = data.lfm[0].artist[0].url[0];
+          }
+          catch (e) {
+            return 'http://last.fm/';
+          }
+        },
+        title: Drupal.t('Source')
       }
     },
     suggested_albums: {
@@ -269,6 +280,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
             '<h4 class="b-bio-title">{{bio.title}}</h4>',
             '<img class="b-bio-thumb" src="{{bio.thumb}}" >',
             '<div class="b-bio-content">{{&bio.content}}</div>',
+            '<div class="b-bio-backlink"><a href="{{bio.backlink.url}}" target="_blank">{{bio.backlink.title}}</a></div>',
           '</div>',
           '{{#suggested_albums.status}}<div class="e-suggestion albums">',
             '<h4 class="b-suggestion-title">{{suggested_albums.title}}</h4>',
