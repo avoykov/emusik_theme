@@ -85,6 +85,7 @@ a:visited {
 
 .section-footer {
   background: #fdfdfd;
+  clear: both;
   padding: 20px 0;
 }
 
@@ -112,12 +113,11 @@ ul li.leaf {
   display: inline;
   font-size: 1.4em;
   font-weight: bold;
-  letter-spacing: .05em;
   text-transform: uppercase;
 }
 
 .block-main-menu {
-  padding: 12px 0 0 0;
+  padding: 11px 0 0 0;
 }
 
 .block-main-menu li a:before {
@@ -129,6 +129,111 @@ ul li.leaf {
 .block-main-menu li:first-child a:before {
   content: "";
   padding: 0;
+}
+
+.block-main-menu .expanded .menu {
+  display: none;
+}
+
+.block-main-menu .expanded.active {
+  padding-left: 18px;
+  position: relative;
+  z-index: 11;
+}
+
+.block-main-menu .expanded li a.active {
+  color: #fff;
+}
+
+.block-main-menu .expanded.active:first-child {
+  margin-left: -16px;
+}
+
+.block-main-menu .expanded.active > a {
+  color: #fff;
+  margin-left: -2px;
+  padding-bottom: 3px;
+  padding-top: 5px;
+  position: static;
+}
+
+.block-main-menu .expanded.active > a:before,
+.block-main-menu .expanded.active > a:after {
+  background: url(../images/active-menu-corners.png) no-repeat 0 0 transparent;
+}
+
+.block-main-menu .expanded.active > a:before {
+  content: "/";
+  display: block;
+  height: 23px;
+  left: -2px;
+  padding: 0;
+  position: absolute;
+  text-indent: -9000px;
+  top: -5px;
+  width: 18px;
+}
+
+.block-main-menu .expanded.active > a:after {
+  content: "/";
+  background-position: -14px 0;
+  display: block;
+  height: 23px;
+  right: -18px;
+  padding: 0;
+  position: absolute;
+  text-indent: -9000px;
+  top: -5px;
+  width: 18px;
+}
+
+.block-main-menu .expanded.active .menu {
+  display: block;
+  left: -2px;
+  min-width: 185px;
+  padding: 3px 16px 9px 16px;
+  position: absolute;
+  top: 18px;
+  z-index: 10;
+}
+
+.block-main-menu .active .menu a:before {
+  display: none;
+}
+
+.block-main-menu .active .menu li:before {
+  content: "-";
+  background: #fff;
+  clear: both;
+  display: block;
+  height: 3px;
+  margin: 3px 0;
+  padding: 0;
+  text-indent: -9000px;
+  width: 15px;
+}
+
+.block-main-menu .active .menu li:first-child:before {
+  display: none;
+}
+
+.block-main-menu .active .menu li {
+  clear: both;
+  display: block;
+}
+
+.block-main-menu .expanded.active li {
+  font-size: 1em;
+}
+
+li.expanded,
+li.collapsed,
+li.leaf {
+  padding: 0;
+}
+
+ul.menu li {
+  margin: 0;
 }
 
 .pane-title {
@@ -213,6 +318,11 @@ ul li.leaf {
   line-height: 1.5em;
 }
 
+.node-emusik-playlist .body {
+  clear: none;
+  margin-top: 14px;
+}
+
 .node .field-type-image {
   float: left;
   margin: 0 26px 20px 0;
@@ -231,12 +341,22 @@ ul li.leaf {
   line-height: 1.3em;
 }
 
-.page-node .node .summary {
+.page-node .node .summary,
+.page-taxonomy-term .node .content .field-name-field-ding-body {
   color: #6c6c6c;
   letter-spacing: .05em;
 }
 
+.page-node .node .address {
+  font-size: 1.2em;
+}
+
+.addressfield-container-inline:after {
+  display: inline;
+}
+
 .node .author {
+  color: #666;
   font-size: 1.2em;
   font-style: italic;
   font-weight: bold;
@@ -266,8 +386,14 @@ ul li.leaf {
   padding: 10px;
 }
 
-.pane-views-panes .view.concerts {
+.pane-views-panes .concerts-content,
+.block-main-menu .expanded.active a,
+.block-main-menu .expanded.active .menu {
   background: url(../images/black-bg.png) transparent;
+}
+
+.pane-views-panes .view.concerts {
+  background: none;
   color: #fff;
   font-weight: bold;
   padding: 10px;
@@ -280,37 +406,37 @@ ul li.leaf {
   padding: 24px 18px;
 }
 
-.pane-views-panes .views-field-field-list-image img {
+.pane-views-panes .views-field-field-list-image img,
+.pane-views-panes .views-field-field-playlist-image img {
   height: auto;
   max-width: 100%;
+  width: 100%;
 }
 
-.library-recommendations .views-field-title a,
-.library-recommendations .view-footer a,
-.blog-recommendations .views-field-title a,
-.blog-recommendations .view-footer a,
-.upcoming-concert .view-footer a,
-.latest-article .view-footer a,
-.album-recommendations .view-footer a,
+.view-emusik .view-footer a,
+.view-emusik .views-field-title a,
 .page-search-node .search-results .title {
   font-weight: bold;
   letter-spacing: .02em;
   text-transform: uppercase;
 }
 
-.library-recommendations .view-footer a {
-  font-size: 1.8em;
-  margin-top: -2px;
+.view-emusik .view-footer a {
+  font-size: 1.4em;
 }
 
-.blog-recommendations .view-footer a  {
-  font-size: 1.2em;
-}
-
-.library-recommendations .views-field-title a {
+.view-emusik .views-field-title a {
   color: #000;
-  font-size: 1.2em;
-  margin-bottom: 5px;
+  display: block;
+  font-size: 3em;
+  font-weight: bold;
+  line-height: 1.2em;
+  margin-bottom: 6px;
+  overflow: hidden;
+}
+
+.view-emusik .views-field-created {
+  margin-bottom: 6px;
 }
 
 .views-field-created {
@@ -318,27 +444,25 @@ ul li.leaf {
 }
 
 .views-field-field-ding-teaser,
-.page-search-node .search-results p {
+.page-search-node .search-results p,
+.view-emusik .views-field-field-ding-body,
+.view-emusik .views-field-body {
   color: #7c7a74;
 }
 
-.library-recommendations .views-field-field-ding-teaser {
-  font-size: 1.2em;
+.view-emusik .views-field-field-ding-teaser,
+.view-emusik .views-field-field-ding-body,
+.view-emusik .views-field-body {
+  font-size: 1.4em;
   font-weight: bold;
-  line-height: 1.25em;
-  margin-bottom: 18px;
+  line-height: 1.3em;
+  margin-bottom: 14px;
 }
 
-.blog-recommendations .views-field-title a {
-  color: #000;
-  font-size: 1.2em;
+.view-emusik .views-field-field-list-image {
+  margin-bottom: 20px;
 }
 
-.blog-recommendations .views-field-field-list-image {
-  margin-bottom: 18px;
-}
-
-.blog-recommendations .views-field-field-ding-teaser,
 .page-search-node .search-results p {
   font-size: 1.2em;
   font-weight: bold;
@@ -346,32 +470,10 @@ ul li.leaf {
   margin-top: -2px;
 }
 
-.upcoming-concert .views-field-title a,
-.latest-article .views-field-title a,
-.album-recommendations .views-field-title a,
-.concerts a {
-  color: #000;
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-.upcoming-concert .views-field-field-ding-teaser,
-.latest-article .views-field-field-ding-teaser,
-.album-recommendations .views-field-field-ding-teaser {
-  font-size: 1.2em;
-  font-weight: bold;
-  line-height: 1.3em;
-  margin-top: -2px;
-}
-
-.upcoming-concert .view-footer a,
-.latest-article .view-footer a,
-.album-recommendations .view-footer a {
-  font-size: 1.4em;
-}
-
-.concerts a {
+.view-emusik.concerts .views-field-title a {
   color: #fff;
+  font-size: 1.2em;
+  font-weight: bold;
 }
 
 .concerts .views-field-title {
@@ -414,6 +516,7 @@ ul li.leaf {
 
 .mkdru-facet-section {
   margin-bottom: 5px;
+  display: none;
 }
 
 .mkdru-facet-title,
@@ -428,9 +531,44 @@ ul li.leaf {
   text-transform: uppercase;
 }
 
-.mkdru-facet-title {
+.mkdru-facet-title,
+.mkdru-result.album .e-mkdru-result-title:before {
   background: url(../images/facets-arrows.png) no-repeat right -24px;
   color: #000;
+}
+
+.mkdru-result.album .e-mkdru-result-title:before {
+  content: ">";
+  background-position: right 4px;
+  display: block;
+  float: left;
+  height: 20px;
+  margin-left: -25px;
+  text-indent: -9000px;
+  width: 20px;
+}
+
+.mkdru-result.album.open .e-mkdru-result-title:before {
+  background-position: right -24px;
+}
+
+.mkdru-result.album.open td {
+  color: #000;
+}
+
+.mkdru-result.details .e-close {
+  cursor: pointer;
+  float: right;
+  color: #3f9666;
+  text-transform: lowercase;
+}
+
+.mkdru-result.details .e-close:hover {
+  color: #000;
+}
+
+.mkdru-result.details .b-bio-backlink {
+  margin-top: 6px;
 }
 
 .closed-facet-group .mkdru-facet-title {
@@ -457,6 +595,10 @@ ul li.leaf {
   margin: 15px;
 }
 
+.region-content .grid-9 .mkdru-facet-section a.active {
+  color: black;
+}
+
 .mkdru-results {
   background: #fff;
   padding: 16px 16px 32px 24px;
@@ -474,6 +616,11 @@ ul li.leaf {
   color: #3f9666;
   font-size: 1.2em;
   font-weight: bold;
+}
+
+.mkdru-results > table > thead > tr > th:first-child,
+.mkdru-results .e-mkdru-result-title {
+  padding-left: 15px;
 }
 
 .mkdru-results th {
@@ -494,6 +641,9 @@ ul li.leaf {
 .mkdru-results tr:hover th,
 .mkdru-results tr:hover a {
   background: none;
+}
+
+.mkdru-results tr a:hover {
   color: #000;
 }
 
@@ -565,6 +715,10 @@ ul li.leaf {
   padding-left: 33px;
 }
 
+.grid-3 .mkdru-facet a {
+  display: block;
+}
+
 .page-search-meta .grid-12.region-content {
   padding-top: 22px;
 }
@@ -597,18 +751,21 @@ ul li.leaf {
   margin-bottom: 30px;
 }
 
-.pane-taxonomy-term .pane-title {
+.pane-taxonomy-term .pane-title,
+.page-koncerter h1.title {
   font-size: 1.8em;
   margin-bottom: 5px;
 }
 
-.view-taxonomy-term {
+.view-taxonomy-term,
+.page-koncerter .view-ding-event {
   padding: 21px 14px 14px 18px;
 }
 
 .pane-taxonomy-term h2.node-title,
 .page-search-node .pane-nodesearch h2.node-title,
-.page-search-node .pane-nodesearch .views-field-title {
+.page-search-node .pane-nodesearch .views-field-title,
+.page-koncerter h3.title {
   font-size: 1.8em;
   line-height: 1.2em;
   margin: 1px 0 0;
@@ -636,11 +793,18 @@ ul li.leaf {
 }
 
 .pane-taxonomy-term .field-type-text-with-summary,
-.page-search-node .pane-nodesearch .views-field-field-ding-body {
+.page-search-node .pane-nodesearch .views-field-field-ding-body,
+.page-koncerter .view-ding-event .views-field-field-ding-body,
+.page-taxonomy-term .node .content .field-name-field-ding-body {
   color: #646464;
   font-size: 1.2em;
   line-height: 1.25em;
   margin-top: -2px;
+}
+
+.page-koncerter .view-ding-event .views-field-field-ding-body {
+  font-weight: bold;
+  margin-top: 5px;
 }
 
 .page-search-node .pane-nodesearch p {
@@ -661,27 +825,44 @@ ul li.leaf {
 }
 
 .pane-taxonomy-term .date,
-.page-search-node .pane-nodesearch .views-field-changed {
+.page-search-node .pane-nodesearch .views-field-changed,
+.page-koncerter .view-ding-event .views-field-field-event-date {
   font-weight: bold;
 }
 
-.pane-taxonomy-term .node .field-type-image {
+.pane-taxonomy-term .node .field-type-image,
+.page-koncerter .view-ding-event .field-type-image {
   margin: 0 16px 0 0;
   max-width: inherit;
   width: auto;
 }
 
+.page-koncerter .view-ding-event .views-field-field-list-image {
+  float: left;
+  margin: 0 20px 0 0;
+  width: 200px;
+}
+
 .pane-taxonomy-term .node .field-type-image img,
-.page-search-node .node .field-type-image img {
+.page-search-node .node .field-type-image img,
+.page-koncerter .view-ding-event .field-type-image img {
   height: auto;
   width: 200px;
 }
 
-.pane-taxonomy-term .views-row {
+.pane-taxonomy-term .views-row,
+.page-koncerter .view-ding-event .views-row  {
+  clear: both;
   margin-top: 20px;
+  overflow: hidden;
 }
 
-.pane-taxonomy-term .views-row:first-child {
+.page-koncerter .view-ding-event .views-row p {
+  margin: 0;
+}
+
+.pane-taxonomy-term .views-row:first-child,
+.page-koncerter .view-ding-event .views-row:first-child {
   margin-top: 0;
 }
 
@@ -689,6 +870,11 @@ ul li.leaf {
   background: #fff;
   clear: both;
   padding: 30px 20px 20px 20px;
+}
+
+.emusik-playlist-item {
+  letter-spacing: .02em;
+  text-transform: uppercase;
 }
 
 .page-node .pane-emusik-playlist .node {
@@ -706,9 +892,6 @@ ul li.leaf {
 }
 
 .pane-emusik-playlist .field-type-image {
-  margin-bottom: 0;
-  margin-right: 23px;
-  margin-left: 0;
   width: 180px;
 }
 
@@ -743,12 +926,7 @@ ul li.leaf {
 }
 
 .pane-emusik-playlist .field-type-text-with-summary {
-  font-size: 1.2em;
-  line-height: 1.2em;
-}
-
-.pane-emusik-playlist p {
-  margin: 0;
+  color: #666;
 }
 
 .pane-emusik-playlist thead th,
@@ -768,9 +946,9 @@ ul li.leaf {
   background: url(../images/source-icon.png) no-repeat 0 0;
   display: block;
   float: left;
-  height: 17px;
+  height: 16px;
   margin-right: 7px;
-  width: 17px;
+  width: 16px;
 }
 
 .mkdru-result-list .external {
@@ -782,41 +960,54 @@ ul li.leaf {
   text-indent: -9000px;
 }
 
-.pane-emusik-playlist table a.bibzoom,
-.mkdru-result-list .external a.bibzoom,
+.pane-emusik-playlist table a.dk,
+.mkdru-result-list .external a.dk,
+.mkdru-result-list .external a.dk:hover,
+.mkdru-results lt-list .external a.bibzoom,
 .mkdru-result-list .external a.bibzoom:hover,
 .mkdru-results tr:hover .external a.bibzoom {
-  background-position: -27px 0;
+  background-position: 0 -16px;
 }
 
 .pane-emusik-playlist table a.wimp,
 .mkdru-result-list .external a.wimp,
 .mkdru-result-list .external a.wimp:hover,
 .mkdru-results tr:hover .external a.wimp {
-  background-position: -60px 0;
+  background-position: 0 -32px;
+}
+
+.pane-emusik-playlist table a.last,
+.mkdru-result-list .external a.last,
+.mkdru-result-list .external a.last:hover,
+.mkdru-results tr:hover .external a.last {
+  background-position: 0 -48px;
+}
+
+.pane-emusik-playlist table a.fm,
+.mkdru-result-list .external a.fm,
+.mkdru-result-list .external a.fm:hover,
+.mkdru-results tr:hover .external a.fm {
+  background-position: 0 -48px;
 }
 
 .pane-emusik-playlist table a.spotify,
 .mkdru-result-list .external a.spotify,
 .mkdru-result-list .external a.spotify:hover,
 .mkdru-results tr:hover .external a.spotify {
-  background-position: -121px 0;
+  background-position: 0 -64px;
 }
 
+.pane-emusik-playlist table a.youtube,
 .mkdru-result-list .external a.youtube,
 .mkdru-result-list .external a.youtube:hover,
 .mkdru-results tr:hover .external a.youtube {
-  background-position: -152px 0;
-}
-
-.mkdru-result-list .external a.dbc,
-.mkdru-result-list .external a.dbc:hover,
-.mkdru-results tr:hover .external a.dbc {
-  display: none;
+  background-position: 0 -80px;
 }
 
 .node-social-icons {
-  float: right;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .pane-node-field-ding-material-type,
@@ -824,7 +1015,14 @@ ul li.leaf {
 .pane-node-field-ding-supplier,
 .pane-node-field-artist-ablum-track,
 .pane-node-field-category,
-.pane-node-ding-content-tags {
+.pane-node-ding-content-tags,
+.pane-node-field-playlist-material-type,
+.pane-node-field-playlist-article-type,
+.pane-node-field-playlist-supplier,
+.pane-node-field-playlist-artist-ablum-track,
+.pane-node-field-playlist-category,
+.pane-node-field-pl-artist-album-track,
+.pane-node-field-playlist-tags {
   color: #3f966b;
   font-weight: bold;
   letter-spacing: .05em;
@@ -855,7 +1053,14 @@ ul li.leaf {
 .pane-node-field-ding-supplier a,
 .pane-node-field-artist-ablum-track a,
 .pane-node-field-category a,
-.pane-node-ding-content-tags a {
+.pane-node-ding-content-tags a,
+.pane-node-field-playlist-material-type a,
+.pane-node-field-playlist-article-type a,
+.pane-node-field-playlist-supplier a,
+.pane-node-field-playlist-artist-ablum-track a,
+.pane-node-field-playlist-category a,
+.pane-node-field-pl-artist-album-track a,
+.pane-node-field-playlist-tags a {
   font-weight: bold;
 }
 
@@ -864,7 +1069,14 @@ ul li.leaf {
 .pane-node-field-ding-supplier a:after,
 .pane-node-field-artist-ablum-track a:after,
 .pane-node-field-category a:after,
-.pane-node-ding-content-tags a:after {
+.pane-node-ding-content-tags a:after,
+.pane-node-field-playlist-material-type a:after,
+.pane-node-field-playlist-article-type a:after,
+.pane-node-field-playlist-supplier a:after,
+.pane-node-field-playlist-artist-ablum-track a:after,
+.pane-node-field-playlist-category a:after,
+.pane-node-field-pl-artist-album-track a:after,
+.pane-node-field-playlist-tags a:after {
   content: "/";
   color: #000;
   font-style: italic;
@@ -872,6 +1084,11 @@ ul li.leaf {
   margin-left: 5px;
   padding-right: 5px;
   width: 10px;
+}
+
+.node-type-emusik-playlist .pane-emusik-playlist,
+.node-type-emusik-playlist .pane-node-content {
+  margin-top: 10px;
 }
 
 .pager li {
@@ -955,7 +1172,6 @@ ul li.leaf {
 
 .node-type-emusik-playlist .field-type-text-with-summary {
   color: #666;
-  font-size: 1.2em;
 }
 
 /* Tag cloud styles */
@@ -1057,9 +1273,160 @@ ul li.leaf {
   clear: both;
 }
 
-.panel-panel > .panel-panel {
-  float: left;
+.front .pane-content,
+.not-front .row-2 .pane-content,
+.not-front .row-3 .pane-content {
   padding-bottom: 100000px;
   margin-bottom: -100000px;
   background-color: white;
+}
+
+.mkdru-result-details {
+  color: #323230;
+  font-size: .833em;
+  overflow: hidden;
+  padding: 0 212px 0 0;
+}
+
+.mkdru-result-details ul {
+  margin: 0;
+}
+
+.mkdru-result-details ul li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mkdru-result-details .b-bio-content {
+  line-height: 1.2em;
+}
+
+.mkdru-results .mkdru-result-details table,
+.mkdru-results .mkdru-result-details th {
+  color: #323230;
+  font-size: 1em; 
+}
+
+.mkdru-results .mkdru-result-details table {
+  margin: 0 4px 10px;
+}
+
+.mkdru-results .mkdru-result-details th {
+  font-weight: bold;
+}
+
+.mkdru-result-details-album,
+.mkdru-result-details-suggestions {
+  padding-bottom: 100000px;
+  margin-bottom: -100000px;
+}
+
+.mkdru-result-details-album {
+  background-color: #f0f0f0;
+  float: left;
+  width: 100%;
+}
+
+.mkdru-result-details-suggestions {
+  background-color: #dcdcdc;
+  float: right;
+  margin-right: -212px;
+  padding: 10px 10px 100000px 10px;
+  width: 192px;
+}
+
+.mkdru-result-details-suggestions a {
+  font-weight: bold;
+}
+
+.mkdru-result-details-suggestions h4 {
+  font-size: 1em;
+  font-weight: bold;
+  letter-spacing: .02em;
+  margin: 0 0 4px 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.mkdru-result-details .b-album-info {
+  padding: 16px 14px 0 14px;
+  overflow: auto;
+}
+
+.mkdru-result-details .e-bio {
+  margin-bottom: 23px;
+}
+
+.mkdru-result-details .e-bio img {
+  float: right;
+  height: auto;
+  margin: 0 0 10px 10px;
+  max-width: 99px;
+}
+
+.mkdru-result-details .e-suggestion {
+  clear: both;
+  margin-bottom: 11px;
+}
+
+.mkdru-result-details .e-album-info-thumb {
+  float: left;
+  margin: 0 10px 10px 0;
+}
+
+.mkdru-result-details .e-album-info-item {
+  line-height: 1.5em;
+}
+
+.mkdru-result-details .e-album-info-item .name,
+.mkdru-result-details .e-album-info-item .value {
+  display: block;
+}
+
+.mkdru-result-details .e-album-info-item .value {
+  margin-bottom: 14px;
+}
+
+.mkdru-results .mkdru-result-details thead th,
+.mkdru-results .mkdru-result-details th,
+.mkdru-results .mkdru-result-details tr {
+  border-bottom: none;
+}
+
+.mkdru-results .mkdru-result-details th {
+  padding-top: 0;
+}
+
+.mkdru-result.album {
+  cursor: pointer;
+}
+
+.page-search .view-empty {
+  color: #666;
+  font-size: 1.2em;
+  line-height: 1.5em;
+}
+
+.grid-8 .view-emusik .views-row,
+.grid-6 .view-emusik .views-row,
+.grid-8 .view-emusik .view-footer,
+.grid-6 .view-emusik .view-footer {
+  padding-left: 270px;
+}
+
+.grid-8 .view-emusik .views-row .views-field-field-list-image,
+.grid-6 .view-emusik .views-row .views-field-field-list-image,
+.grid-8 .view-emusik .views-row .views-field-field-playlist-image,
+.grid-6 .view-emusik .views-row .views-field-field-playlist-image {
+  float: left;
+  margin-left: -270px;
+}
+
+.grid-8 .view-emusik .views-row .views-field-field-list-image img,
+.grid-6 .view-emusik .views-row .views-field-field-list-image img,
+.grid-8 .view-emusik .views-row .views-field-field-playlist-image img,
+.grid-6 .view-emusik .views-row .views-field-field-playlist-image img {
+  height: auto;
+  width: 260px;
 }
