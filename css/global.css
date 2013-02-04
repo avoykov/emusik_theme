@@ -335,8 +335,7 @@ ul.menu li {
 }
 
 .nodes .summary,
-.page-node .node .summary,
-.page-taxonomy-term .node .content .field-name-field-ding-body {
+.page-node .node .summary {
   font-size: 1.4em;
   font-weight: bold;
   line-height: 1.3em;
@@ -346,6 +345,14 @@ ul.menu li {
 .page-taxonomy-term .node .content .field-name-field-ding-body {
   color: #6c6c6c;
   letter-spacing: .05em;
+}
+
+.page-node .node .address {
+  font-size: 1.2em;
+}
+
+.addressfield-container-inline:after {
+  display: inline;
 }
 
 .node .author {
@@ -399,9 +406,11 @@ ul.menu li {
   padding: 24px 18px;
 }
 
-.pane-views-panes .views-field-field-list-image img {
+.pane-views-panes .views-field-field-list-image img,
+.pane-views-panes .views-field-field-playlist-image img {
   height: auto;
   max-width: 100%;
+  width: 100%;
 }
 
 .view-emusik .view-footer a,
@@ -422,8 +431,12 @@ ul.menu li {
   font-size: 3em;
   font-weight: bold;
   line-height: 1.2em;
-  margin-bottom: 17px;
+  margin-bottom: 6px;
   overflow: hidden;
+}
+
+.view-emusik .views-field-created {
+  margin-bottom: 6px;
 }
 
 .views-field-created {
@@ -432,12 +445,14 @@ ul.menu li {
 
 .views-field-field-ding-teaser,
 .page-search-node .search-results p,
-.view-emusik .views-field-field-ding-body {
+.view-emusik .views-field-field-ding-body,
+.view-emusik .views-field-body {
   color: #7c7a74;
 }
 
 .view-emusik .views-field-field-ding-teaser,
-.view-emusik .views-field-field-ding-body {
+.view-emusik .views-field-field-ding-body,
+.view-emusik .views-field-body {
   font-size: 1.4em;
   font-weight: bold;
   line-height: 1.3em;
@@ -501,6 +516,7 @@ ul.menu li {
 
 .mkdru-facet-section {
   margin-bottom: 5px;
+  display: none;
 }
 
 .mkdru-facet-title,
@@ -712,18 +728,21 @@ ul.menu li {
   margin-bottom: 30px;
 }
 
-.pane-taxonomy-term .pane-title {
+.pane-taxonomy-term .pane-title,
+.page-koncerter h1.title {
   font-size: 1.8em;
   margin-bottom: 5px;
 }
 
-.view-taxonomy-term {
+.view-taxonomy-term,
+.page-koncerter .view-ding-event {
   padding: 21px 14px 14px 18px;
 }
 
 .pane-taxonomy-term h2.node-title,
 .page-search-node .pane-nodesearch h2.node-title,
-.page-search-node .pane-nodesearch .views-field-title {
+.page-search-node .pane-nodesearch .views-field-title,
+.page-koncerter h3.title {
   font-size: 1.8em;
   line-height: 1.2em;
   margin: 1px 0 0;
@@ -751,11 +770,18 @@ ul.menu li {
 }
 
 .pane-taxonomy-term .field-type-text-with-summary,
-.page-search-node .pane-nodesearch .views-field-field-ding-body {
+.page-search-node .pane-nodesearch .views-field-field-ding-body,
+.page-koncerter .view-ding-event .views-field-field-ding-body,
+.page-taxonomy-term .node .content .field-name-field-ding-body {
   color: #646464;
   font-size: 1.2em;
   line-height: 1.25em;
   margin-top: -2px;
+}
+
+.page-koncerter .view-ding-event .views-field-field-ding-body {
+  font-weight: bold;
+  margin-top: 5px;
 }
 
 .page-search-node .pane-nodesearch p {
@@ -776,27 +802,44 @@ ul.menu li {
 }
 
 .pane-taxonomy-term .date,
-.page-search-node .pane-nodesearch .views-field-changed {
+.page-search-node .pane-nodesearch .views-field-changed,
+.page-koncerter .view-ding-event .views-field-field-event-date {
   font-weight: bold;
 }
 
-.pane-taxonomy-term .node .field-type-image {
+.pane-taxonomy-term .node .field-type-image,
+.page-koncerter .view-ding-event .field-type-image {
   margin: 0 16px 0 0;
   max-width: inherit;
   width: auto;
 }
 
+.page-koncerter .view-ding-event .views-field-field-list-image {
+  float: left;
+  margin: 0 20px 0 0;
+  width: 200px;
+}
+
 .pane-taxonomy-term .node .field-type-image img,
-.page-search-node .node .field-type-image img {
+.page-search-node .node .field-type-image img,
+.page-koncerter .view-ding-event .field-type-image img {
   height: auto;
   width: 200px;
 }
 
-.pane-taxonomy-term .views-row {
+.pane-taxonomy-term .views-row,
+.page-koncerter .view-ding-event .views-row  {
+  clear: both;
   margin-top: 20px;
+  overflow: hidden;
 }
 
-.pane-taxonomy-term .views-row:first-child {
+.page-koncerter .view-ding-event .views-row p {
+  margin: 0;
+}
+
+.pane-taxonomy-term .views-row:first-child,
+.page-koncerter .view-ding-event .views-row:first-child {
   margin-top: 0;
 }
 
@@ -908,6 +951,13 @@ ul.menu li {
 .mkdru-result-list .external a.wimp:hover,
 .mkdru-results tr:hover .external a.wimp {
   background-position: 0 -32px;
+}
+
+.pane-emusik-playlist table a.last,
+.mkdru-result-list .external a.last,
+.mkdru-result-list .external a.last:hover,
+.mkdru-results tr:hover .external a.last {
+  background-position: 0 -48px;
 }
 
 .pane-emusik-playlist table a.fm,
@@ -1200,7 +1250,9 @@ ul.menu li {
   clear: both;
 }
 
-.front .pane-content {
+.front .pane-content,
+.not-front .row-2 .pane-content,
+.not-front .row-3 .pane-content {
   padding-bottom: 100000px;
   margin-bottom: -100000px;
   background-color: white;
@@ -1331,4 +1383,27 @@ ul.menu li {
   color: #666;
   font-size: 1.2em;
   line-height: 1.5em;
+}
+
+.grid-8 .view-emusik .views-row,
+.grid-6 .view-emusik .views-row,
+.grid-8 .view-emusik .view-footer,
+.grid-6 .view-emusik .view-footer {
+  padding-left: 270px;
+}
+
+.grid-8 .view-emusik .views-row .views-field-field-list-image,
+.grid-6 .view-emusik .views-row .views-field-field-list-image,
+.grid-8 .view-emusik .views-row .views-field-field-playlist-image,
+.grid-6 .view-emusik .views-row .views-field-field-playlist-image {
+  float: left;
+  margin-left: -270px;
+}
+
+.grid-8 .view-emusik .views-row .views-field-field-list-image img,
+.grid-6 .view-emusik .views-row .views-field-field-list-image img,
+.grid-8 .view-emusik .views-row .views-field-field-playlist-image img,
+.grid-6 .view-emusik .views-row .views-field-field-playlist-image img {
+  height: auto;
+  width: 260px;
 }
