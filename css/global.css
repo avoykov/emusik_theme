@@ -548,6 +548,14 @@ ul.menu li {
   width: 20px;
 }
 
+.mkdru-result.album.open .e-mkdru-result-title:before {
+  background-position: right -24px;
+}
+
+.mkdru-result.album.open td {
+  color: #000;
+}
+
 .closed-facet-group .mkdru-facet-title {
   color: #3f9666;
   background-position: right 4px;
