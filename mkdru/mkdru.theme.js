@@ -90,8 +90,9 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
       name: Drupal.t('Label'),
       value: false // This is a stub. For now there is no data.
     },
+    close: Drupal.t('Close'),
     date: {
-      name: Drupal.t('Date'),
+      name: Drupal.t('Release date'),
       value: function () {
         try {
           // Replace dublicated spaces and time.
@@ -107,7 +108,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
       }
     },
     length: {
-      name: Drupal.t('Length'),
+      name: Drupal.t('Running length'),
       value: function () {
         try {
           return data.lfm[1].album[0].tracks[0].track.length;
@@ -118,7 +119,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
       }
     },
     duration: {
-      name: Drupal.t('Duration'),
+      name: Drupal.t('Running time'),
       value: function () {
         try {
           var duration = 0;
@@ -178,6 +179,17 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
         catch (e) {
           return null;
         }
+      },
+      backlink: {
+        url: function () {
+          try {
+            return this.bio.backlink.url = data.lfm[0].artist[0].url[0];
+          }
+          catch (e) {
+            return 'http://last.fm/';
+          }
+        },
+        title: Drupal.t('Source')
       }
     },
     suggested_albums: {
@@ -242,6 +254,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
         '{{^available.lastfm.status}}{{&available.lastfm.message}}{{/available.lastfm.status}}',
         '{{#available.lastfm.status}}<div class="mkdru-result-details-album">',
           '<div class="b-album-info">',
+            '<div class="e-close">{{close}}</div>',
             '{{#thumb}}<div class="e-album-info-thumb"><img src="{{thumb}}" ></div>{{/thumb}}',
             '{{#label.value}}<div class="e-album-info-item label">',
               '<span class="b-album-info-item name">{{label.name}}</span>',
@@ -267,6 +280,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
             '<h4 class="b-bio-title">{{bio.title}}</h4>',
             '<img class="b-bio-thumb" src="{{bio.thumb}}" >',
             '<div class="b-bio-content">{{&bio.content}}</div>',
+            '<div class="b-bio-backlink"><a href="{{bio.backlink.url}}" target="_blank">{{bio.backlink.title}}</a></div>',
           '</div>',
           '{{#suggested_albums.status}}<div class="e-suggestion albums">',
             '<h4 class="b-suggestion-title">{{suggested_albums.title}}</h4>',
@@ -344,7 +358,7 @@ Drupal.theme.prototype.mkdruStatus = function(activeClients, clients) {
   if (activeClients == 0)
     return ' ';
 
-  var loader = '<img class="mkdru-status-loader" src="data:image/png;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAAKAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQACgABACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkEAAoAAgAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkEAAoAAwAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkEAAoABAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQACgAFACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQACgAGACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAAKAAcALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="> ';
+  var loader = '<img class="mkdru-status-loader" src="' + Drupal.settings.images_path + '/loader.png"> ';
 
   return loader + Drupal.t('Waiting on @activeClients out of @clients targets',
     {'@activeClients': activeClients, '@clients': clients}
@@ -414,12 +428,27 @@ String.prototype.toHHMMSS = function () {
   return time;
 }
 
+// Open details box.
 function bindMkdruDetailsHandler(recid) {
-  jQuery('.mkdru-result.details').hide();
+  // Try to close details box if it open.
+  if (closeDetailsBox(recid)) {
+    return;
+  }
+
+  // Are details already loading?
+  if (jQuery('.mkdru-details-loader').length) {
+    return;
+  }
 
   var selector = jQuery('#' + (new MkdruRecid(recid)).toHtmlAttr());
-  var loader = jQuery('<img class="mkdru-loader" src="data:image/png;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAAKAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQACgABACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkEAAoAAgAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkEAAoAAwAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkEAAoABAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQACgAFACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQACgAGACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAAKAAcALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==">');
-  selector.after(loader);
+  var loader = jQuery('<img class="mkdru-details-loader" src="' + Drupal.settings.images_path + '/loader.png">');
+  jQuery('.e-mkdru-result-title', selector).append(loader);
+
+  // Hide all other details boxes if any.
+  jQuery.each(jQuery('.mkdru-result.details'), function(i, e) {
+    closeDetailsBox(jQuery(this).prev().attr('id'));
+    jQuery(this).remove();
+  });
 
   // Clear mkdru handler and set own.
   jQuery(document).unbind('mkdru.onrecord');
@@ -427,13 +456,19 @@ function bindMkdruDetailsHandler(recid) {
     var selector = jQuery('#' + (new MkdruRecid(data.recid[0])).toHtmlAttr());
 
     clearTimeout(mkdru.pz2.showTimer);
-    jQuery('.mkdru-loader').remove();
+    jQuery('.mkdru-details-loader, .mkdru-result.details').remove();
 
     var details = jQuery(Drupal.theme('mkdruEmusicDetail', data))
       .insertAfter(selector);
 
+    details.find('.e-close').click(function () {
+      closeDetailsBox(recid);
+    });
+
+    selector.addClass('open');
+
     // Copy external links from album to each track.
-    jQuery('.external a', selector).appendTo(jQuery('.b-data.external', details));
+    jQuery('.external a', selector).clone().appendTo(jQuery('.b-data.external', details));
 
     // Scroll to details.
     var offset = details.offset();
@@ -444,9 +479,26 @@ function bindMkdruDetailsHandler(recid) {
       });
     }
 
+    mkdru.pz2.errorHandler = null;
     clearTimeout(mkdru.pz2.recordTimer);
   });
 
   // Call to pz webservice.
+  mkdru.pz2.errorHandler = function () {
+    selector.after(Drupal.theme('mkdruEmusicDetail'))
+      .find('.mkdru-details-loader').remove();
+  };
   mkdru.pz2.record(recid);
 };
+
+// Close details box.
+function closeDetailsBox(recid) {
+  var row = jQuery('#' + (new MkdruRecid(recid)).toHtmlAttr());
+  var details = row.next();
+  if (details.hasClass('mkdru-result details')) {
+    details.remove();
+    row.removeClass('open');
+    return true;
+  }
+  return false;
+}
