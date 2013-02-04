@@ -1,3 +1,7 @@
 .block-main-menu {
   padding-top: 11px;
 }
+
+.mkdru-result.album.open .e-mkdru-result-title:before {
+  content: '';
+}

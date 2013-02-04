@@ -556,6 +556,10 @@ ul.menu li {
   color: #000;
 }
 
+.mkdru-result.album td {
+  vertical-align: top;
+}
+
 .mkdru-result.details .e-close {
   cursor: pointer;
   float: right;
@@ -565,6 +569,10 @@ ul.menu li {
 
 .mkdru-result.details .e-close:hover {
   color: #000;
+}
+
+.mkdru-details-loader {
+  float: right;
 }
 
 .closed-facet-group .mkdru-facet-title {
