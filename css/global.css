@@ -516,6 +516,9 @@ ul.menu li {
 
 .mkdru-facet-section {
   margin-bottom: 5px;
+}
+
+.grid-3 .mkdru-facet-section {
   display: none;
 }
 
