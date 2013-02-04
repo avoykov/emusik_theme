@@ -560,6 +560,7 @@ ul.menu li {
   cursor: pointer;
   float: right;
   color: #3f9666;
+  text-transform: lowercase;
 }
 
 .mkdru-result.details .e-close:hover {
