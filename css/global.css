@@ -1305,7 +1305,7 @@ ul.menu li {
 .mkdru-results .mkdru-result-details table,
 .mkdru-results .mkdru-result-details th {
   color: #323230;
-  font-size: 1em; 
+  font-size: 1em;
 }
 
 .mkdru-results .mkdru-result-details table {
@@ -1429,4 +1429,8 @@ ul.menu li {
 .grid-6 .view-emusik .views-row .views-field-field-playlist-image img {
   height: auto;
   width: 260px;
+}
+
+.pane-left {
+  float: left;
 }
