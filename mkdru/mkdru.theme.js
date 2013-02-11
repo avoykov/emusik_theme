@@ -7,7 +7,7 @@ Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
   var view = {
       recid: hit.recid[0],
       recid_html: (new MkdruRecid(hit.recid[0])).toHtmlAttr(),
-      is_album: function() {
+      is_album: function () {
         try {
           return (jQuery.inArray("album", hit["md-medium"]) > -1);
         }
@@ -62,7 +62,6 @@ mkdruResourceTitle2ClassName = function(res) {
 
 // Local articles block.
 Drupal.theme.prototype.mkdruEmusicDetailLocalArticles = function(data) {
-
   data.title = Drupal.t('Other articles');
 
   var tpl = [
@@ -330,10 +329,10 @@ Drupal.theme.prototype.mkdruPager = function (pages, start, current, total, prev
       current: current,
       total: total,
       next: next,
-      before: function(){
+      before: function (){
           return this.start > 1
       },
-      after: function() {
+      after: function () {
           return this.total > pages.length
       }
   };
@@ -371,7 +370,7 @@ Drupal.theme.prototype.mkdruStatus = function(activeClients, clients) {
 };
 
 // Toggler for facet.
-jQuery('.mkdru-facet-title').css({cursor:'pointer'}).live("click", function() {
+jQuery('.mkdru-facet-title').css({cursor:'pointer'}).live("click", function () {
   jQuery(this).parent().toggleClass('closed-facet-group');
   jQuery(this).siblings('.mkdru-facet').toggle()
 });
@@ -405,7 +404,7 @@ Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
 // Mkdru record id wrapper.
 function MkdruRecid(recid) {
   this.recid = recid;
-  this.toHtmlAttr = function() {
+  this.toHtmlAttr = function () {
     return this.recid.replace(/[\s\:]+/g, '_');
   };
 }
@@ -488,12 +487,12 @@ function bindMkdruDetailsHandler(recid) {
     var search_phrase = typeof(data['md-title'][0]) != undefined ? data['md-title'][0] : '';
 
     jQuery.ajax({
-      beforeSend: function() {
+      beforeSend: function () {
         return (!search_phrase) ? false : true;
       },
       success: function (xml) {
         var articles = {items:[]};
-        jQuery(xml).find('item:lt(5)').each(function() {
+        jQuery(xml).find('item:lt(5)').each(function () {
           articles.items.push({
             title: jQuery(this).find('title').text(),
             url: jQuery(this).find('link').text()
