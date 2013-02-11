@@ -60,6 +60,21 @@ mkdruResourceTitle2ClassName = function(res) {
   return res.match(/(\w+)/)[0].toLowerCase();
 };
 
+// Local articles block.
+Drupal.theme.prototype.mkdruEmusicDetailLocalArticles = function(data) {
+
+  data.title = Drupal.t('Other articles');
+
+  var tpl = [
+    '{{#items}}<div class="e-suggestion editorial">',
+      '<h4 class="b-suggestion-title">{{title}}</h4>',
+      '<ul class="b-suggestions"><li><a href="{{url}}">{{title}}</a></li></ul>',
+    '</div>{{/items}}'
+  ].join('');
+
+  return Mustache.render(tpl, data);
+};
+
 // Item details.
 Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
 
@@ -219,12 +234,6 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
           return [];
         }
       }
-    },
-    suggested_articles: {
-      /* This will be replaced while implementation.
-      title: Drupal.t('Other articles'),
-      items: [{url: 'http://example.com', 'title': 'Some title'}]
-      */
     }
   };
 
@@ -286,10 +295,6 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
             '<h4 class="b-suggestion-title">{{suggested_albums.title}}</h4>',
             '<ul class="b-suggestions">{{#suggested_albums.items}}<li>{{title}}</li>{{/suggested_albums.items}}</ul>',
           '</div>{{/suggested_albums.status}}',
-          '{{#suggested_articles}}<div class="e-suggestion editorial">',
-            '<h4 class="b-suggestion-title">{{suggested_articles.title}}</h4>',
-            '<ul class="b-suggestions">{{#suggested_articles.items}}<li><a href="{{url}}">{{title}}</a></li>{{/suggested_articles.items}}</ul>',
-          '</div>{{/suggested_articles}}',
         '</div>{{/available.lastfm.status}}',
       '</td>',
     '</tr>'
@@ -478,6 +483,28 @@ function bindMkdruDetailsHandler(recid) {
         scrollLeft: offset.left
       });
     }
+
+    // Local articles.
+    var search_phrase = typeof(data['md-title'][0]) != undefined ? data['md-title'][0] : '';
+
+    jQuery.ajax({
+      beforeSend: function() {
+        return (!search_phrase) ? false : true;
+      },
+      success: function (xml) {
+        var articles = {items:[]};
+        jQuery(xml).find('item:lt(5)').each(function() {
+          articles.items.push({
+            title: jQuery(this).find('title').text(),
+            url: jQuery(this).find('link').text()
+          });
+        });
+
+        var view = jQuery(Drupal.theme('mkdruEmusicDetailLocalArticles', articles));
+        jQuery('.mkdru-result-details-suggestions', details).append(view);
+      },
+      url: Drupal.settings.basePath + 'emusik/rss/search/' + encodeURIComponent(search_phrase)
+    });
 
     mkdru.pz2.errorHandler = null;
     clearTimeout(mkdru.pz2.recordTimer);
