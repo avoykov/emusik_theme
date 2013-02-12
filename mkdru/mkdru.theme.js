@@ -64,11 +64,20 @@ mkdruResourceTitle2ClassName = function(res) {
 Drupal.theme.prototype.mkdruEmusicDetailLocalArticles = function(data) {
   data.title = Drupal.t('Other articles');
 
+  // Decide to display block or not.
+  data.display = function () {
+    if (typeof(this.items) == undefined) {
+      return false;
+    }
+
+    return this.items.length > 0;
+  }
+
   var tpl = [
-    '{{#items}}<div class="e-suggestion editorial">',
+    '{{#display}}<div class="e-suggestion editorial">',
       '<h4 class="b-suggestion-title">{{title}}</h4>',
-      '<ul class="b-suggestions"><li><a href="{{url}}">{{title}}</a></li></ul>',
-    '</div>{{/items}}'
+      '<ul class="b-suggestions">{{#items}}<li><a href="{{url}}">{{title}}</a></li>{{/items}}</ul>',
+    '</div>{{/display}}'
   ].join('');
 
   return Mustache.render(tpl, data);
