@@ -551,6 +551,37 @@ ul.menu li {
   width: 20px;
 }
 
+.mkdru-result.album.open .e-mkdru-result-title:before {
+  background-position: right -24px;
+}
+
+.mkdru-result.album.open td {
+  color: #000;
+}
+
+.mkdru-result.album td {
+  vertical-align: top;
+}
+
+.mkdru-result.details .e-close {
+  cursor: pointer;
+  float: right;
+  color: #3f9666;
+  text-transform: lowercase;
+}
+
+.mkdru-result.details .e-close:hover {
+  color: #000;
+}
+
+.mkdru-result.details .b-bio-backlink {
+  margin-top: 6px;
+}
+
+.mkdru-details-loader {
+  float: right;
+}
+
 .closed-facet-group .mkdru-facet-title {
   color: #3f9666;
   background-position: right 4px;
@@ -1285,7 +1316,7 @@ ul.menu li {
 .mkdru-results .mkdru-result-details table,
 .mkdru-results .mkdru-result-details th {
   color: #323230;
-  font-size: 1em; 
+  font-size: 1em;
 }
 
 .mkdru-results .mkdru-result-details table {
@@ -1409,4 +1440,8 @@ ul.menu li {
 .grid-6 .view-emusik .views-row .views-field-field-playlist-image img {
   height: auto;
   width: 260px;
+}
+
+.pane-left {
+  float: left;
 }
