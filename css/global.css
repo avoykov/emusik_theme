@@ -364,6 +364,10 @@ ul.menu li {
   margin-top: 14px;
 }
 
+.node .author .username {
+  margin-left: 5px;
+}
+
 .node h1,
 .node h2,
 .node h3,
@@ -1012,9 +1016,8 @@ ul.menu li {
 }
 
 .node-social-icons {
-  position: absolute;
-  right: 0;
-  top: 0;
+  float: right;
+  position: relative;
 }
 
 .pane-node-field-ding-material-type,
