@@ -402,7 +402,7 @@ Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
       view.terms.push(terms[key]);
     }
   }
-  var tpl = '{{#terms}}<a href="{{toggleLink}}" class="{{#selected}}cross{{/selected}} {{id}}">{{#selected}}<strong>{{/selected}}{{name}}{{#selected}}</strong>{{/selected}} (<span class="facet-freq">{{freq}}</span>)</a>{{/terms}}'
+  var tpl = '{{#terms}}<label><input type="checkbox" toggleLink="{{toggleLink}}" {{#selected}}checked {{/selected}}class="{{id}}"/>{{name}}</label> (<span class="facet-freq">{{freq}}</span>)</a>{{/terms}}';
 
   // Trigger onAfterFacet event.
   setTimeout(function () { jQuery(document).trigger('mkdru.theme.onAfterFacet'); }, 100);

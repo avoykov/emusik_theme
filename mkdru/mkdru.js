@@ -104,6 +104,11 @@
       window.related_sources = sources;
     });
 
+    $(document).bind('mkdru.onterm', function(event, data) {
+      $(".mkdru-facet-section input[type=checkbox]").change(function(){
+        document.location.hash = $(this).attr('toggleLink');
+      });
+    });
   });
 
   // Initialize custom facet groups.
