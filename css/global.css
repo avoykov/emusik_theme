@@ -519,7 +519,8 @@ ul.menu li {
 }
 
 .mkdru-facet-title,
-.mkdru-facet-section a {
+.mkdru-facet-section a,
+.mkdru-facet-section label {
   color: #3f9666;
   font-size: 1.4em;
   font-weight: bold;
@@ -528,6 +529,11 @@ ul.menu li {
   margin: 0;
   padding: 0;
   text-transform: uppercase;
+}
+
+.mkdru-facet-section input[type=checkbox] {
+  margin-top: -2px;
+  margin-right: 4px;
 }
 
 .mkdru-facet-title,
