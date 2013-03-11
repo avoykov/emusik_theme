@@ -104,9 +104,10 @@
       window.related_sources = sources;
     });
 
+    // Bind evens to facets checkboxes
     $(document).bind('mkdru.onterm', function(event, data) {
       $(".mkdru-facet-section input[type=checkbox]").change(function(){
-        document.location.hash = $(this).attr('toggleLink');
+        document.location.hash = $(this).attr('data-toggle');
       });
     });
   });
