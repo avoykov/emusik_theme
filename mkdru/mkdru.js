@@ -47,7 +47,7 @@
         window.facets_backup = container.clone(true);
       }
 
-      if (query.facet_group == 'streaming') {
+      if (query.facet_group == 'streaming_services') {
         // Re-order facets.
         container.restore(window.facets_backup);
         jQuery('.mkdru-facet-section:has(.mkdru-facet-source):gt(0)').insertBefore(jQuery('.mkdru-facet-section:first'));
@@ -63,6 +63,9 @@
         // Re-order facets.
         container.restore(window.facets_backup);
         jQuery('.mkdru-facet-section:has(.mkdru-facet-author)').insertBefore(jQuery('.mkdru-facet-section:first'));
+        // Remove source and type facet from 'video'
+        $('.mkdru-facet-source').prev().hide();
+        $('.mkdru-facet-Type').prev().hide();
       }
       else {
         container.restore(window.facets_backup);
@@ -115,7 +118,7 @@
   // Initialize custom facet groups.
   function init_facet_groups() {
     var custom_facets = [{
-      key: 'streaming',
+      key: 'streaming_services',
       name: Drupal.t('Streaming Services'),
       fragment: {
         limit_Type: 'album|track|artist'

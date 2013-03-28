@@ -1,8 +1,8 @@
 // Search result item.
 Drupal.theme.prototype.mkdruResult = function(hit, num, detailLink) {
-  // Escape if there is no title to avoid showig empty blocks.
+  // Use author instead of title when there is no title to void empty lines in search result.
   if (hit["md-title"] == undefined) {
-    return;
+    hit["md-title"] = hit["md-author"];
   }
   var view = {
       recid: hit.recid[0],
@@ -393,14 +393,27 @@ Drupal.theme.prototype.mkdruFacet = function (terms, facet, max, selections) {
   var view = {
     terms: []
   }
+  var query = jQuery.deparam.fragment();
   for (var key in terms.slice(0, max)) {
-    if (terms[key].name != 'video' && terms[key].name != 'artist') {
-      if (terms[key].id != undefined) {
-        // Escape special chars to use as CSS class.
-        terms[key].id = terms[key].id.replace(/[\.\:]/g, "_");
+    if (terms[key].name == 'video' || terms[key].name == 'artist') continue;
+
+    // Special hooks for streaming services.
+    if (query.facet_group == 'streaming_services') {
+      // Hide 'bibliotek.dk - text' and 'youtube video'.
+      if (terms[key].id == 'P-3.A.local-13-312-23' || terms[key].id == 'P-2.dbc-youtube_api:video-20') continue;
+
+      // Extra hook for 'album' and 'track' facets.
+      // It's required while unchecking to set default limit_type to "album|track|artist".
+      if (terms[key].selected == true && (terms[key].name == 'album' || terms[key].name == 'track')) {
+        query.limit_Type = 'album|track|artist';
+        terms[key].toggleLink = jQuery('<a>').fragment(query).attr('href');
       }
-      view.terms.push(terms[key]);
     }
+    if (terms[key].id != undefined) {
+      // Escape special chars to use as CSS class.
+      terms[key].id = terms[key].id.replace(/[\.\:]/g, "_");
+    }
+    view.terms.push(terms[key]);
   }
   var tpl = '{{#terms}}<label><input type="checkbox" data-toggle="{{toggleLink}}" data-selected="{{selected}}" {{#selected}}checked="checked" {{/selected}}class="{{id}}"/>{{name}} ({{freq}})</label>{{/terms}}';
 
