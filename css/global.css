@@ -364,6 +364,10 @@ ul.menu li {
   margin-top: 14px;
 }
 
+.node .author span {
+  color: #3f966b;
+}
+
 .node h1,
 .node h2,
 .node h3,
@@ -463,7 +467,7 @@ ul.menu li {
   margin-bottom: 20px;
 }
 
-.page-search-node .search-results p {
+.page-seae .search-results p {
   font-size: 1.2em;
   font-weight: bold;
   line-height: 1.25em;
@@ -684,7 +688,7 @@ ul.menu li {
   margin: 5px;
 }
 
-.mkdru-pager span:first-child:before {
+.mkdru-pager span:first-child:-child:before {
   display: none;
 }
 
