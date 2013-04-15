@@ -688,7 +688,7 @@ ul.menu li {
   margin: 5px;
 }
 
-.mkdru-pager span:first-child:-child:before {
+.mkdru-pager span:first-child:before {
   display: none;
 }
 
