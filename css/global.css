@@ -12,7 +12,8 @@ h1, h2, h3, h4, h5, h6 {
 
 a:link,
 a:hover,
-a:visited {
+a:visited,
+.zone-footer li a.active {
   color: #3f966b;
   text-decoration: none;
 }
@@ -29,8 +30,8 @@ a:visited {
 
 .region-user-second input[type="text"] {
   background: url(../images/search-bg.png) repeat-x 0 0;
-  border: none;
-  color: #5e5e5f;
+  border: 2px solid #3f966b;
+  color: #3f966b;
   font-size: 1.4em;
   font-weight: bold;
   height: 27px;
@@ -1262,22 +1263,27 @@ ul.menu li {
 }
 
 #search-block-form input[name="search_block_form"] {
-  color: #fff;
+  color: #3f9666;
 }
+
 #search-block-form input[name="search_block_form"]::-webkit-input-placeholder {
-  color: #fff;
+  color: #3f9666;
 }
+
 #search-block-form input[name="search_block_form"]:-moz-placeholder {
-  color: #fff;
+  color: #3f9666;
 }
+
 #search-block-form input[name="search_block_form"]::-moz-placeholder {
-  color: #fff;
+  color: #3f9666;
 }
+
 #search-block-form input[name="search_block_form"]:-ms-input-placeholder {
-  color: #fff;
+  color: #3f9666;
 }
+
 #search-block-form input[name="search_block_form"].placeholder-text {
-  color: #fff;
+  color: #3f9666;
 }
 
 /* Equal columns height */
@@ -1446,4 +1452,11 @@ ul.menu li {
 
 .pane-left {
   float: left;
+}
+
+.page-taxonomy .feed-icon {
+  position: absolute;
+  right: 0;
+  top: 18px;
+  z-index: 49;
 }
