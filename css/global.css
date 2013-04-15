@@ -307,6 +307,7 @@ ul.menu li {
   line-height: 1.2em;
   margin-bottom: 17px;
   margin-top: 1px;
+  word-wrap: break-word;
 }
 
 .node .pane-title a {
@@ -438,6 +439,7 @@ ul.menu li {
   line-height: 1.2em;
   margin-bottom: 6px;
   overflow: hidden;
+  word-wrap: break-word;
 }
 
 .view-emusik .views-field-created {
@@ -462,6 +464,7 @@ ul.menu li {
   font-weight: bold;
   line-height: 1.3em;
   margin-bottom: 14px;
+  word-wrap: break-word;
 }
 
 .view-emusik .views-field-field-list-image {
