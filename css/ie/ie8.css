@@ -5,3 +5,7 @@
 .mkdru-result.album.open .e-mkdru-result-title:before {
   content: '';
 }
+
+.region-user-second input[type="text"] {
+  line-height: 20px;
+}
