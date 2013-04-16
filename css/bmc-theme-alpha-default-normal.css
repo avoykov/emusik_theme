@@ -5,3 +5,8 @@
 .node .pane-title {
   font-size: 2.4em;
 }
+
+.pane-emusik-playlist .node-details {
+  float: left;
+  width: 425px;
+}
