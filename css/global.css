@@ -10,6 +10,26 @@ h1, h2, h3, h4, h5, h6 {
   font-family: Helvetica, Arial;
 }
 
+h2 {
+  font-size: 1.8em;
+}
+
+h3 {
+  font-size: 1.6em;
+}
+
+h4 {
+  font-size: 1.4em;
+}
+
+h5 {
+  font-size: 1.3em;
+}
+
+h6 {
+  font-size: 1.2em;
+}
+
 a:link,
 a:hover,
 a:visited,
@@ -91,7 +111,7 @@ a:visited,
 }
 
 .section-footer h2.block-title {
-  font-size: 1.7em;
+  font-size: 1.5em;
   font-weight: bold;
   letter-spacing: .05em;
   text-transform: uppercase;
@@ -251,7 +271,7 @@ ul.menu li {
 }
 
 .page-search-node .pane-nodesearch .node .field-type-image {
-  margin: 0 16px 0 0;
+  margin: 0 15px 0 0;
   max-width: inherit;
   width: auto;
 }
@@ -302,7 +322,7 @@ ul.menu li {
 
 .node .pane-title {
   color: #000;
-  font-size: 3em;
+  font-size: 2em;
   letter-spacing: 0;
   line-height: 1.2em;
   margin-bottom: 17px;
@@ -327,8 +347,8 @@ ul.menu li {
 
 .node .field-type-image {
   float: left;
-  margin: 0 26px 20px 0;
-  max-width: 50%;
+  margin: 0 15px 20px 0;
+  max-width: 35%;
 }
 
 .node .field-type-image img {
@@ -347,6 +367,15 @@ ul.menu li {
 .page-taxonomy-term .node .content .field-name-field-ding-body {
   color: #6c6c6c;
   letter-spacing: .05em;
+}
+
+.page-taxonomy-term .node .field-type-image img {
+  height: auto;
+  width: 160px;
+}
+
+.page-taxonomy-term .node-title {
+  font-size: 1.8em;
 }
 
 .page-node .node .address {
@@ -438,7 +467,7 @@ ul.menu li {
 .view-emusik .views-field-title a {
   color: #000;
   display: block;
-  font-size: 3em;
+  font-size: 2em;
   font-weight: bold;
   line-height: 1.2em;
   margin-bottom: 6px;
@@ -609,7 +638,7 @@ ul.menu li {
 }
 
 .region-content .grid-9 .mkdru-facet-section a {
-  font-size: 1.8em;
+  font-size: 1.5em;
   margin: 0;
 }
 
@@ -710,7 +739,7 @@ ul.menu li {
 }
 
 .page-search-meta h1.title {
-  font-size: 1.8em;
+  font-size: 1.5em;
   letter-spacing: .05em;
   margin: 0;
   position: absolute;
@@ -918,7 +947,7 @@ ul.menu li {
 }
 
 .pane-emusik-playlist .field-type-image {
-  width: 180px;
+  width: 160px;
 }
 
 .pane-emusik-playlist h2.node-title {
@@ -1442,7 +1471,7 @@ ul.menu li {
 .grid-6 .view-emusik .views-row,
 .grid-8 .view-emusik .view-footer,
 .grid-6 .view-emusik .view-footer {
-  padding-left: 270px;
+  padding-left: 170px;
 }
 
 .grid-8 .view-emusik .views-row .views-field-field-list-image,
@@ -1450,7 +1479,7 @@ ul.menu li {
 .grid-8 .view-emusik .views-row .views-field-field-playlist-image,
 .grid-6 .view-emusik .views-row .views-field-field-playlist-image {
   float: left;
-  margin-left: -270px;
+  margin-left: -170px;
 }
 
 .grid-8 .view-emusik .views-row .views-field-field-list-image img,
@@ -1458,7 +1487,7 @@ ul.menu li {
 .grid-8 .view-emusik .views-row .views-field-field-playlist-image img,
 .grid-6 .view-emusik .views-row .views-field-field-playlist-image img {
   height: auto;
-  width: 260px;
+  width: 160px;
 }
 
 .pane-left {
