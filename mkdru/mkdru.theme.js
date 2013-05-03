@@ -226,12 +226,9 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
           var uri_fragment = jQuery.deparam.fragment();
 
           for (var i = 0; i <= 3; i++) {
-            var fragment = jQuery.extend({}, uri_fragment); // clone.
             var title = data.lfm[2].topalbums[0].album[i].name[0];
-            fragment.limit_Album = encodeURI(title);
-
             albums.push({
-              url: jQuery('<a>').fragment(fragment).attr('href'),
+              url: '/search/meta/' + encodeURI(title),
               title: title
             });
           }
@@ -301,7 +298,7 @@ Drupal.theme.prototype.mkdruEmusicDetail = function(data) {
           '</div>',
           '{{#suggested_albums.status}}<div class="e-suggestion albums">',
             '<h4 class="b-suggestion-title">{{suggested_albums.title}}</h4>',
-            '<ul class="b-suggestions">{{#suggested_albums.items}}<li>{{title}}</li>{{/suggested_albums.items}}</ul>',
+            '<ul class="b-suggestions">{{#suggested_albums.items}}<li><a href={{url}}>{{title}}</a></li>{{/suggested_albums.items}}</ul>',
           '</div>{{/suggested_albums.status}}',
         '</div>{{/available.lastfm.status}}',
       '</td>',
