@@ -36,8 +36,9 @@
       <?php if ($body[0]['summary']): ?>
         <div class="summary"><?php print render($body[0]['summary']); ?></div>
       <?php endif; ?>
-      <div class="author"><?php print t('by '); ?><?php print $name; ?></div>
+      <div class="author"><?php print t('by '); ?><span><?php print $node->name; ?></span></div>
       <div class="body"><?php print render($content['field_ding_body']); ?></div>
     </div>
+    <?php print render($content['facebookshare']); ?>
   </article>
 <?php endif; ?>

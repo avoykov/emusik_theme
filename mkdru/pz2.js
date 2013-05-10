@@ -1,5 +1,5 @@
 /*
- * Mine
+ * $Id: 4f16ccba282f1275e2f62eb32294fa306521ec86 $
 ** pz2.js - pazpar2's javascript client library.
 */
 
@@ -29,7 +29,7 @@ var pz2 = function ( paramArray )
     
     // at least one callback required
     if ( !paramArray )
-        throw new Error("Pz2.js: Array with parameters has to be supplied.");
+        throw new Error("Pz2.js: Array with parameters has to be suplied."); 
 
     //supported pazpar2's protocol version
     this.suppProtoVer = '1';
@@ -79,7 +79,7 @@ var pz2 = function ( paramArray )
 
     // where are we?
     this.currentStart = 0;
-    // currentNum can be overwritten in show
+    // currentNum can be overwritten in show 
     this.currentNum = 20;
 
     // last full record retrieved
@@ -146,7 +146,7 @@ pz2.prototype =
         }
    },
 
-    // stop activity by clearing tiemouts
+    // stop activity by clearing tiemouts 
    stop: function ()
    {
        clearTimeout(this.statTimer);
@@ -212,7 +212,7 @@ pz2.prototype =
                                 context.keepAlive
                             );
                         if ( context.initCallback )
-                            context.initCallback(data);
+                            context.initCallback();
                     }
                     else
                         context.throwError('Init failed. Malformed WS resonse.',
@@ -284,13 +284,17 @@ pz2.prototype =
         else
             var start = 0;
 
-	      var searchParams = { 
+	var searchParams = { 
           "command": "search",
           "query": this.currQuery, 
           "session": this.sessionID,
           "windowid" : window.name
         };
 	
+        if( sort !== undefined ) {
+            this.currentSort = sort;
+	    searchParams["sort"] = sort;
+	}
         if (filter !== undefined)
 	        searchParams["filter"] = filter;
 
@@ -385,24 +389,23 @@ pz2.prototype =
 
         var context = this;
         var request = new pzHttpRequest(this.pz2String, this.errorHandler);
-        var requestParameters = {
-              "command": "show",
-              "session": this.sessionID,
+	var requestParameters = 
+          {
+              "command": "show", 
+              "session": this.sessionID, 
               "start": this.currentStart,
-              "num": this.currentNum,
-              "sort": this.currentSort,
+              "num": this.currentNum, 
+              "sort": this.currentSort, 
               "block": 1,
               "type": this.showResponseType,
-              "windowid": window.name
+              "windowid" : window.name
           };
-        if (query_state) {
-            requestParameters["query-state"] = query_state;
-        }
-		if (this.version && this.version > 0) {
-	        requestParameters["version"] = this.version;
-		}
+        if (query_state)
+          requestParameters["query-state"] = query_state;
+	if (this.version && this.version > 0)
+	    requestParameters["version"] = this.version;
         request.safeGet(
-          requestParameters,
+	  requestParameters,
           function(data, type) {
             var show = null;
             var activeClients = 0;
@@ -445,15 +448,15 @@ pz2.prototype =
             } else {
               context.throwError('Show failed. Malformed WS resonse.',
                   114);
-            }
-            var approxNode = data.getElementsByTagName('approximation');
-            if (approxNode
-				&& approxNode[0]
-                && approxNode[0].childNodes[0]
-                && approxNode[0].childNodes[0].nodeValue) {
-                show['approximation'] = Number(approxNode[0].childNodes[0].nodeValue);
-			}
+            };
+	    
+	    var approxNode = data.getElementsByTagName("approximation");
+	    if (approxNode && approxNode[0] && approxNode[0].childNodes[0] && approxNode[0].childNodes[0].nodeValue)
+		show['approximation'] = 
+		  Number( approxNode[0].childNodes[0].nodeValue);
+	      
 
+	      data.getElementsByTagName("")
             context.activeClients = activeClients; 
             context.showCounter++;
             var delay = context.showTime;
@@ -573,7 +576,9 @@ pz2.prototype =
                 "command": "termlist", 
                 "session": this.sessionID, 
                 "name": this.termKeys,
-                "windowid" : window.name
+                "windowid" : window.name, 
+		"version" : this.version
+	
             },
             function(data) {
                 if ( data.getElementsByTagName("termlist") ) {
@@ -603,12 +608,22 @@ pz2.prototype =
                                     .childNodes[0].nodeValue || 'ERROR'
                             };
 
+			    // Only for xtargets: id, records, filtered
                             var termIdNode = 
                                 terms[j].getElementsByTagName("id");
                             if(terms[j].getElementsByTagName("id").length)
                                 term["id"] = 
                                     termIdNode[0].childNodes[0].nodeValue;
                             termList[listName][j] = term;
+
+			    var recordsNode  = terms[j].getElementsByTagName("records");
+			    if (recordsNode && recordsNode.length)
+				term["records"] = recordsNode[0].childNodes[0].nodeValue;
+                              
+			    var filteredNode  = terms[j].getElementsByTagName("filtered");
+			    if (filteredNode && filteredNode.length)
+				term["filtered"] = filteredNode[0].childNodes[0].nodeValue;
+                              
                         }
                     }
 
@@ -650,33 +665,44 @@ pz2.prototype =
         var context = this;
         var request = new pzHttpRequest(this.pz2String, this.errorHandler);
         request.safeGet(
-            {
-              "command": "bytarget",
-              "session": this.sessionID,
-              "block": 1,
-              "windowid" : window.name
-            },
+            { 
+		"command": "bytarget", 
+		"session": this.sessionID, 
+		"block": 1,
+		"windowid" : window.name,
+		"version" : this.version
+	    },
             function(data) {
                 if ( data.getElementsByTagName("status")[0]
                         .childNodes[0].nodeValue == "OK" ) {
                     var targetNodes = data.getElementsByTagName("target");
                     var bytarget = new Array();
-                    for (var i = 0; i < targetNodes.length; i++) {
+                    for ( i = 0; i < targetNodes.length; i++) {
                         bytarget[i] = new Array();
-                        for(var j = 0; j < targetNodes[i].childNodes.length; j++ ) {
-                            if ( targetNodes[i].childNodes[j].nodeType
+                        for( j = 0; j < targetNodes[i].childNodes.length; j++ ) {
+                            if ( targetNodes[i].childNodes[j].nodeType 
                                 == Node.ELEMENT_NODE ) {
-                                var nodeName =
+                                var nodeName = 
                                     targetNodes[i].childNodes[j].nodeName;
-                                if (targetNodes[i].childNodes[j].firstChild != null) {
+				if (targetNodes[i].childNodes[j].firstChild != null) 
+				{
                                     var nodeText = targetNodes[i].childNodes[j]
-                                       .firstChild.nodeValue;
+					.firstChild.nodeValue;
                                     bytarget[i][nodeName] = nodeText;
-                                }
-                                else {
-                                    bytarget[i][nodeName] = "";
-                                }
+				}
+				else { 
+				    bytarget[i][nodeName] = "";  
+				}
+
+
                             }
+                        }
+                        if (bytarget[i]["state"]=="Client_Disconnected") {
+                          bytarget[i]["hits"] = "Error";
+                        } else if (bytarget[i]["state"]=="Client_Error") {
+                          bytarget[i]["hits"] = "Error";                          
+                        } else if (bytarget[i]["state"]=="Client_Working") {
+                          bytarget[i]["hits"] = "...";
                         }
                         if (bytarget[i].diagnostic == "1") {
                           bytarget[i].diagnostic = "Permanent system error";
@@ -740,7 +766,7 @@ pz2.prototype =
 ********************************************************************************
 */
 var pzHttpRequest = function ( url, errorHandler ) {
-        this.maxUrlLength = 512;
+        this.maxUrlLength = 2048;
         this.request = null;
         this.url = url;
         this.errorHandler = errorHandler || null;
@@ -1039,35 +1065,43 @@ Element_parseChildNodes = function (node)
 {
     var parsed = {};
     var hasChildElems = false;
+    var textContent = '';
 
     if (node.hasChildNodes()) {
         var children = node.childNodes;
         for (var i = 0; i < children.length; i++) {
             var child = children[i];
-            if (child.nodeType == Node.ELEMENT_NODE) {
+            switch (child.nodeType) {
+              case Node.ELEMENT_NODE:
                 hasChildElems = true;
                 var nodeName = child.nodeName; 
                 if (!(nodeName in parsed))
                     parsed[nodeName] = [];
                 parsed[nodeName].push(Element_parseChildNodes(child));
+                break;
+              case Node.TEXT_NODE:
+                textContent += child.nodeValue;
+                break;
+              case Node.CDATA_SECTION_NODE:
+                textContent += child.nodeValue;
+                break;
             }
         }
     }
 
     var attrs = node.attributes;
     for (var i = 0; i < attrs.length; i++) {
+        hasChildElems = true;
         var attrName = '@' + attrs[i].nodeName;
         var attrValue = attrs[i].nodeValue;
         parsed[attrName] = attrValue;
     }
 
-    // if no nested elements, get text content
-    if (node.hasChildNodes() && !hasChildElems) {
-        if (node.attributes.length) 
-            parsed['#text'] = node.firstChild.nodeValue;
-        else
-            parsed = node.firstChild.nodeValue;
-    }
+    // if no nested elements/attrs set value to text
+    if (hasChildElems)
+      parsed['#text'] = textContent;
+    else
+      parsed = textContent;
     
     return parsed;
 }

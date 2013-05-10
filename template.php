@@ -18,8 +18,9 @@ function bmc_theme_mkdru_js(&$variables) {
   $path = drupal_get_path('module', 'mkdru');
 
   // Pazpar2 client library.
-  drupal_add_js(variable_get('pz2_js_path', '/pazpar2/js') . '/pz2.js', array(
-    'type' => 'external', 'scope' => 'footer', 'defer' => FALSE, 'preprocess' => TRUE
+  $pz_path = variable_get('pz2_js_path', drupal_get_path('theme', 'bmc_theme') . '/mkdru');
+  drupal_add_js($pz_path . '/pz2.js', array(
+    'scope' => 'footer', 'defer' => FALSE, 'preprocess' => TRUE
   ));
 
   // jQuery plugin for query string/history manipulation.
@@ -61,8 +62,8 @@ function bmc_theme_preprocess_views_view(&$vars) {
     return;
   }
 
-  drupal_add_js(variable_get('pz2_js_path', '/pazpar2/js') . '/pz2.js', array(
-    'type' => 'external',
+  $pz_path = variable_get('pz2_js_path', drupal_get_path('theme', 'bmc_theme') . '/mkdru');
+  drupal_add_js($pz_path . '/pz2.js', array(
     'scope' => 'footer',
     'defer' => FALSE,
     'preprocess' => TRUE)

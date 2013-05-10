@@ -10,9 +10,30 @@ h1, h2, h3, h4, h5, h6 {
   font-family: Helvetica, Arial;
 }
 
+h2 {
+  font-size: 1.8em;
+}
+
+h3 {
+  font-size: 1.6em;
+}
+
+h4 {
+  font-size: 1.4em;
+}
+
+h5 {
+  font-size: 1.3em;
+}
+
+h6 {
+  font-size: 1.2em;
+}
+
 a:link,
 a:hover,
-a:visited {
+a:visited,
+.zone-footer li a.active {
   color: #3f966b;
   text-decoration: none;
 }
@@ -29,8 +50,8 @@ a:visited {
 
 .region-user-second input[type="text"] {
   background: url(../images/search-bg.png) repeat-x 0 0;
-  border: none;
-  color: #5e5e5f;
+  border: 2px solid #3f966b;
+  color: #3f966b;
   font-size: 1.4em;
   font-weight: bold;
   height: 27px;
@@ -90,7 +111,7 @@ a:visited {
 }
 
 .section-footer h2.block-title {
-  font-size: 1.7em;
+  font-size: 1.5em;
   font-weight: bold;
   letter-spacing: .05em;
   text-transform: uppercase;
@@ -250,7 +271,7 @@ ul.menu li {
 }
 
 .page-search-node .pane-nodesearch .node .field-type-image {
-  margin: 0 16px 0 0;
+  margin: 0 15px 0 0;
   max-width: inherit;
   width: auto;
 }
@@ -301,11 +322,12 @@ ul.menu li {
 
 .node .pane-title {
   color: #000;
-  font-size: 3em;
+  font-size: 2em;
   letter-spacing: 0;
   line-height: 1.2em;
   margin-bottom: 17px;
   margin-top: 1px;
+  word-wrap: break-word;
 }
 
 .node .pane-title a {
@@ -325,8 +347,8 @@ ul.menu li {
 
 .node .field-type-image {
   float: left;
-  margin: 0 26px 20px 0;
-  max-width: 50%;
+  margin: 0 15px 20px 0;
+  max-width: 35%;
 }
 
 .node .field-type-image img {
@@ -347,6 +369,15 @@ ul.menu li {
   letter-spacing: .05em;
 }
 
+.page-taxonomy-term .node .field-type-image img {
+  height: auto;
+  width: 160px;
+}
+
+.page-taxonomy-term .node-title {
+  font-size: 1.8em;
+}
+
 .page-node .node .address {
   font-size: 1.2em;
 }
@@ -362,6 +393,14 @@ ul.menu li {
   font-weight: bold;
   line-height: 1.3em;
   margin-top: 14px;
+}
+
+.node .author span {
+  color: #3f966b;
+}
+
+.node .author .username {
+  margin-left: 5px;
 }
 
 .node h1,
@@ -428,11 +467,12 @@ ul.menu li {
 .view-emusik .views-field-title a {
   color: #000;
   display: block;
-  font-size: 3em;
+  font-size: 2em;
   font-weight: bold;
   line-height: 1.2em;
   margin-bottom: 6px;
   overflow: hidden;
+  word-wrap: break-word;
 }
 
 .view-emusik .views-field-created {
@@ -457,13 +497,14 @@ ul.menu li {
   font-weight: bold;
   line-height: 1.3em;
   margin-bottom: 14px;
+  word-wrap: break-word;
 }
 
 .view-emusik .views-field-field-list-image {
   margin-bottom: 20px;
 }
 
-.page-search-node .search-results p {
+.page-seae .search-results p {
   font-size: 1.2em;
   font-weight: bold;
   line-height: 1.25em;
@@ -523,7 +564,8 @@ ul.menu li {
 }
 
 .mkdru-facet-title,
-.mkdru-facet-section a {
+.mkdru-facet-section a,
+.mkdru-facet-section label {
   color: #3f9666;
   font-size: 1.4em;
   font-weight: bold;
@@ -532,6 +574,11 @@ ul.menu li {
   margin: 0;
   padding: 0;
   text-transform: uppercase;
+}
+
+.mkdru-facet-section input[type=checkbox] {
+  margin-top: -2px;
+  margin-right: 4px;
 }
 
 .mkdru-facet-title,
@@ -595,7 +642,7 @@ ul.menu li {
 }
 
 .region-content .grid-9 .mkdru-facet-section a {
-  font-size: 1.8em;
+  font-size: 1.5em;
   margin: 0;
 }
 
@@ -696,7 +743,7 @@ ul.menu li {
 }
 
 .page-search-meta h1.title {
-  font-size: 1.8em;
+  font-size: 1.5em;
   letter-spacing: .05em;
   margin: 0;
   position: absolute;
@@ -880,6 +927,7 @@ ul.menu li {
 .pane-emusik-playlist {
   background: #fff;
   clear: both;
+  padding: 3both;
   padding: 30px 20px 20px 20px;
 }
 
@@ -903,7 +951,7 @@ ul.menu li {
 }
 
 .pane-emusik-playlist .field-type-image {
-  width: 180px;
+  width: 160px;
 }
 
 .pane-emusik-playlist h2.node-title {
@@ -1016,9 +1064,8 @@ ul.menu li {
 }
 
 .node-social-icons {
-  position: absolute;
-  right: 0;
-  top: 0;
+  float: right;
+  position: relative;
 }
 
 .pane-node-field-ding-material-type,
@@ -1059,7 +1106,7 @@ ul.menu li {
   margin: 0;
 }
 
-.pane-node-field-ding-material-type a,
+.pane-node-fielpe a,
 .pane-node-field-ding-article-type a,
 .pane-node-field-ding-supplier a,
 .pane-node-field-artist-ablum-track a,
@@ -1260,22 +1307,27 @@ ul.menu li {
 }
 
 #search-block-form input[name="search_block_form"] {
-  color: #fff;
+  color: #3f9666;
 }
+
 #search-block-form input[name="search_block_form"]::-webkit-input-placeholder {
-  color: #fff;
+  color: #3f9666;
 }
+
 #search-block-form input[name="search_block_form"]:-moz-placeholder {
-  color: #fff;
+  color: #3f9666;
 }
+
 #search-block-form input[name="search_block_form"]::-moz-placeholder {
-  color: #fff;
+  color: #3f9666;
 }
+
 #search-block-form input[name="search_block_form"]:-ms-input-placeholder {
-  color: #fff;
+  color: #3f9666;
 }
+
 #search-block-form input[name="search_block_form"].placeholder-text {
-  color: #fff;
+  color: #3f9666;
 }
 
 /* Equal columns height */
@@ -1423,7 +1475,7 @@ ul.menu li {
 .grid-6 .view-emusik .views-row,
 .grid-8 .view-emusik .view-footer,
 .grid-6 .view-emusik .view-footer {
-  padding-left: 270px;
+  padding-left: 170px;
 }
 
 .grid-8 .view-emusik .views-row .views-field-field-list-image,
@@ -1431,7 +1483,7 @@ ul.menu li {
 .grid-8 .view-emusik .views-row .views-field-field-playlist-image,
 .grid-6 .view-emusik .views-row .views-field-field-playlist-image {
   float: left;
-  margin-left: -270px;
+  margin-left: -170px;
 }
 
 .grid-8 .view-emusik .views-row .views-field-field-list-image img,
@@ -1439,9 +1491,16 @@ ul.menu li {
 .grid-8 .view-emusik .views-row .views-field-field-playlist-image img,
 .grid-6 .view-emusik .views-row .views-field-field-playlist-image img {
   height: auto;
-  width: 260px;
+  width: 160px;
 }
 
 .pane-left {
   float: left;
+}
+
+.page-taxonomy .feed-icon {
+  position: absolute;
+  right: 0;
+  top: 18px;
+  z-index: 49;
 }

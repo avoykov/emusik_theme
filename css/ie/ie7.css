@@ -51,3 +51,8 @@
 .block-main-menu .expanded.active:first-child {
   margin-left: 0;
 }
+
+.region-user-second input[type="text"] {
+  height: 23px;
+  line-height: 23px;
+}
