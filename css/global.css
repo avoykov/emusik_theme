@@ -559,10 +559,6 @@ ul.menu li {
   margin-bottom: 5px;
 }
 
-.grid-3 .mkdru-facet-section {
-  display: none;
-}
-
 .mkdru-facet-title,
 .mkdru-facet-section a,
 .mkdru-facet-section label {
