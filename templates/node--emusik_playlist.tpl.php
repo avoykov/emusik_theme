@@ -39,5 +39,6 @@ $field_ding_teaser = field_get_items('node', $variables['elements']['#node'], 'f
     <div class="author"><?php print t('by '); ?><span><?php print $node->name; ?></span></div>
     <div class="body"><?php print render($content['body']); ?></div>
   </div>
+  <?php print render($content['facebookshare']); ?>
 </article>
 <?php endif; ?>
