@@ -503,7 +503,7 @@ function bindMkdruDetailsHandler(recid) {
     }
 
     // Local articles.
-    var search_phrase = typeof(data['md-title'][0]) != undefined ? data['md-title'][0] : '';
+    var search_phrase = typeof(data['md-author'][0]) != undefined ? data['md-author'][0] : '';
 
     jQuery.ajax({
       beforeSend: function () {
