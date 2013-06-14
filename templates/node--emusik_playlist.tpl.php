@@ -39,6 +39,9 @@ $field_ding_teaser = field_get_items('node', $variables['elements']['#node'], 'f
     <?php endif; ?>
     <div class="body"><?php print render($content['body']); ?></div>
   </div>
+  <div class="node-playlist">
+    <?php print render($content['field_playlist']); ?>
+  </div>
   <?php print render($content['facebookshare']); ?>
 </article>
 <?php endif; ?>

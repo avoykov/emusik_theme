@@ -920,16 +920,31 @@ ul.menu li {
   margin-top: 0;
 }
 
-.pane-emusik-playlist {
+.pane-node-field-playlist {
   background: #fff;
   clear: both;
   padding: 3both;
   padding: 30px 20px 20px 20px;
 }
 
-.emusik-playlist-item {
+.field-type-emusik-playlists-field {
   letter-spacing: .02em;
   text-transform: uppercase;
+}
+
+.field-type-emusik-playlists-field table tr.odd,
+.field-type-emusik-playlists-field table tr.even {
+  border: none;
+}
+
+.field-type-emusik-playlists-field table tr.odd td,
+.field-type-emusik-playlists-field table tr.even td {
+  background: transparent;
+}
+
+.pane-emusik-playlist,
+.field-type-emusik-playlists-field .field-label{
+  clear: both;
 }
 
 .page-node .pane-emusik-playlist .node {
@@ -960,23 +975,23 @@ ul.menu li {
   color: #000;
 }
 
-.pane-emusik-playlist table,
-.pane-emusik-playlist thead th,
-.pane-emusik-playlist th,
-.pane-emusik-playlist tr:hover td,
-.pane-emusik-playlist tr.even:hover td.active,
-.pane-emusik-playlist tr.odd:hover td.active {
+.field-type-emusik-playlists-field table,
+.field-type-emusik-playlists-field thead th,
+.field-type-emusik-playlists-field th,
+.field-type-emusik-playlists-field tr:hover td,
+.field-type-emusik-playlists-field tr.even:hover td.active,
+.field-type-emusik-playlists-field tr.odd:hover td.active {
   background: #f0f0f0;
   border: none;
   color: #323230;
 }
 
-.pane-emusik-playlist th,
-.pane-emusik-playlist td {
+.field-type-emusik-playlists-field th,
+.field-type-emusik-playlists-field td {
   padding: 2px 8px 1px;
 }
 
-.pane-emusik-playlist tr:last-child td {
+.field-type-emusik-playlists-field tr:last-child td {
   padding-bottom: 42px;
 }
 
@@ -984,18 +999,18 @@ ul.menu li {
   color: #666;
 }
 
-.pane-emusik-playlist thead th,
-.pane-emusik-playlist th {
+.field-type-emusik-playlists-field thead th,
+.field-type-emusik-playlists-field th {
   color: #323230;
   font-weight: bold;
   text-transform: uppercase;
 }
 
-.pane-emusik-playlist td {
+.field-type-emusik-playlists-field td {
   font-weight: bold;
 }
 
-.pane-emusik-playlist table a,
+.field-type-emusik-playlists-field table a,
 .mkdru-result-list .external a,
 .mkdru-results tr:hover .external a {
   background: url(../images/source-icon.png) no-repeat 0 0;
@@ -1015,7 +1030,7 @@ ul.menu li {
   text-indent: -9000px;
 }
 
-.pane-emusik-playlist table a.dk,
+.field-type-emusik-playlists-field table a.dk,
 .mkdru-result-list .external a.dk,
 .mkdru-result-list .external a.dk:hover,
 .mkdru-results lt-list .external a.bibzoom,
@@ -1024,35 +1039,35 @@ ul.menu li {
   background-position: 0 -16px;
 }
 
-.pane-emusik-playlist table a.wimp,
+.field-type-emusik-playlists-field table a.wimp,
 .mkdru-result-list .external a.wimp,
 .mkdru-result-list .external a.wimp:hover,
 .mkdru-results tr:hover .external a.wimp {
   background-position: 0 -32px;
 }
 
-.pane-emusik-playlist table a.last,
+.field-type-emusik-playlists-field table a.last,
 .mkdru-result-list .external a.last,
 .mkdru-result-list .external a.last:hover,
 .mkdru-results tr:hover .external a.last {
   background-position: 0 -48px;
 }
 
-.pane-emusik-playlist table a.fm,
+.field-type-emusik-playlists-field table a.fm,
 .mkdru-result-list .external a.fm,
 .mkdru-result-list .external a.fm:hover,
 .mkdru-results tr:hover .external a.fm {
   background-position: 0 -48px;
 }
 
-.pane-emusik-playlist table a.spotify,
+.field-type-emusik-playlists-field table a.spotify,
 .mkdru-result-list .external a.spotify,
 .mkdru-result-list .external a.spotify:hover,
 .mkdru-results tr:hover .external a.spotify {
   background-position: 0 -64px;
 }
 
-.pane-emusik-playlist table a.youtube,
+.field-type-emusik-playlists-field table a.youtube,
 .mkdru-result-list .external a.youtube,
 .mkdru-result-list .external a.youtube:hover,
 .mkdru-results tr:hover .external a.youtube {
@@ -1140,7 +1155,7 @@ ul.menu li {
   width: 10px;
 }
 
-.node-type-emusik-playlist .pane-emusik-playlist,
+.node-type-emusik-playlist .pane-node-field-playlist,
 .node-type-emusik-playlist .pane-node-content {
   margin-top: 10px;
 }
