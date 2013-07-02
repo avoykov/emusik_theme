@@ -1031,13 +1031,11 @@ ul.menu li {
   text-indent: -9000px;
 }
 
-.field-type-emusik-playlists-field table a.dk,
-.mkdru-result-list .external a.dk,
-.mkdru-result-list .external a.dk:hover,
-.mkdru-results lt-list .external a.bibzoom,
+.field-type-emusik-playlists-field a.bibzoom,
+.mkdru-result-list .external a.bibzoom,
 .mkdru-result-list .external a.bibzoom:hover,
 .mkdru-results tr:hover .external a.bibzoom {
-  background-position: 0 -16px;
+  background-position: 0 -96px;
 }
 
 .field-type-emusik-playlists-field table a.wimp,
