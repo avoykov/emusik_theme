@@ -386,7 +386,7 @@ ul.menu li {
   display: inline;
 }
 
-.node .author {
+.node .author, .node .area {
   color: #666;
   font-size: 1.2em;
   font-style: italic;
@@ -945,6 +945,7 @@ ul.menu li {
 .pane-emusik-playlist,
 .field-type-emusik-playlists-field .field-label{
   clear: both;
+  margin-top: 20px;
 }
 
 .page-node .pane-emusik-playlist .node {
@@ -1091,7 +1092,8 @@ ul.menu li {
 .pane-node-field-playlist-artist-ablum-track,
 .pane-node-field-playlist-category,
 .pane-node-field-pl-artist-album-track,
-.pane-node-field-playlist-tags {
+.pane-node-field-playlist-tags,
+.pane-node-field-area {
   color: #3f966b;
   font-weight: bold;
   letter-spacing: .05em;
@@ -1103,14 +1105,7 @@ ul.menu li {
 .pane-node-field-artist-ablum-track,
 .pane-node-field-category,
 .pane-node-ding-content-tags {
-  margin-bottom: 20px;
-}
-
-.node-type-ding-event .pane-node-ding-content-tags {
-  margin: 0;
-  position: absolute;
-  top: 10px;
-  width: 100%;
+  margin-bottom: 0px;
 }
 
 .page-node.node-type-ding-news .node-ding-news.node {
@@ -1145,7 +1140,8 @@ ul.menu li {
 .pane-node-field-playlist-artist-ablum-track a:after,
 .pane-node-field-playlist-category a:after,
 .pane-node-field-pl-artist-album-track a:after,
-.pane-node-field-playlist-tags a:after {
+.pane-node-field-playlist-tags a:after,
+.pane-node-field-area a:after {
   content: "/";
   color: #000;
   font-style: italic;
