@@ -147,6 +147,7 @@ ul li.leaf {
   padding: 0 7px 0 5px;
 }
 
+.pager-last.last:after,
 .block-main-menu li:first-child a:before {
   content: "";
   padding: 0;
@@ -281,7 +282,9 @@ ul.menu li {
   padding: 21px 14px 14px 18px;
 }
 
-.view {
+.view,
+.page-aggregator .item-list,
+.page-aggregator .feed-item {
   background: #fff;
 }
 
@@ -420,7 +423,9 @@ ul.menu li {
   overflow: hidden;
 }
 
-.pane-views-panes .view {
+.pane-views-panes .view,
+.page-aggregator .item-list,
+.page-aggregator .feed-item {
   overflow: hidden;
   padding: 10px;
 }
@@ -1080,6 +1085,7 @@ ul.menu li {
   position: relative;
 }
 
+.tags,
 .pane-node-field-ding-material-type,
 .pane-node-field-ding-article-type,
 .pane-node-field-ding-supplier,
@@ -1510,4 +1516,42 @@ ul.menu li {
   right: 0;
   top: 18px;
   z-index: 49;
+}
+
+/** RSS aggregator **/
+.page-aggregator .region-content .content > div {
+  margin-bottom: 20px;
+  width: 880px;
+}
+
+.page-aggregator .region-content .content > div .feed-source {
+  position: relative;
+  overflow: auto;
+  background: #f0f0f0;
+  padding: 10px;
+}
+
+.page-aggregator .region-content .content > div p,
+.page-aggregator .region-content .content > div .feed-source {
+  font-size: 12px;
+  color: #666;
+}
+
+.page-aggregator .region-content .content > div .feed-source,
+.page-aggregator .region-content .content > div .feed-item {
+  margin: 10px 0;
+}
+
+.page-aggregator .region-content .content > div .feed-source img {
+  float: left;
+  margin-right: 10px;
+}
+
+.page-aggregator .feed-source a.feed-icon,
+.page-aggregator div.feed-icon {
+  position: absolute;
+  top: 15px;
+  left: 850px;
+  width: 20px;
+  height: 20px;
 }
