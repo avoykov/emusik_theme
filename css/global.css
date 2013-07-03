@@ -1031,10 +1031,10 @@ ul.menu li {
   text-indent: -9000px;
 }
 
-.field-type-emusik-playlists-field a.bibzoom,
-.mkdru-result-list .external a.bibzoom,
-.mkdru-result-list .external a.bibzoom:hover,
-.mkdru-results tr:hover .external a.bibzoom {
+.field-type-emusik-playlists-field table a.soundcloud,
+.mkdru-result-list .external a.soundcloud,
+.mkdru-result-list .external a.soundcloud:hover,
+.mkdru-results tr:hover .external a.soundcloud {
   background-position: 0 -96px;
 }
 
