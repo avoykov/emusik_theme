@@ -3,7 +3,7 @@
     $('.pane-views-panes .view.concerts').parent().addClass('concerts-content');
 
     // Adds menu extra height on plenty of sub items.
-    if ($('.block-main-menu .expanded .menu').height() > 25 ) {
+    if ($('.block-main-menu .expanded .menu').height() > 25) {
       $('.zone-menu').css('height', '100px');
     }
 

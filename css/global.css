@@ -168,9 +168,9 @@ ul li.leaf {
 .block-main-menu .expanded li a {
   color: #fff;
   font-size: 12px;
-  text-transform: none;
-  padding: 9px 10px;
   letter-spacing: 1px;
+  padding: 9px 10px;
+  text-transform: none;
 }
 
 .block-main-menu .expanded li a.active {
