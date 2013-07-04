@@ -1575,3 +1575,24 @@ ul.menu li {
   width: 20px;
   height: 20px;
 }
+
+.pane-aggregator-feed .pane-content {
+
+  font-weight: bold;
+  padding: 10px;
+}
+
+.pane-aggregator-feed .item-list ul li {
+  font-size: 1.4em;
+  margin: 0 0 5px 0;
+  padding: 0;
+}
+
+.pane-aggregator-feed .item-list ul li a {
+  color: #7c7a74;
+}
+
+.pane-aggregator-feed .more-link {
+  font-size: 1.1em;
+  text-transform: uppercase;
+}
