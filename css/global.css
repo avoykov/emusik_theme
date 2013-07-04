@@ -85,6 +85,10 @@ a:visited,
   background: url(../images/header-bg.png) center top;
 }
 
+.zone-menu {
+  height: 80px;
+}
+
 .zone-menu-wrapper {
   background: url(../images/menu-bg.png) 0 0 repeat-x;
 }
@@ -139,6 +143,7 @@ ul li.leaf {
 
 .block-main-menu {
   padding: 11px 0 0 0;
+  position: relative;
 }
 
 .block-main-menu li a:before {
@@ -156,21 +161,27 @@ ul li.leaf {
   display: none;
 }
 
-.block-main-menu .expanded.active {
+.block-main-menu .expanded {
   padding-left: 18px;
-  position: relative;
-  z-index: 11;
+}
+
+.block-main-menu .expanded li a {
+  color: #fff;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 9px 10px;
+  text-transform: none;
 }
 
 .block-main-menu .expanded li a.active {
   color: #fff;
 }
 
-.block-main-menu .expanded.active:first-child {
+.block-main-menu .expanded:first-child {
   margin-left: -16px;
 }
 
-.block-main-menu .expanded.active > a {
+.block-main-menu .expanded > a {
   color: #fff;
   margin-left: -2px;
   padding-bottom: 3px;
@@ -178,24 +189,24 @@ ul li.leaf {
   position: static;
 }
 
-.block-main-menu .expanded.active > a:before,
-.block-main-menu .expanded.active > a:after {
+.block-main-menu .expanded > a:before,
+.block-main-menu .expanded > a:after {
   background: url(../images/active-menu-corners.png) no-repeat 0 0 transparent;
 }
 
-.block-main-menu .expanded.active > a:before {
+.block-main-menu .expanded > a:before {
   content: "/";
   display: block;
   height: 23px;
-  left: -2px;
+  left: -18px;
   padding: 0;
   position: absolute;
   text-indent: -9000px;
-  top: -5px;
+  top: 0;
   width: 18px;
 }
 
-.block-main-menu .expanded.active > a:after {
+.block-main-menu .expanded > a:after {
   content: "/";
   background-position: -14px 0;
   display: block;
@@ -204,17 +215,17 @@ ul li.leaf {
   padding: 0;
   position: absolute;
   text-indent: -9000px;
-  top: -5px;
+  top: 0;
   width: 18px;
 }
 
-.block-main-menu .expanded.active .menu {
+.block-main-menu .expanded .menu {
   display: block;
-  left: -2px;
-  min-width: 185px;
-  padding: 3px 16px 9px 16px;
+  left: 0;
+  width: 100%;
+  padding: 9px 0 9px 0;
   position: absolute;
-  top: 18px;
+  top: 30px;
   z-index: 10;
 }
 
@@ -234,6 +245,10 @@ ul li.leaf {
   width: 15px;
 }
 
+.block-main-menu .expanded .menu .active-trail .menu {
+  display: block;
+}
+
 .block-main-menu .active .menu li:first-child:before {
   display: none;
 }
@@ -243,8 +258,12 @@ ul li.leaf {
   display: block;
 }
 
-.block-main-menu .expanded.active li {
+.block-main-menu .expanded li {
   font-size: 1em;
+}
+
+.zone-menu .menu .menu .menu {
+  display: none;
 }
 
 li.expanded,
@@ -426,9 +445,13 @@ ul.menu li {
 }
 
 .pane-views-panes .concerts-content,
-.block-main-menu .expanded.active a,
-.block-main-menu .expanded.active .menu {
+.block-main-menu .expanded a,
+.block-main-menu .expanded .menu {
   background: url(../images/black-bg.png) transparent;
+}
+
+.block-main-menu .expanded .active-trail {
+  position: relative;
 }
 
 .pane-views-panes .view.concerts {
@@ -923,7 +946,6 @@ ul.menu li {
 .pane-node-field-playlist {
   background: #fff;
   clear: both;
-  padding: 3both;
   padding: 30px 20px 20px 20px;
 }
 
