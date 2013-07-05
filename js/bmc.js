@@ -2,10 +2,10 @@
   $(document).ready(function() {
     $('.pane-views-panes .view.concerts').parent().addClass('concerts-content');
 
-    // Adds active menu class on hover.
-    $('.block-main-menu .expanded').hover(function() {
-      $(this).toggleClass('active');
-    });
+    // Adds menu extra height on plenty of sub items.
+    if ($('.block-main-menu .expanded .menu').height() > 25) {
+      $('.zone-menu').css('height', '100px');
+    }
 
     // Playlist title.
     $('.pane-emusik-playlist .node').each(function() {
