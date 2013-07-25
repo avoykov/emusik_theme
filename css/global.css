@@ -439,7 +439,6 @@ ul.menu li {
 .pane-node-content {
   clear: both;
   margin-bottom: 10px;
-  overflow: hidden;
 }
 
 .pane-views-panes .view,
