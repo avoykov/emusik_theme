@@ -367,6 +367,10 @@ ul.menu li {
   margin-top: 14px;
 }
 
+.node-emusik-playlist .node-playlist {
+  clear: both;
+}
+
 .node .field-type-image {
   float: left;
   margin: 0 15px 20px 0;
